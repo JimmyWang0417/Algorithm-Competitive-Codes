@@ -1,6 +1,6 @@
-# wangjunrui-s-code
+# Algorithm-Competitive-Codes
 
-蒟蒻wjr的代码库
+JimmyWang0417 's Algorithm Competitive Codes
 
 蒟蒻平常做题时写的代码
 
