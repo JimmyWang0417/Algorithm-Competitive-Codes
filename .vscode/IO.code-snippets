@@ -11,7 +11,7 @@
                   " *    unicode:  UTF-8",
                   " *    standard: c++23",
                   " **/",
-                  "${2|#include <cstdio>,#include <bits\/stdc++.h>,#include <bits\/extc++.h>|}",
+                  "${2|#include <bits\/stdc++.h>,#include <bits\/extc++.h>, #include <cstdio>|}",
                   "typedef long long ll;",
                   "typedef unsigned long long ull;",
                   "#define lowbit(x) ((x) & (-(x)))",

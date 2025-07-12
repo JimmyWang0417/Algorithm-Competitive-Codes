@@ -21,7 +21,7 @@
                 "-Wcast-qual",
                 "-Wcast-align",
                 "-Wconversion",
-                "-std=c++23",
+                "-std=c++17",
                 "-O2",
                 "-pthread",
                 "-DPAPERDOG"
