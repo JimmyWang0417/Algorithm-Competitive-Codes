@@ -96,7 +96,8 @@
         "ios": "cpp",
         "stack": "cpp",
         "queue": "cpp",
-        "graderlib.c": "cpp"
+        "graderlib.c": "cpp",
+        "format": "cpp"
     },
     "python.testing.pytestArgs": [
         "UVA"
