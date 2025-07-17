@@ -65,12 +65,12 @@ JimmyWang0417 's Algorithm Competitive Codes
  Language            Files        Lines         Code     Comments       Blanks
 ===============================================================================
  Autoconf               16      1885023      1885023            0            0
- C++                  2159       324853       316722         5867         2264
+ C++                  2343       340226       331444         6158         2624
  C++ Header             14         1963         1108          568          287
- Markdown                2         2549            0         2515           34
- Python                  3          212          183            1           28
+ Markdown                2         2553            0         2519           34
+ Python                  4          269          230            9           30
 ===============================================================================
- Total                2194      2214600      2203036         8951         2613
+ Total                2379      2230034      2217805         9254         2975
 ===============================================================================
 ```
 <!-- count the code end -->
@@ -391,6 +391,15 @@ JimmyWang0417 's Algorithm Competitive Codes
 │   │   ├── 2022 Taiwan NHSPC Mock Contest
 │   │   │   ├── C. 頒獎音樂 (Ceremony).cpp
 │   │   │   └── I. 子集合和 (SOS).cpp
+│   │   ├── China Collegiate Programming Contest 2021, Qualification Round (Online), Rematch
+│   │   │   ├── B - Kanade Doesn't Want to Learn CG.cpp
+│   │   │   ├── C - GCD on Tree.cpp
+│   │   │   ├── D - Primality Test.cpp
+│   │   │   ├── E - Monopoly.cpp
+│   │   │   ├── F - Nun Heh Heh Aaaaaaaaaaa.cpp
+│   │   │   ├── H - Subpermutation.cpp
+│   │   │   ├── J - Bigraph Extension.cpp
+│   │   │   └── K - Jumping Monkey.cpp
 │   │   ├── OCPC 2023, Oleksandr Kulkov Contest 3
 │   │   │   └── F. Palindromic Polynomial.cpp
 │   │   ├── The 17th Heilongjiang Provincial Collegiate Programming Contest
@@ -1107,6 +1116,209 @@ JimmyWang0417 's Algorithm Competitive Codes
 │   ├── #21625. 【PR #3】最小生成树.cpp
 │   ├── #21626. 【PR #3】猜数.cpp
 │   └── #21627. 【PR #3】抽卡.cpp
+├── Qingyu Online Judge
+│   ├── The 2024 ICPC Northwestern Europe Regional Contest (NWERC 2024)
+│   │   ├── A. Alphabetical Aristocrats.cpp
+│   │   ├── D. Dutch Democracy.cpp
+│   │   ├── E. Evolving Etymology.cpp
+│   │   ├── F. Flowing Fountain.cpp
+│   │   ├── H. Hash Collision.cpp
+│   │   ├── J. Jib Job.cpp
+│   │   └── L. Limited Library.cpp
+│   ├── The 2nd Universal Cup. Stage 10: Harbin
+│   │   ├── A. Go go Baron Bunny!.cpp
+│   │   ├── B. Memory.cpp
+│   │   ├── C. Karshilov's Matching Problem II.cpp
+│   │   ├── D. A Simple MST Problem.cpp
+│   │   ├── E. Revenge on My Boss.cpp
+│   │   ├── F. Palindrome Path.cpp
+│   │   ├── G. The Only Way to the Destination.cpp
+│   │   ├── H. Energy Distribution.cpp
+│   │   ├── I. Rolling For Days.cpp
+│   │   ├── J. Game on a Forest.cpp
+│   │   ├── L. Palm Island.cpp
+│   │   └── M. Painter.cpp
+│   ├── The 2nd Universal Cup. Stage 17: Jinan
+│   │   ├── A. Many Many Heads.cpp
+│   │   ├── B. Graph Partitioning 2.cpp
+│   │   ├── D. Largest Digit.cpp
+│   │   ├── E. I Just Want... One More....cpp
+│   │   ├── F. Say Hello to the Future.cpp
+│   │   ├── G. Gifts from Knowledge.cpp
+│   │   ├── I. Strange Sorting.cpp
+│   │   ├── K. Rainbow Subarray.cpp
+│   │   ├── L. Ticket to Ride.cpp
+│   │   └── M. Almost Convex.cpp
+│   ├── The 2nd Universal Cup. Stage 23: Shanghai
+│   ├── The 3rd Universal Cup. Stage 0: Trial Contest
+│   │   ├── A. Arrested Development.cpp
+│   │   ├── D. Dihedral Group.cpp
+│   │   ├── F. Magic Bean.cpp
+│   │   ├── G. Manhattan Walk.cpp
+│   │   ├── H. MountainCraft.cpp
+│   │   ├── I. Not Another Constructive!.cpp
+│   │   └── J. Passport Stamps.cpp
+│   ├── The 3rd Universal Cup. Stage 11: Sumiyosi
+│   │   ├── A. Welcome to NPCAPC.cpp
+│   │   ├── B. Some Sum of Subset.cpp
+│   │   ├── C. Solve with Friends.cpp
+│   │   ├── E. Aim High.cpp
+│   │   ├── H. Music Game.cpp
+│   │   ├── I. Left Equals Right.cpp
+│   │   ├── J. Again Permutation Problem.cpp
+│   │   ├── K. Peace with Magic.cpp
+│   │   ├── L. Construction of Town.cpp
+│   │   ├── M. Admired Person.cpp
+│   │   └── O. New School Term.cpp
+│   ├── The 3rd Universal Cup. Stage 14: Harbin
+│   │   ├── A. Build a Computer.cpp
+│   │   ├── B. Concave Hull.cpp
+│   │   ├── C. Giving Directions in Harbin.cpp
+│   │   ├── E. Marble Race.cpp
+│   │   ├── G. Welcome to Join the Online Meeting!.cpp
+│   │   ├── J. New Energy Vehicle.cpp
+│   │   ├── K. Farm Management.cpp
+│   │   ├── L. A Game On Tree.cpp
+│   │   └── M. Weird Ceiling.cpp
+│   ├── The 3rd Universal Cup. Stage 15: Chengdu
+│   │   ├── A. Arrow a Row.cpp
+│   │   ├── B. Athlete Welcome Ceremony.cpp
+│   │   ├── D. Closest Derangement.cpp
+│   │   ├── E. Disrupting Communications.cpp
+│   │   ├── F. Double 11.cpp
+│   │   ├── G. Expanding Array.cpp
+│   │   ├── I. Good Partitions.cpp
+│   │   ├── J. Grand Prix of Ballance.cpp
+│   │   ├── K. Magical Set.cpp
+│   │   └── L. Recover Statistics.cpp
+│   ├── The 3rd Universal Cup. Stage 16: Nanjing
+│   │   ├── B. Birthday Gift.cpp
+│   │   └── C. Topology.cpp
+│   ├── The 3rd Universal Cup. Stage 17: Jinan
+│   │   ├── A. The Fool.cpp
+│   │   ├── B. The Magician.cpp
+│   │   ├── C. The Empress.cpp
+│   │   ├── D. The Emperor.cpp
+│   │   ├── E. The Chariot.py
+│   │   ├── F. The Hermit.cpp
+│   │   ├── H. Strength.cpp
+│   │   ├── I. The Hanged Man.cpp
+│   │   ├── J. Temperance.cpp
+│   │   └── L. The Tower.cpp
+│   ├── The 3rd Universal Cup. Stage 18: Southeastern Europe
+│   │   ├── A. All-Star.cpp
+│   │   ├── D. Donkey and Puss in Boots.cpp
+│   │   ├── G. Shrek's Song of the Swamp.cpp
+│   │   ├── H. Shreckless.cpp
+│   │   ├── J. Make Swamp Great Again.cpp
+│   │   ├── K. Intrusive Donkey.cpp
+│   │   └── L. Ogre Sort.cpp
+│   ├── The 3rd Universal Cup. Stage 19: Shenyang
+│   │   ├── A. Safety First.cpp
+│   │   ├── B. Magical Palette.cpp
+│   │   ├── D. Dot Product Game.cpp
+│   │   ├── E. Light Up the Grid.cpp
+│   │   ├── G. Guess the Polygon.cpp
+│   │   ├── H. Guide Map.cpp
+│   │   ├── I. Growing Tree.cpp
+│   │   ├── J. Make Them Believe	.cpp
+│   │   └── M. Obliviate, Then Reincarnate.cpp
+│   ├── The 3rd Universal Cup. Stage 1: St. Petersburg
+│   │   ├── C. Cherry Picking.cpp
+│   │   ├── D. Dwarfs' Bedtime.cpp
+│   │   ├── H. Page on vdome.com.cpp
+│   │   ├── J. First Billion.cpp
+│   │   ├── K. Tasks and Bugs.cpp
+│   │   ├── N. (Un)labeled graphs.cpp
+│   │   └── O. Mysterious Sequence.cpp
+│   ├── The 3rd Universal Cup. Stage 20: Kunming.cpp
+│   │   ├── B. Brackets.cpp
+│   │   ├── C. Coin.cpp
+│   │   ├── D. Dolls.cpp
+│   │   ├── E. Extracting Weights.cpp
+│   │   ├── F. Flowers.cpp
+│   │   ├── G. GCD.cpp
+│   │   ├── H. Horizon Scanning.cpp
+│   │   ├── I. Items.cpp
+│   │   ├── J. Just another Sorting Problem.cpp
+│   │   ├── L. Last Chance: Threads of Despair.cpp
+│   │   └── M. Matrix Construction.cpp
+│   ├── The 3rd Universal Cup. Stage 21: Ōokayama
+│   │   ├── B. Self Checkout.cpp
+│   │   ├── C. Segment Tree.cpp
+│   │   ├── E. ReTravel.cpp
+│   │   ├── L. Long Sequence Inversion 2.cpp
+│   │   └── M. Cartesian Trees.cpp
+│   ├── The 3rd Universal Cup. Stage 22: Zhengzhou
+│   │   ├── A. A + B = C Problem.cpp
+│   │   └── K. Brotato.cpp
+│   ├── The 3rd Universal Cup. Stage 24: Poland
+│   │   ├── A. Acronym.cpp
+│   │   ├── B. Baggage.cpp
+│   │   ├── C. Cows.cpp
+│   │   ├── G. Game MPO.cpp
+│   │   ├── H. High Jump.cpp
+│   │   ├── I. Imbalanced Teams.cpp
+│   │   ├── J. Just Zeros.cpp
+│   │   ├── K. Kindergarten Square.cpp
+│   │   └── L. Looping RPS.cpp
+│   ├── The 3rd Universal Cup. Stage 25: Hangzhou
+│   │   ├── B. Barkley III.cpp
+│   │   ├── F. Fuzzy Ranking.cpp
+│   │   ├── G. Gathering Mushrooms.cpp
+│   │   ├── I. Identify Chord.cpp
+│   │   ├── J. Japanese Bands.cpp
+│   │   └── L. Let's Go! New Adventure.cpp
+│   ├── The 3rd Universal Cup. Stage 27: London
+│   │   ├── E. Equal Strings.cpp
+│   │   ├── G. Geo Sharding.cpp
+│   │   ├── I. Interactive Casino.cpp
+│   │   └── M. Meta.cpp
+│   ├── The 3rd Universal Cup. Stage 29: Metropolis
+│   │   ├── B. Basic Graph Algorithm.cpp
+│   │   ├── C. Conquer the Multiples.cpp
+│   │   ├── D. Decrease and Swap.cpp
+│   │   ├── E. Equal Measure.cpp
+│   │   ├── G. Geometry Task.cpp
+│   │   └── I. In Search of the Ultimate Artifact.cpp
+│   ├── The 3rd Universal Cup. Stage 2: Zielona Góra
+│   │   ├── A. Interesting Paths.cpp
+│   │   ├── E. Pattern Search II.cpp
+│   │   ├── F. Waterfall Matrix.cpp
+│   │   ├── G. Puzzle II.cpp
+│   │   ├── I. Mercenaries.cpp
+│   │   ├── J. Polygon II.cpp
+│   │   ├── K. Power Divisions.cpp
+│   │   ├── L. Chords.cpp
+│   │   └── M. Balance of Permutation.cpp
+│   ├── The 3rd Universal Cup. Stage 4: Hongō
+│   │   ├── C. Contour Multiplication.cpp
+│   │   ├── D. DRD String.cpp
+│   │   ├── E. Equally Dividing.cpp
+│   │   ├── H. Huge Segment Tree.cpp
+│   │   ├── J. Japanese Gift Money.cpp
+│   │   ├── L. Largest Triangle.cpp
+│   │   ├── N. Number of Abbreviations.cpp
+│   │   └── Q. Quotient Sum.cpp
+│   ├── The 3rd Universal Cup. Stage 5: Moscow
+│   │   ├── A. Counting Permutations.cpp
+│   │   ├── B. Bookshelf Tracking.cpp
+│   │   ├── E. Building a Fence.cpp
+│   │   ├── F. Teleports.cpp
+│   │   ├── I. Marks Sum.cpp
+│   │   └── M. Uniting Amoebas.cpp
+│   ├── The 3rd Universal Cup. Stage 7: Warsaw
+│   │   ├── A. Bus Analysis.cpp
+│   │   ├── B. Missing Boundaries.cpp
+│   │   ├── D. Data Determination.cpp
+│   │   ├── F. Fibonacci Fusion.cpp
+│   │   ├── G. Game of Geniuses.cpp
+│   │   ├── J. Juliet Unifies Ones.cpp
+│   │   ├── K. Routing K-Codes.cpp
+│   │   ├── L. Random Numbers.cpp
+│   │   └── M. Mathematics Championships.cpp
+│   └── The 3rd Universal Cup. Stage 8: Cangqian
+│       └── H. Permutation.cpp
 ├── README.md
 ├── Sphere Online Judge
 │   ├── SP10264 METEORS - Meteors.cpp
@@ -2358,45 +2570,5 @@ JimmyWang0417 's Algorithm Competitive Codes
 │   └── U41492 树上数颜色.cpp
 └── 牛客
     └── acm23991 CSL 的密码.cpp
-└── 第二轮刷题
-    ├── 1.哈希
-    │   ├── Campaign.cpp
-    │   ├── loop.cpp
-    │   ├── rec.cpp
-    │   ├── snow.cpp
-    │   ├── symmetry.cpp
-    │   └── ticket.cpp
-    ├── 2.kmp
-    │   ├── bzoj1009.cpp
-    │   ├── bzoj4974.cpp
-    │   ├── canon.cpp
-    │   ├── klavir.cpp
-    │   ├── match.cpp
-    │   ├── pow.cpp
-    │   ├── powerstr.cpp
-    │   ├── str.cpp
-    │   └── zoo.cpp
-    ├── 3.字典树
-    │   ├── bzoj1954.cpp
-    │   ├── HDU1247.cpp
-    │   ├── loop.cpp
-    │   ├── POJ1816.cpp
-    │   ├── poj2001.cpp
-    │   ├── secret.cpp
-    │   └── 疑惑.cpp
-    ├── 4.数位DP
-    │   ├── 奶牛编号.cpp
-    │   ├── 幸运数.cpp
-    │   ├── 幸运的666.cpp
-    │   ├── 数的变换.cpp
-    │   └── 魔法数字.cpp
-    └── 5.AC自动机
-        ├── Divljak.cpp
-        ├── tamboo.cpp
-        ├── 前缀匹配.cpp
-        ├── 单词.cpp
-        ├── 数数.cpp
-        ├── 最短字符串.cpp
-        └── 简单题.cpp
 ```
 <!-- directory tree end -->

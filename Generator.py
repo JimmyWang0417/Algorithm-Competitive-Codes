@@ -13,7 +13,8 @@ with open("README.md", "r+", encoding="utf-8") as filetxt:
     for a, b in zip(intxt, outxt):
         lines = re.sub(
             a,
-            re.sub(r"\[\^<\]\*", r"{}",
-                   a).format("```plain\n" + os.popen(b).read() + "```\n"),
-            lines, re.M)
+            re.sub(r"\[\^<\]\*", r"{}", a).format("```plain\n" + os.popen(b).read() + "```\n"),
+            lines,
+            flags=re.M  # 明确指定 flags 参数
+        )
     filetxt.write(lines)
