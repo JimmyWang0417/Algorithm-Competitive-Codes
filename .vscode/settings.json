@@ -233,6 +233,7 @@
         "*.fdb_latexmk",
     ],
     "latex-workshop.latex.recipe.default": "xelatex * 2",
+    
     "carbon.backgroundColor": "rgba(0,0,0,0)",
     "carbon.theme": "one-light",
     "carbon.dropShadow": true,
@@ -243,4 +244,8 @@
     "carbon.lineNumbers": false,
     "carbon.fontFamily": "Hack",
     "carbon.fontSize": 13,
+
+    "editor.detectIndentation": false,
+    "editor.insertSpaces": true,
+    "editor.tabSize": 4
 }

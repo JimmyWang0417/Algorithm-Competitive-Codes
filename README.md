@@ -65,12 +65,12 @@ JimmyWang0417 's Algorithm Competitive Codes
  Language            Files        Lines         Code     Comments       Blanks
 ===============================================================================
  Autoconf               16      1885023      1885023            0            0
- C++                  2343       340226       331444         6158         2624
+ C++                  2367       342493       333581         6215         2697
  C++ Header             14         1963         1108          568          287
- Markdown                2         2553            0         2519           34
- Python                  4          269          230            9           30
+ Markdown                2         2578            0         2544           34
+ Python                  5          293          251            9           33
 ===============================================================================
- Total                2379      2230034      2217805         9254         2975
+ Total                2404      2232350      2219963         9336         3051
 ===============================================================================
 ```
 <!-- count the code end -->
@@ -1117,6 +1117,15 @@ JimmyWang0417 's Algorithm Competitive Codes
 │   ├── #21626. 【PR #3】猜数.cpp
 │   └── #21627. 【PR #3】抽卡.cpp
 ├── Qingyu Online Judge
+│   ├── The 1st Universal Cup. Stage 16: Gomel
+│   │   ├── A. Classical A+B Problem.py
+│   │   ├── B. Classical Counting Problem.cpp
+│   │   ├── C. Classical Data Structure Problem.cpp
+│   │   ├── D. Classical DP Problem.cpp
+│   │   ├── F. Classical Geometry Problem.cpp
+│   │   ├── H. Classical Maximization Problem.cpp
+│   │   ├── J. Classical Scheduling Problem.cpp
+│   │   └── K. Classical Summation Problem.cpp
 │   ├── The 2024 ICPC Northwestern Europe Regional Contest (NWERC 2024)
 │   │   ├── A. Alphabetical Aristocrats.cpp
 │   │   ├── D. Dutch Democracy.cpp
@@ -1150,6 +1159,26 @@ JimmyWang0417 's Algorithm Competitive Codes
 │   │   ├── L. Ticket to Ride.cpp
 │   │   └── M. Almost Convex.cpp
 │   ├── The 2nd Universal Cup. Stage 23: Shanghai
+│   ├── The 2nd Universal Cup. Stage 24: Chongqing
+│   │   ├── A. Code Congestion.cpp
+│   │   ├── C. Secret Poems.cpp
+│   │   ├── F. Pangu and Stones.cpp
+│   │   ├── I. Cats and Fish.cpp
+│   │   ├── J. Shell Sort.cpp
+│   │   ├── K. Stacks.cpp
+│   │   └── L. Caught in the Middle.cpp
+│   ├── The 2nd Universal Cup. Stage 28: Chengdu
+│   │   ├── C. Colorful Graph 2.cpp
+│   │   ├── D. Min or Max.cpp
+│   │   ├── H. The Game.cpp
+│   │   └── J. DFS Order 5.cpp
+│   ├── The 2nd Universal Cup. Stage 4: Taipei
+│   │   ├── A. Abstract.cpp
+│   │   ├── C. Computer Network.cpp
+│   │   ├── E. Except One.cpp
+│   │   ├── I. Interval Addition.cpp
+│   │   ├── J. Joining Cats.cpp
+│   │   └── L. Lines.cpp
 │   ├── The 3rd Universal Cup. Stage 0: Trial Contest
 │   │   ├── A. Arrested Development.cpp
 │   │   ├── D. Dihedral Group.cpp
