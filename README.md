@@ -65,12 +65,12 @@ JimmyWang0417 's Algorithm Competitive Codes
  Language            Files        Lines         Code     Comments       Blanks
 ===============================================================================
  Autoconf               16      1885023      1885023            0            0
- C++                  2367       342493       333581         6215         2697
+ C++                  2381       343721       334796         6220         2705
  C++ Header             14         1963         1108          568          287
- Markdown                2         2578            0         2544           34
+ Markdown                2         2607            0         2573           34
  Python                  5          293          251            9           33
 ===============================================================================
- Total                2404      2232350      2219963         9336         3051
+ Total                2418      2233607      2221178         9370         3059
 ===============================================================================
 ```
 <!-- count the code end -->
@@ -634,6 +634,12 @@ JimmyWang0417 's Algorithm Competitive Codes
 │       ├── CF19E Fairy.cpp
 │       ├── CF204E Little Elephant and Strings.cpp
 │       ├── CF208E Blood Cousins.cpp
+│       ├── CF2125A Difficult Contest.cpp
+│       ├── CF2125B Left and Down.cpp
+│       ├── CF2125C Count Good Numbers.cpp
+│       ├── CF2125D Segments Covering.cpp
+│       ├── CF2125E Sets of Complementary Sums.cpp
+│       ├── CF2125F Timofey and Docker.cpp
 │       ├── CF220E Little Elephant and Inversions.cpp
 │       ├── CF232E Quick Tortoise.cpp
 │       ├── CF235B Let's Play Osu!.cpp
@@ -1308,8 +1314,12 @@ JimmyWang0417 's Algorithm Competitive Codes
 │   │   ├── C. Conquer the Multiples.cpp
 │   │   ├── D. Decrease and Swap.cpp
 │   │   ├── E. Equal Measure.cpp
+│   │   ├── F. Fast Bogosort.cpp
 │   │   ├── G. Geometry Task.cpp
-│   │   └── I. In Search of the Ultimate Artifact.cpp
+│   │   ├── H. Hexagon Puzzle.cpp
+│   │   ├── I. In Search of the Ultimate Artifact.cpp
+│   │   ├── J. Just-in-Time Render Analysis.cpp
+│   │   └── L. Lazy Susan.cpp
 │   ├── The 3rd Universal Cup. Stage 2: Zielona Góra
 │   │   ├── A. Interesting Paths.cpp
 │   │   ├── E. Pattern Search II.cpp
@@ -1320,6 +1330,11 @@ JimmyWang0417 's Algorithm Competitive Codes
 │   │   ├── K. Power Divisions.cpp
 │   │   ├── L. Chords.cpp
 │   │   └── M. Balance of Permutation.cpp
+│   ├── The 3rd Universal Cup. Stage 37: Wuhan
+│   │   ├── C. One Must Imagine Sisyphus Happy.cpp
+│   │   ├── E. Colorful Graph.cpp
+│   │   ├── F. Knapsack.cpp
+│   │   └── M. Flight Tracker.cpp
 │   ├── The 3rd Universal Cup. Stage 4: Hongō
 │   │   ├── C. Contour Multiplication.cpp
 │   │   ├── D. DRD String.cpp
