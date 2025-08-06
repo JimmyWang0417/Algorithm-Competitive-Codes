@@ -97,7 +97,15 @@
         "stack": "cpp",
         "queue": "cpp",
         "graderlib.c": "cpp",
-        "format": "cpp"
+        "format": "cpp",
+        "flat_map": "cpp",
+        "flat_set": "cpp",
+        "generator": "cpp",
+        "print": "cpp",
+        "stdfloat": "cpp",
+        "text_encoding": "cpp",
+        "convolution": "cpp",
+        "all": "cpp"
     },
     "python.testing.pytestArgs": [
         "UVA"

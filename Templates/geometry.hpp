@@ -282,6 +282,44 @@ namespace twoDimension
         }
         return flag;
     }
+
+    // half plane
+    auto halfPlane(vector<line> li)
+    {
+        li.push_back(line(p2(-1e9, -1e9), p2(1e9, -1e9)));
+        li.push_back(line(p2(1e9, -1e9), p2(1e9, 1e9)));
+        li.push_back(line(p2(1e9, 1e9), p2(-1e9, 1e9)));
+        li.push_back(line(p2(-1e9, 1e9), p2(-1e9, -1e9)));
+
+        sort(li.begin(), li.end());
+        vector<p2> vec(li.size());
+        vector<line> que(li.size());
+        int l = 0, r = -1;
+        for (int i = 0; i < (int)li.size(); ++i)
+        {
+            if (i && sgn(cross(li[i - 1].v, li[i].v)) == 0)
+                continue;
+            while (r - l >= 1 && sgn(li[i].side(vec[r])) <= 0)
+                --r;
+            while (r - l >= 1 && sgn(li[i].side(vec[l + 1])) <= 0)
+                ++l;
+            que[++r] = li[i];
+            if (r - l >= 1)
+                vec[r] = inter(que[r], que[r - 1]).second;
+        }
+
+        while (r - l >= 1 && sgn(que[l].side(vec[r])) <= 0)
+            --r;
+        vec[l] = inter(que[l], que[r]).second;
+
+        vec.erase(vec.begin() + r + 1, vec.end());
+        vec.erase(vec.begin(), vec.begin() + l);
+
+        que.erase(que.begin() + r + 1, que.end());
+        que.erase(que.begin(), que.begin() + l);
+
+        return make_pair(vec, que);
+    }
 };
 namespace threeDimension
 {
