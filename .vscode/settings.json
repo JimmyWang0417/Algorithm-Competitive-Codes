@@ -105,7 +105,8 @@
         "stdfloat": "cpp",
         "text_encoding": "cpp",
         "convolution": "cpp",
-        "all": "cpp"
+        "all": "cpp",
+        "dynamic_bitset": "cpp"
     },
     "python.testing.pytestArgs": [
         "UVA"
