@@ -65,13 +65,13 @@ JimmyWang0417 's Algorithm Competitive Codes
  Language            Files        Lines         Code     Comments       Blanks
 ===============================================================================
  Autoconf               16      1885023      1885023            0            0
- C++                  2384       345040       336039         6244         2757
- C++ Header             17         3004         2089          589          326
- Markdown                2         2631            0         2597           34
+ C++                  2385       345160       336150         6248         2762
+ C++ Header             17         3042         2120          590          332
+ Markdown                2         2633            0         2599           34
  Python                  5          293          251            9           33
  Shell                   1           15            5            5            5
 ===============================================================================
- Total                2425      2236006      2223407         9444         3155
+ Total                2426      2236166      2223549         9451         3166
 ===============================================================================
 ```
 <!-- count the code end -->
@@ -1334,6 +1334,7 @@ JimmyWang0417 's Algorithm Competitive Codes
 │   │   ├── L. Chords.cpp
 │   │   └── M. Balance of Permutation.cpp
 │   ├── The 3rd Universal Cup. Stage 37: Wuhan
+│   │   ├── B. Black Red Tree.cpp
 │   │   ├── C. One Must Imagine Sisyphus Happy.cpp
 │   │   ├── E. Colorful Graph.cpp
 │   │   ├── F. Knapsack.cpp
