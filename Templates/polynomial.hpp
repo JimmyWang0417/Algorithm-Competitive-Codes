@@ -1,3 +1,4 @@
+
 namespace polynomial
 { // NTT模数 998244353, 1004535809
     constexpr int inv2 = quickpow(2);
@@ -275,6 +276,44 @@ namespace polynomial
             res.resize(size() - 1);
             return res.integral();
         }
+
+        // 多项式快速幂
+        auto pow(int n, poly q) const
+        {
+            poly res(vector<ll>{1}), p = (*this);
+            while (n)
+            {
+                if (n & 1)
+                    res = res * p % q;
+                p = p * p % q;
+                n >>= 1;
+            }
+            return res;
+        }
+        // n是指 mod 998244353 的结果，m是指 mod 998244352 的结果, r是指位移乘数
+        auto pow(int n) const { return (ln() * n).exp(); }
+        auto pow(int n, int m, int r) const
+        {
+            int fir = size();
+            for (int i = 0; i < size(); ++i)
+                if (dp[i])
+                {
+                    fir = i;
+                    break;
+                }
+            if ((ll)fir * r >= size()) // 说明是原poly是全0
+                return poly(vector<ll>(size()));
+            int right = fir * r;
+            poly res(size());
+            auto inv = quickpow(dp[fir]), times = quickpow(dp[fir], m);
+            for (int i = fir; i < size(); ++i)
+                res[i - fir] = dp[i] * inv % mod;
+            res = res.pow(n) * times;
+            poly ans(size());
+            for (int i = right; i < size(); ++i)
+                ans[i] = res[i - right];
+            return ans;
+        }
     };
 
     // 多项式多点求值 | 快速差值
@@ -282,24 +321,45 @@ namespace polynomial
     {
 #define lc (rt << 1)
 #define rc (rt << 1 | 1)
+        vector<int> treearray;
         vector<poly> tree, pol;
-        auto build(int rt, int l, int r, const vector<int> &p)
+        auto build(int rt, int l, int r)
         {
             if (l == r)
             {
-                tree[rt] = poly({-p[l], 1});
+                tree[rt] = poly({-treearray[l], 1});
                 return;
             }
             int mid = (l + r) >> 1;
-            build(lc, l, mid, p);
-            build(rc, mid + 1, r, p);
+            build(lc, l, mid);
+            build(rc, mid + 1, r);
             tree[rt] = tree[lc] * tree[rc];
         };
         auto solve(int rt, int l, int r, vector<int> &p)
         {
-            if (l == r)
+            if ((int)pol[rt].size() - 1 <= 512)
             {
-                p[l] = (int)pol[rt][0];
+                for (int i = l; i <= r; ++i)
+                {
+                    auto x = treearray[i], all = (int)pol[rt].size() - 1;
+                    const auto &q = pol[rt];
+                    vector<ll> pw(17, 1);
+                    for (int j = 1; j <= 16; ++j)
+                        pw[j] = pw[j - 1] * x % mod;
+                    ll res = q[all];
+                    ll c1, c2, c3, c4;
+                    for (int j = all - 1; j >= 15; j -= 16)
+                    {
+                        c1 = res * pw[16] + q[j] * pw[15] + q[j - 1] * pw[14] + q[j - 2] * pw[13], c1 %= mod;
+                        c2 = q[j - 3] * pw[12] + q[j - 4] * pw[11] + q[j - 5] * pw[10] + q[j - 6] * pw[9], c2 %= mod;
+                        c3 = q[j - 7] * pw[8] + q[j - 8] * pw[7] + q[j - 9] * pw[6] + q[j - 10] * pw[5], c3 %= mod;
+                        c4 = q[j - 11] * pw[4] + q[j - 12] * pw[3] + q[j - 13] * pw[2] + q[j - 14] * pw[1], c4 %= mod;
+                        res = (c1 + c2 + c3 + c4 + q[j - 15]) % mod;
+                    }
+                    for (int j = all % 16 - 1; j >= 0; --j)
+                        res = (res * x + q[j]) % mod;
+                    p[i] = (int)res;
+                }
                 return;
             }
             int mid = (l + r) >> 1;
@@ -313,7 +373,8 @@ namespace polynomial
             int n = (int)q.size();
             vector<int> r(n);
             tree.resize(n * 4), pol.resize(n * 4);
-            build(1, 0, n - 1, q);
+            treearray = q;
+            build(1, 0, n - 1);
             pol[1] = p;
             solve(1, 0, n - 1, r);
             return r;
@@ -324,13 +385,14 @@ namespace polynomial
             vector<ll> p(n, 1);
             vector<int> q(n);
             tree.resize(n * 4), pol.resize(n * 4);
-            build(1, 0, n - 1, X);
+            treearray = X;
+            build(1, 0, n - 1);
             function<void(int, int, int)> dfs = [&](int rt, int l, int r)
             {
                 if (l == r)
                     return;
                 int mid = (l + r) >> 1;
-                pol[lc] = tree[rc] % tree[lc], pol[rc] = tree[lc] % tree[rc];
+                pol[lc] = tree[rc], pol[rc] = tree[lc];
                 solve(lc, l, mid, q);
                 solve(rc, mid + 1, r, q);
                 for (int i = l; i <= r; ++i)
@@ -353,4 +415,21 @@ namespace polynomial
 #undef lc
 #undef rc
     };
+
+    // 常系数线性递推
+    auto linnerRecurrence(int n, const vector<int> &a, const vector<int> &b)
+    {
+        int m = (int)a.size();
+        if (n < m)
+            return a[n];
+        poly p({0, 1}), q(m + 1);
+        q[m] = 1;
+        for (int i = 0; i < m; ++i)
+            q[m - i - 1] = -b[i];
+        auto res = p.pow(n, q);
+        ll ans = 0;
+        for (int i = 0; i < m; ++i)
+            (ans += res[i] * a[i]) %= mod;
+        return ((int)ans + mod) % mod;
+    }
 }
