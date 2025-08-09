@@ -65,13 +65,13 @@ JimmyWang0417 's Algorithm Competitive Codes
  Language            Files        Lines         Code     Comments       Blanks
 ===============================================================================
  Autoconf               16      1885023      1885023            0            0
- C++                  2385       345160       336150         6248         2762
- C++ Header             18         3473         2526          599          348
- Markdown                2         2634            0         2600           34
+ C++                  2395       348792       339596         6312         2884
+ C++ Header             18         3552         2599          602          351
+ Markdown                2         2637            0         2603           34
  Python                  5          293          251            9           33
  Shell                   1           15            5            5            5
 ===============================================================================
- Total                2427      2236598      2223955         9461         3182
+ Total                2437      2240312      2227474         9531         3307
 ===============================================================================
 ```
 <!-- count the code end -->
@@ -2384,6 +2384,7 @@ JimmyWang0417 's Algorithm Competitive Codes
 │   ├── P4475 巧克力王国.cpp
 │   ├── P4491 [HAOI2018]染色.cpp
 │   ├── P4495 [HAOI2018]奇怪的背包.cpp
+│   ├── P4512 【模板】多项式除法.cpp
 │   ├── P4514 上帝造题的七分钟.cpp
 │   ├── P4516 [JSOI2018]潜入行动.cpp
 │   ├── P4550 收集邮票.cpp
@@ -2406,7 +2407,10 @@ JimmyWang0417 's Algorithm Competitive Codes
 │   ├── P4719 【模板】"动态 DP"&动态树分治.cpp
 │   ├── P4720 【模板】扩展卢卡斯.cpp
 │   ├── P4721 【模板】分治 FFT.cpp
+│   ├── P4723 【模板】常系数齐次线性递推.cpp
 │   ├── P4724 【模板】三维凸包.cpp
+│   ├── P4725 【模板】多项式对数函数（多项式 ln）.cpp
+│   ├── P4726 【模板】多项式指数函数（多项式 exp）.cpp
 │   ├── P4735 最大异或和.cpp
 │   ├── P4737 [CERC2017]Buffalo Barricades.cpp
 │   ├── P4751 【模板】"动态DP"&动态树分治（加强版）.cpp
@@ -2436,6 +2440,7 @@ JimmyWang0417 's Algorithm Competitive Codes
 │   ├── P5020 货币系统.cpp
 │   ├── P5025 [SNOI2017]炸弹.cpp
 │   ├── P5043 【模板】树同构（[BJOI2015]树的同构）.cpp
+│   ├── P5050 【模板】多项式多点求值.cpp
 │   ├── P5055 【模板】可持久化文艺平衡树(fhq treap).cpp
 │   ├── P5056 【模板】插头dp.cpp
 │   ├── P5058 [ZJOI2004]嗅探器.cpp
@@ -2444,13 +2449,18 @@ JimmyWang0417 's Algorithm Competitive Codes
 │   ├── P5104 红包发红包.cpp
 │   ├── P5106 dkw的lcm.cpp
 │   ├── P5142 区间方差.cpp
+│   ├── P5158 【模板】多项式快速插值.cpp
 │   ├── P5170 【模板】类欧几里得算法.cpp
 │   ├── P5192 Zoj3229 Shoot the Bullet 或 东方文花帖 或 【模板】有源汇上下界最大流.cpp
 │   ├── P5205 【模板】多项式开根.cpp
 │   ├── P5212 SubString.cpp
 │   ├── P5227 [AHOI2013]连通图.cpp
 │   ├── P5244 [USACO19FEB] Mowing Mischief P.cpp
+│   ├── P5245 【模板】多项式快速幂.cpp
+│   ├── P5264 多项式三角函数.cpp
+│   ├── P5265 多项式反三角函数.cpp
 │   ├── P5266 【深基17.例6】学籍管理.cpp
+│   ├── P5273 【模板】多项式幂函数（加强版）.cpp
 │   ├── P5274 优化题(ccj).cpp
 │   ├── P5280 [ZJOI2019]线段树.cpp
 │   ├── P5283 [十二省联考2019]异或粽子.cpp

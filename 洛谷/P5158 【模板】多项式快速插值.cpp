@@ -1,4 +1,36 @@
-
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+constexpr int N = 4e5 + 5;
+constexpr int mod = 998244353;
+constexpr auto quickpow(ll a, int b = mod - 2)
+{
+    ll res = 1;
+    while (b)
+    {
+        if (b & 1)
+            (res *= a) %= mod;
+        (a *= a) %= mod;
+        b >>= 1;
+    }
+    return res;
+}
+template <typename T>
+auto add(T x, T y)
+{
+    x += y;
+    if (x >= mod)
+        x -= mod;
+    return x;
+}
+template <typename T>
+auto dec(T x, T y)
+{
+    x -= y;
+    if (x < 0)
+        x += mod;
+    return x;
+}
 namespace polynomial
 { // NTT模数 998244353, 1004535809
     constexpr int inv2 = quickpow(2);
@@ -49,7 +81,7 @@ namespace polynomial
             poly res(max(lhs.size(), rhs.size()));
             lhs.resize(res.size()), rhs.resize(res.size());
             for (int i = 0; i < res.size(); ++i)
-                res[i] = (lhs[i] + rhs[i]) % mod;
+                res[i] = add(lhs[i], rhs[i]);
             return res;
         }
         auto friend operator-(poly lhs, poly rhs)
@@ -57,7 +89,7 @@ namespace polynomial
             poly res(max(lhs.size(), rhs.size()));
             lhs.resize(res.size()), rhs.resize(res.size());
             for (int i = 0; i < res.size(); ++i)
-                res[i] = (lhs[i] - rhs[i]) % mod;
+                res[i] = dec(lhs[i], rhs[i]);
             return res;
         }
         auto friend operator*(poly res, ll rhs)
@@ -79,14 +111,16 @@ namespace polynomial
             for (int mid = 1; mid < limit; mid <<= 1)
             {
                 ll gn = quickpow(3, (mod - 1) / (mid << 1));
+                vector<ll> g(mid, 1);
+                for (int i = 1; i < mid; ++i)
+                    g[i] = g[i - 1] * gn % mod;
                 for (int i = 0; i < limit; i += mid << 1)
                 {
-                    ll g = 1;
-                    for (int j = 0; j < mid; ++j, (g *= gn) %= mod)
+                    for (int j = 0; j < mid; ++j)
                     {
-                        ll x = dp[i + j], y = dp[i + j + mid] * g % mod;
-                        dp[i + j] = (x + y) % mod;
-                        dp[i + j + mid] = (x - y) % mod;
+                        ll x = dp[i + j], y = dp[i + j + mid] * g[j] % mod;
+                        dp[i + j] = add(x, y);
+                        dp[i + j + mid] = dec(x, y);
                     }
                 }
             }
@@ -99,14 +133,16 @@ namespace polynomial
             for (int mid = 1; mid < limit; mid <<= 1)
             {
                 ll gn = quickpow(inv3, (mod - 1) / (mid << 1));
+                vector<ll> g(mid, 1);
+                for (int i = 1; i < mid; ++i)
+                    g[i] = g[i - 1] * gn % mod;
                 for (int i = 0; i < limit; i += mid << 1)
                 {
-                    ll g = 1;
-                    for (int j = 0; j < mid; ++j, (g *= gn) %= mod)
+                    for (int j = 0; j < mid; ++j)
                     {
-                        ll x = dp[i + j], y = dp[i + j + mid] * g % mod;
-                        dp[i + j] = (x + y) % mod;
-                        dp[i + j + mid] = (x - y) % mod;
+                        ll x = dp[i + j], y = dp[i + j + mid] * g[j] % mod;
+                        dp[i + j] = add(x, y);
+                        dp[i + j + mid] = dec(x, y);
                     }
                 }
             }
@@ -140,7 +176,7 @@ namespace polynomial
             F.resize(limit), G.resize(limit);
             F.NTT(), G.NTT();
             for (int i = 0; i < limit; ++i)
-                F[i] = (2 - F[i] * G[i] % mod) * F[i] % mod;
+                F[i] = dec(2ll, F[i] * G[i] % mod) * F[i] % mod;
             F.INTT();
             F.resize(n);
             return F;
@@ -161,8 +197,6 @@ namespace polynomial
         }
         auto friend operator%(poly lhs, poly rhs)
         {
-            if (lhs.size() < rhs.size())
-                return lhs;
             auto res = lhs - lhs / rhs * rhs;
             res.resize(rhs.size() - 1);
             return res;
@@ -276,44 +310,6 @@ namespace polynomial
             res.resize(size() - 1);
             return res.integral();
         }
-
-        // 多项式快速幂
-        auto pow(int n, poly q) const
-        {
-            poly res(vector<ll>{1}), p = (*this);
-            while (n)
-            {
-                if (n & 1)
-                    res = res * p % q;
-                p = p * p % q;
-                n >>= 1;
-            }
-            return res;
-        }
-        // n是指 mod 998244353 的结果，m是指 mod 998244352 的结果, r是指位移乘数
-        auto pow(int n) const { return (ln() * n).exp(); }
-        auto pow(int n, int m, int r) const
-        {
-            int fir = size();
-            for (int i = 0; i < size(); ++i)
-                if (dp[i])
-                {
-                    fir = i;
-                    break;
-                }
-            if ((ll)fir * r >= size()) // 说明是原poly是全0
-                return poly(vector<ll>(size()));
-            int right = fir * r;
-            poly res(size());
-            auto inv = quickpow(dp[fir]), times = quickpow(dp[fir], m);
-            for (int i = fir; i < size(); ++i)
-                res[i - fir] = dp[i] * inv % mod;
-            res = res.pow(n) * times;
-            poly ans(size());
-            for (int i = right; i < size(); ++i)
-                ans[i] = res[i - right];
-            return ans;
-        }
     };
 
     // 多项式多点求值 | 快速差值
@@ -415,21 +411,28 @@ namespace polynomial
 #undef lc
 #undef rc
     };
-
-    // 常系数线性递推
-    auto linnerRecurrence(int n, const vector<int> &a, const vector<int> &b)
-    {
-        int m = (int)a.size();
-        if (n < m)
-            return a[n];
-        poly p({0, 1}), q(m + 1);
-        q[m] = 1;
-        for (int i = 0; i < m; ++i)
-            q[m - i - 1] = -b[i];
-        auto res = p.pow(n, q);
-        ll ans = 0;
-        for (int i = 0; i < m; ++i)
-            (ans += res[i] * a[i]) %= mod;
-        return ((int)ans + mod) % mod;
-    }
+}
+using namespace polynomial;
+auto _main()
+{
+    int n;
+    cin >> n;
+    vector<int> X(n), Y(n);
+    for (int i = 0; i < n; ++i)
+        cin >> X[i] >> Y[i];
+    cout << lagrange().interpolation(X, Y) << '\n';
+}
+signed main()
+{
+#ifdef PAPERDOG
+    freopen("project.in", "r", stdin);
+    freopen("project.out", "w", stdout);
+#endif
+    ios::sync_with_stdio(false);
+    cin.tie(0), cout.tie(0);
+    int T = 1;
+    // cin >> T;
+    for (int cas = 1; cas <= T; ++cas)
+        _main();
+    return 0;
 }

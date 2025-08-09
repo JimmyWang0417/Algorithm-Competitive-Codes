@@ -1,4 +1,59 @@
-
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+constexpr int N = 4e5 + 5;
+constexpr int mod = 998244353;
+constexpr auto quickpow(ll a, int b = mod - 2)
+{
+    ll res = 1;
+    while (b)
+    {
+        if (b & 1)
+            (res *= a) %= mod;
+        (a *= a) %= mod;
+        b >>= 1;
+    }
+    return res;
+}
+struct Comb
+{
+    vector<ll> _fac, _ifac, _inv;
+    Comb() : _fac{1, 1}, _ifac{1, 1}, _inv{0, 1} {};
+    auto init(int n)
+    {
+        int m = (int)_fac.size();
+        if (n + 1 <= m)
+            return;
+        _fac.resize(n + 1), _ifac.resize(n + 1), _inv.resize(n + 1);
+        for (int i = m; i <= n; ++i)
+        {
+            _inv[i] = (mod - mod / i) * _inv[mod % i] % mod;
+            _fac[i] = _fac[i - 1] * i % mod;
+            _ifac[i] = _ifac[i - 1] * _inv[i] % mod;
+        }
+    }
+    auto fac(int n)
+    {
+        init(n);
+        return _fac[n];
+    }
+    auto ifac(int n)
+    {
+        init(n);
+        return _ifac[n];
+    }
+    auto inv(int n)
+    {
+        init(n);
+        return _inv[n];
+    }
+    auto binom(int n, int m)
+    {
+        if (n < 0 || n < m)
+            return 0ll;
+        return fac(n) * ifac(m) % mod * ifac(n - m) % mod;
+    }
+} comb;
 namespace polynomial
 { // NTT模数 998244353, 1004535809
     constexpr int inv2 = quickpow(2);
@@ -276,44 +331,6 @@ namespace polynomial
             res.resize(size() - 1);
             return res.integral();
         }
-
-        // 多项式快速幂
-        auto pow(int n, poly q) const
-        {
-            poly res(vector<ll>{1}), p = (*this);
-            while (n)
-            {
-                if (n & 1)
-                    res = res * p % q;
-                p = p * p % q;
-                n >>= 1;
-            }
-            return res;
-        }
-        // n是指 mod 998244353 的结果，m是指 mod 998244352 的结果, r是指位移乘数
-        auto pow(int n) const { return (ln() * n).exp(); }
-        auto pow(int n, int m, int r) const
-        {
-            int fir = size();
-            for (int i = 0; i < size(); ++i)
-                if (dp[i])
-                {
-                    fir = i;
-                    break;
-                }
-            if ((ll)fir * r >= size()) // 说明是原poly是全0
-                return poly(vector<ll>(size()));
-            int right = fir * r;
-            poly res(size());
-            auto inv = quickpow(dp[fir]), times = quickpow(dp[fir], m);
-            for (int i = fir; i < size(); ++i)
-                res[i - fir] = dp[i] * inv % mod;
-            res = res.pow(n) * times;
-            poly ans(size());
-            for (int i = right; i < size(); ++i)
-                ans[i] = res[i - right];
-            return ans;
-        }
     };
 
     // 多项式多点求值 | 快速差值
@@ -422,14 +439,42 @@ namespace polynomial
         int m = (int)a.size();
         if (n < m)
             return a[n];
-        poly p({0, 1}), q(m + 1);
+        poly res(vector<ll>{1}), p({0, 1}), q(m + 1);
         q[m] = 1;
         for (int i = 0; i < m; ++i)
             q[m - i - 1] = -b[i];
-        auto res = p.pow(n, q);
+        while (n)
+        {
+            if (n & 1)
+                res = res * p % q;
+            p = p * p % q;
+            n >>= 1;
+        }
         ll ans = 0;
         for (int i = 0; i < m; ++i)
             (ans += res[i] * a[i]) %= mod;
         return ((int)ans + mod) % mod;
     }
+}
+using namespace polynomial;
+auto _main()
+{
+    int n, m;
+    cin >> n >> m;
+    vector<int> a(m), b(m);
+    for (int &i : a)
+        cin >> i;
+    for (int &i : b)
+        cin >> i;
+    cout << linnerRecurrence(n, b, a) << '\n';
+}
+signed main()
+{
+    ios::sync_with_stdio(false);
+    cin.tie(0), cout.tie(0);
+    int T = 1;
+    // cin >> T;
+    for (int cas = 1; cas <= T; ++cas)
+        _main();
+    return 0;
 }

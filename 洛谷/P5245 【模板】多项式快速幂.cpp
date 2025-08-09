@@ -1,4 +1,59 @@
-
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+constexpr int N = 4e5 + 5;
+constexpr int mod = 998244353;
+constexpr auto quickpow(ll a, int b = mod - 2)
+{
+    ll res = 1;
+    while (b)
+    {
+        if (b & 1)
+            (res *= a) %= mod;
+        (a *= a) %= mod;
+        b >>= 1;
+    }
+    return res;
+}
+struct Comb
+{
+    vector<ll> _fac, _ifac, _inv;
+    Comb() : _fac{1, 1}, _ifac{1, 1}, _inv{0, 1} {};
+    auto init(int n)
+    {
+        int m = (int)_fac.size();
+        if (n + 1 <= m)
+            return;
+        _fac.resize(n + 1), _ifac.resize(n + 1), _inv.resize(n + 1);
+        for (int i = m; i <= n; ++i)
+        {
+            _inv[i] = (mod - mod / i) * _inv[mod % i] % mod;
+            _fac[i] = _fac[i - 1] * i % mod;
+            _ifac[i] = _ifac[i - 1] * _inv[i] % mod;
+        }
+    }
+    auto fac(int n)
+    {
+        init(n);
+        return _fac[n];
+    }
+    auto ifac(int n)
+    {
+        init(n);
+        return _ifac[n];
+    }
+    auto inv(int n)
+    {
+        init(n);
+        return _inv[n];
+    }
+    auto binom(int n, int m)
+    {
+        if (n < 0 || n < m)
+            return 0ll;
+        return fac(n) * ifac(m) % mod * ifac(n - m) % mod;
+    }
+} comb;
 namespace polynomial
 { // NTT模数 998244353, 1004535809
     constexpr int inv2 = quickpow(2);
@@ -301,7 +356,7 @@ namespace polynomial
                     fir = i;
                     break;
                 }
-            if ((ll)fir * r >= size()) // 说明是原poly是全0
+            if ((ll)fir * r >= size())
                 return poly(vector<ll>(size()));
             int right = fir * r;
             poly res(size());
@@ -432,4 +487,28 @@ namespace polynomial
             (ans += res[i] * a[i]) %= mod;
         return ((int)ans + mod) % mod;
     }
+}
+using namespace polynomial;
+auto _main()
+{
+    string s;
+    int n, m = 0, q = 0, r = 0;
+    cin >> n >> s;
+    poly a(n);
+    cin >> a;
+    for (auto i : s)
+    {
+        m = (int)((m * 10ll + i - '0') % mod);
+    }
+    cout << a.pow(m) << '\n';
+}
+signed main()
+{
+    ios::sync_with_stdio(false);
+    cin.tie(0), cout.tie(0);
+    int T = 1;
+    // cin >> T;
+    for (int cas = 1; cas <= T; ++cas)
+        _main();
+    return 0;
 }

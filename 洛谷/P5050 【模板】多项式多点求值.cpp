@@ -1,4 +1,20 @@
-
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+constexpr int N = 4e5 + 5;
+constexpr int mod = 998244353;
+constexpr auto quickpow(ll a, int b = mod - 2)
+{
+    ll res = 1;
+    while (b)
+    {
+        if (b & 1)
+            (res *= a) %= mod;
+        (a *= a) %= mod;
+        b >>= 1;
+    }
+    return res;
+}
 namespace polynomial
 { // NTT模数 998244353, 1004535809
     constexpr int inv2 = quickpow(2);
@@ -133,15 +149,20 @@ namespace polynomial
         // 多项式求逆和多项式除法
         auto inv(int n) const
         {
-            if (n == 1)
-                return poly(vector<ll>{quickpow(dp[0])});
-            poly F = inv((n + 1) / 2), G(vector<ll>(dp.begin(), dp.begin() + n));
-            init(n * 2);
-            F.resize(limit), G.resize(limit);
-            F.NTT(), G.NTT();
-            for (int i = 0; i < limit; ++i)
-                F[i] = (2 - F[i] * G[i] % mod) * F[i] % mod;
-            F.INTT();
+            poly F = poly(vector<ll>{quickpow(dp[0])}), G;
+            for (int l = 2; (l >> 1) < n; l <<= 1)
+            {
+                G.resize(l);
+                for (int i = 0; i < l; ++i)
+                    G[i] = i < n ? dp[i] : 0;
+                init(l * 2);
+                F.resize(limit), G.resize(limit);
+                F.NTT(), G.NTT();
+                for (int i = 0; i < limit; ++i)
+                    F[i] = (2 - F[i] * G[i] % mod) * F[i] % mod;
+                F.INTT();
+                F.resize(l);
+            }
             F.resize(n);
             return F;
         }
@@ -149,8 +170,6 @@ namespace polynomial
         auto reverse() { std::reverse(dp.begin(), dp.end()); }
         auto friend operator/(poly lhs, poly rhs)
         {
-            if (lhs.size() < rhs.size())
-                return poly(vector<ll>{0});
             lhs.reverse(), rhs.reverse();
             int up = lhs.size() - rhs.size() + 1;
             lhs.resize(up), rhs.resize(up);
@@ -161,8 +180,6 @@ namespace polynomial
         }
         auto friend operator%(poly lhs, poly rhs)
         {
-            if (lhs.size() < rhs.size())
-                return lhs;
             auto res = lhs - lhs / rhs * rhs;
             res.resize(rhs.size() - 1);
             return res;
@@ -276,44 +293,6 @@ namespace polynomial
             res.resize(size() - 1);
             return res.integral();
         }
-
-        // 多项式快速幂
-        auto pow(int n, poly q) const
-        {
-            poly res(vector<ll>{1}), p = (*this);
-            while (n)
-            {
-                if (n & 1)
-                    res = res * p % q;
-                p = p * p % q;
-                n >>= 1;
-            }
-            return res;
-        }
-        // n是指 mod 998244353 的结果，m是指 mod 998244352 的结果, r是指位移乘数
-        auto pow(int n) const { return (ln() * n).exp(); }
-        auto pow(int n, int m, int r) const
-        {
-            int fir = size();
-            for (int i = 0; i < size(); ++i)
-                if (dp[i])
-                {
-                    fir = i;
-                    break;
-                }
-            if ((ll)fir * r >= size()) // 说明是原poly是全0
-                return poly(vector<ll>(size()));
-            int right = fir * r;
-            poly res(size());
-            auto inv = quickpow(dp[fir]), times = quickpow(dp[fir], m);
-            for (int i = fir; i < size(); ++i)
-                res[i - fir] = dp[i] * inv % mod;
-            res = res.pow(n) * times;
-            poly ans(size());
-            for (int i = right; i < size(); ++i)
-                ans[i] = res[i - right];
-            return ans;
-        }
     };
 
     // 多项式多点求值 | 快速差值
@@ -337,7 +316,7 @@ namespace polynomial
         };
         auto solve(int rt, int l, int r, vector<int> &p)
         {
-            if ((int)pol[rt].size() - 1 <= 512)
+            if ((int)pol[rt].size() - 1 <= 1024)
             {
                 for (int i = l; i <= r; ++i)
                 {
@@ -415,21 +394,27 @@ namespace polynomial
 #undef lc
 #undef rc
     };
-
-    // 常系数线性递推
-    auto linnerRecurrence(int n, const vector<int> &a, const vector<int> &b)
-    {
-        int m = (int)a.size();
-        if (n < m)
-            return a[n];
-        poly p({0, 1}), q(m + 1);
-        q[m] = 1;
-        for (int i = 0; i < m; ++i)
-            q[m - i - 1] = -b[i];
-        auto res = p.pow(n, q);
-        ll ans = 0;
-        for (int i = 0; i < m; ++i)
-            (ans += res[i] * a[i]) %= mod;
-        return ((int)ans + mod) % mod;
-    }
+}
+using namespace polynomial;
+auto _main()
+{
+    int n, m;
+    cin >> n >> m;
+    poly p(n + 1);
+    vector<int> q(m);
+    cin >> p;
+    for (int &i : q)
+        cin >> i;
+    for (int i : lagrange().multipointEval(p, q))
+        cout << (i + mod) % mod << '\n';
+}
+signed main()
+{
+    ios::sync_with_stdio(false);
+    cin.tie(0), cout.tie(0);
+    int T = 1;
+    // cin >> T;
+    for (int cas = 1; cas <= T; ++cas)
+        _main();
+    return 0;
 }
