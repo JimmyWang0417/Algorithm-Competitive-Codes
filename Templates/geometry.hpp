@@ -1,3 +1,4 @@
+
 namespace std
 {
     template <typename T>
@@ -72,9 +73,19 @@ namespace twoDimension
     {
         p2 v;
         double c;
-        line(p2 _v = p2(), double _c = 0) : v(_v), c(_c) {}
+        line() = default;
+        line(p2 _v, double _c) : v(_v), c(_c) {}
         line(p2 p, p2 q) : v(q - p), c(cross(v, p)) {}
         line(double p, double q, double r) : v({q, -p}), c(r) {}
+
+        auto friend operator<(const line &p, const line &q)
+        {
+            auto ar = arg(p.v) - arg(q.v);
+            if (sgn(ar) == 0)
+                return dot(p.c * q.v - p.v * q.c, p.v) > 0;
+            else
+                return ar < 0;
+        }
 
         auto side(p2 p) const
         {
@@ -393,7 +404,8 @@ namespace threeDimension
     struct p3
     {
         double x, y, z;
-        p3(double _x = 0, double _y = 0, double _z = 0) : x(_x), y(_y), z(_z) {}
+        p3() = default;
+        p3(double _x, double _y, double _z) : x(_x), y(_y), z(_z) {}
         auto operator<(const p3 &rhs) const
         {
             return tie(x, y, z) < tie(rhs.x, rhs.y, rhs.z);
@@ -450,7 +462,8 @@ namespace threeDimension
     {
         p3 n;
         double d;
-        plane(p3 _n = p3(), double _d = 0) : n(_n), d(_d) {}
+        plane() = default;
+        plane(p3 _n, double _d) : n(_n), d(_d) {}
         plane(p3 _n, p3 _p) : n(_n), d(dot(_n, _p)) {}
         plane(p3 p, p3 q, p3 r) : plane(cross(q - p, r - p), p) {}
 
@@ -490,6 +503,7 @@ namespace threeDimension
     struct coords
     {
         p3 o, dx, dy, dz;
+        coords() = default;
         coords(p3 p, p3 q, p3 r) : o(p)
         {
             dx = (q - p) / abs(q - p);
@@ -511,11 +525,12 @@ namespace threeDimension
     struct line
     {
         p3 d, o;
-        line(p3 p = p3(), p3 q = p3()) : d(q - p), o(p) {}
+        line() = default;
+        line(p3 p, p3 q) : d(q - p), o(p) {}
         line(plane p, plane q)
         {
             d = cross(p.n, q.n);
-            o = cross((cross(q.n, p.d) - cross(p.n, q.d)), d) / norm(d);
+            o = cross((q.n * p.d - p.n * q.d), d) / norm(d);
         }
         auto sqDist(p3 p) const
         {
