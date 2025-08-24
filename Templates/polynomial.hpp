@@ -337,7 +337,7 @@ namespace polynomial
         };
         auto solve(int rt, int l, int r, vector<int> &p)
         {
-            if ((int)pol[rt].size() - 1 <= 512)
+            if ((int)pol[rt].size() - 1 <= 1024)
             {
                 for (int i = l; i <= r; ++i)
                 {
