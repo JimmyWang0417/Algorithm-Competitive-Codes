@@ -11,9 +11,8 @@ namespace stringAlgorithm
         string s;
         vector<int> p;
         kmp() = default;
-        kmp(const string &_s) : p(_s.size())
+        kmp(const string &_s) : s(_s), p(_s.size())
         {
-            s = _s;
             for (int i = 1, j = 0; i < (int)p.size(); ++i)
             {
                 while (j && s[i] != s[j])
