@@ -1,4 +1,3 @@
-
 namespace polynomial
 { // NTT模数 998244353, 1004535809
     constexpr int inv2 = quickpow(2);
@@ -23,7 +22,8 @@ namespace polynomial
         vector<ll> dp;
         poly() = default;
         poly(int _n) { dp.resize(_n); }
-        poly(vector<ll> _dp) { dp = _dp; }
+        poly(const initializer_list<ll> &_dp) : dp(_dp) {}
+        poly(const vector<ll> &_dp) : dp(_dp) {}
 
         auto size() const { return (int)dp.size(); }
         auto resize(int _n) { dp.resize(_n); }
@@ -134,7 +134,7 @@ namespace polynomial
         auto inv(int n) const
         {
             if (n == 1)
-                return poly(vector<ll>{quickpow(dp[0])});
+                return poly({quickpow(dp[0])});
             poly F = inv((n + 1) / 2), G(vector<ll>(dp.begin(), dp.begin() + n));
             init(n * 2);
             F.resize(limit), G.resize(limit);
@@ -150,7 +150,7 @@ namespace polynomial
         auto friend operator/(poly lhs, poly rhs)
         {
             if (lhs.size() < rhs.size())
-                return poly(vector<ll>{0});
+                return poly({0});
             lhs.reverse(), rhs.reverse();
             int up = lhs.size() - rhs.size() + 1;
             lhs.resize(up), rhs.resize(up);
@@ -172,7 +172,7 @@ namespace polynomial
         auto sqrt(int n) const
         {
             if (n == 1) // 其实要用二次剩余，但是洛谷模板保证a0=1
-                return poly(vector<ll>{1});
+                return poly({1});
             poly F = sqrt((n + 1) / 2), G = poly(vector<ll>(dp.begin(), dp.begin() + n));
             F.resize(n);
             poly invF = F.inv();
@@ -217,7 +217,7 @@ namespace polynomial
         auto exp(int n) const
         {
             if (n == 1)
-                return poly(vector<ll>{1});
+                return poly({1});
             poly F = exp((n + 1) / 2), G(vector<ll>(dp.begin(), dp.begin() + n));
             F.resize(n);
             poly lnF = F.ln();
@@ -280,7 +280,7 @@ namespace polynomial
         // 多项式快速幂
         auto pow(int n, poly q) const
         {
-            poly res(vector<ll>{1}), p = (*this);
+            poly res({1}), p = (*this);
             while (n)
             {
                 if (n & 1)
