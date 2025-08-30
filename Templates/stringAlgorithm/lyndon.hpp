@@ -2,7 +2,7 @@ namespace stringAlgorithm
 {
     struct lyndon
     {
-        auto duval(string s)
+        auto duval(const string &s)
         {
             vector<string> ans;
             for (int i = 0, j, k; i < (int)s.size();)
