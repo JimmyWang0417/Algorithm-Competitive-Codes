@@ -6,8 +6,8 @@ namespace stringAlgorithm
         {
             int ch[26];
             int fail, len;
-            auto operator[](int x) const { return ch[x]; }
             auto &operator[](int x) { return ch[x]; }
+            const auto &operator[](int x) const { return ch[x]; }
         };
         vector<node> point;
         pam() = default;

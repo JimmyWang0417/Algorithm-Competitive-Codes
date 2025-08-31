@@ -5,8 +5,8 @@ namespace stringAlgorithm
         struct node
         {
             int ch[26], fail;
-            auto operator[](int x) const { return ch[x]; }
             auto &operator[](int x) { return ch[x]; }
+            const auto &operator[](int x) const { return ch[x]; }
         };
         vector<node> tree;
         vector<int> where;

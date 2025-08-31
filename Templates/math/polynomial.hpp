@@ -28,8 +28,8 @@ namespace polynomial
         auto size() const { return (int)dp.size(); }
         auto resize(int _n) { dp.resize(_n); }
 
-        auto operator[](int x) const { return dp[x]; }
         auto &operator[](int x) { return dp[x]; }
+        const auto &operator[](int x) const { return dp[x]; }
 
         auto friend &operator>>(istream &in, poly &p)
         {
