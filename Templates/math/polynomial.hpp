@@ -1,5 +1,5 @@
 namespace polynomial
-{ // NTT模数 998244353, 1004535809
+{ // NTT模数 998244353, 1004535809, 4179340454199820289
     constexpr int inv2 = quickpow(2);
     constexpr int inv3 = quickpow(3);
     constexpr int imagUnit = 86583718;
@@ -19,11 +19,11 @@ namespace polynomial
     }
     struct poly
     {
-        vector<ll> dp;
+        vector<i64> dp;
         poly() = default;
-        poly(int _n) { dp.resize(_n); }
-        poly(const initializer_list<ll> &_dp) : dp(_dp) {}
-        poly(const vector<ll> &_dp) : dp(_dp) {}
+        poly(int _n) : dp(_n) {}
+        poly(const initializer_list<i64> &_dp) : dp(_dp) {}
+        poly(const vector<i64> &_dp) : dp(_dp) {}
 
         auto size() const { return (int)dp.size(); }
         auto resize(int _n) { dp.resize(_n); }
@@ -60,13 +60,13 @@ namespace polynomial
                 res[i] = (lhs[i] - rhs[i]) % mod;
             return res;
         }
-        auto friend operator*(poly res, ll rhs)
+        auto friend operator*(poly res, i64 rhs)
         {
             for (auto &i : res.dp)
                 (i *= rhs) %= mod;
             return res;
         }
-        auto friend operator/(poly res, ll rhs)
+        auto friend operator/(poly res, i64 rhs)
         {
             return res * quickpow(rhs);
         }
@@ -78,13 +78,13 @@ namespace polynomial
                     swap(dp[i], dp[rk[i]]);
             for (int mid = 1; mid < limit; mid <<= 1)
             {
-                ll gn = quickpow(3, (mod - 1) / (mid << 1));
+                i64 gn = quickpow(3, (mod - 1) / (mid << 1));
                 for (int i = 0; i < limit; i += mid << 1)
                 {
-                    ll g = 1;
+                    i64 g = 1;
                     for (int j = 0; j < mid; ++j, (g *= gn) %= mod)
                     {
-                        ll x = dp[i + j], y = dp[i + j + mid] * g % mod;
+                        i64 x = dp[i + j], y = dp[i + j + mid] * g % mod;
                         dp[i + j] = (x + y) % mod;
                         dp[i + j + mid] = (x - y) % mod;
                     }
@@ -98,19 +98,19 @@ namespace polynomial
                     swap(dp[i], dp[rk[i]]);
             for (int mid = 1; mid < limit; mid <<= 1)
             {
-                ll gn = quickpow(inv3, (mod - 1) / (mid << 1));
+                i64 gn = quickpow(inv3, (mod - 1) / (mid << 1));
                 for (int i = 0; i < limit; i += mid << 1)
                 {
-                    ll g = 1;
+                    i64 g = 1;
                     for (int j = 0; j < mid; ++j, (g *= gn) %= mod)
                     {
-                        ll x = dp[i + j], y = dp[i + j + mid] * g % mod;
+                        i64 x = dp[i + j], y = dp[i + j + mid] * g % mod;
                         dp[i + j] = (x + y) % mod;
                         dp[i + j + mid] = (x - y) % mod;
                     }
                 }
             }
-            ll inv = quickpow(limit);
+            i64 inv = quickpow(limit);
             for (int i = 0; i < limit; ++i)
                 (dp[i] *= inv) %= mod;
         }
@@ -135,7 +135,7 @@ namespace polynomial
         {
             if (n == 1)
                 return poly({quickpow(dp[0])});
-            poly F = inv((n + 1) / 2), G(vector<ll>(dp.begin(), dp.begin() + n));
+            poly F = inv((n + 1) / 2), G(vector<i64>(dp.begin(), dp.begin() + n));
             init(n * 2);
             F.resize(limit), G.resize(limit);
             F.NTT(), G.NTT();
@@ -173,7 +173,7 @@ namespace polynomial
         {
             if (n == 1) // 其实要用二次剩余，但是洛谷模板保证a0=1
                 return poly({1});
-            poly F = sqrt((n + 1) / 2), G = poly(vector<ll>(dp.begin(), dp.begin() + n));
+            poly F = sqrt((n + 1) / 2), G = poly(vector<i64>(dp.begin(), dp.begin() + n));
             F.resize(n);
             poly invF = F.inv();
             init(n * 2);
@@ -190,7 +190,7 @@ namespace polynomial
         // 积分和求导
         auto integral() const
         {
-            vector<ll> inv(size() + 1);
+            vector<i64> inv(size() + 1);
             poly res(size() + 1);
             inv[1] = 1;
             for (int i = 2; i <= size(); ++i)
@@ -207,7 +207,7 @@ namespace polynomial
             return res;
         }
 
-        // 指数函数和对数函数，得保证a0 = 0
+        // 指数函数得保证a0 = 0, 对数函数得保证a0 = 1
         auto ln() const
         {
             auto res = differ() * inv();
@@ -218,7 +218,7 @@ namespace polynomial
         {
             if (n == 1)
                 return poly({1});
-            poly F = exp((n + 1) / 2), G(vector<ll>(dp.begin(), dp.begin() + n));
+            poly F = exp((n + 1) / 2), G(vector<i64>(dp.begin(), dp.begin() + n));
             F.resize(n);
             poly lnF = F.ln();
             init(n * 2);
@@ -239,7 +239,7 @@ namespace polynomial
         }
         auto sin() const
         {
-            return ((*this * imagUnit).exp() - (*this * (-imagUnit)).exp()) * (-(ll)inv2 * imagUnit % mod);
+            return ((*this * imagUnit).exp() - (*this * (-imagUnit)).exp()) * (-(i64)inv2 * imagUnit % mod);
         }
         auto tan() const
         {
@@ -301,8 +301,8 @@ namespace polynomial
                     fir = i;
                     break;
                 }
-            if ((ll)fir * r >= size()) // 说明是原poly是全0
-                return poly(vector<ll>(size()));
+            if ((i64)fir * r >= size()) // 说明是原poly是全0
+                return poly(vector<i64>(size()));
             int right = fir * r;
             poly res(size());
             auto inv = quickpow(dp[fir]), times = quickpow(dp[fir], m);
@@ -343,11 +343,11 @@ namespace polynomial
                 {
                     auto x = treearray[i], all = (int)pol[rt].size() - 1;
                     const auto &q = pol[rt];
-                    vector<ll> pw(17, 1);
+                    vector<i64> pw(17, 1);
                     for (int j = 1; j <= 16; ++j)
                         pw[j] = pw[j - 1] * x % mod;
-                    ll res = q[all];
-                    ll c1, c2, c3, c4;
+                    i64 res = q[all];
+                    i64 c1, c2, c3, c4;
                     for (int j = all - 1; j >= 15; j -= 16)
                     {
                         c1 = res * pw[16] + q[j] * pw[15] + q[j - 1] * pw[14] + q[j - 2] * pw[13], c1 %= mod;
@@ -382,7 +382,7 @@ namespace polynomial
         auto interpolation(const vector<int> &X, vector<int> Y)
         {
             int n = (int)X.size();
-            vector<ll> p(n, 1);
+            vector<i64> p(n, 1);
             vector<int> q(n);
             tree.resize(n * 4), pol.resize(n * 4);
             treearray = X;
@@ -406,7 +406,7 @@ namespace polynomial
             function<poly(int, int, int)> calc = [&](int rt, int l, int r)
             {
                 if (l == r)
-                    return poly(vector<ll>{Y[l]});
+                    return poly(vector<i64>{Y[l]});
                 int mid = (l + r) >> 1;
                 return calc(lc, l, mid) * tree[rc] + tree[lc] * calc(rc, mid + 1, r);
             };
@@ -427,7 +427,7 @@ namespace polynomial
         for (int i = 0; i < m; ++i)
             q[m - i - 1] = -b[i];
         auto res = p.pow(n, q);
-        ll ans = 0;
+        i64 ans = 0;
         for (int i = 0; i < m; ++i)
             (ans += res[i] * a[i]) %= mod;
         return ((int)ans + mod) % mod;

@@ -1,4 +1,4 @@
-namespace euclidean
+struct euclidean
 {
     struct matrix
     {
@@ -29,7 +29,7 @@ namespace euclidean
             for (int i = 0; i < res.size(); ++i)
                 for (int k = 0; k < res.size(); ++k)
                     for (int j = 0; j < res.size(); ++j)
-                        res[i][j] = (int)((res[i][j] + (ll)lhs[i][k] * rhs[k][j]) % mod);
+                        res[i][j] = (int)((res[i][j] + (i64)lhs[i][k] * rhs[k][j]) % mod);
             return res;
         }
         auto friend &operator>>(istream &in, matrix &p)
@@ -63,7 +63,7 @@ namespace euclidean
             res.xy = xy + x * rhs.xy * y;
             return res;
         }
-        auto pow(ll b) const
+        auto pow(i64 b) const
         {
             node res(x.size()), a = (*this);
             while (b)
@@ -76,7 +76,7 @@ namespace euclidean
             return res;
         }
     };
-    auto euclid(ll p, ll q, ll r, ll l, node U, node R)
+    auto euclid(i64 p, i64 q, i64 r, i64 l, node U, node R)
     {
         if (!l)
             return node(U.x.size());
@@ -84,10 +84,10 @@ namespace euclidean
             return (U.pow(p / q)) * euclid(p, q, l, r % q, U, R);
         if (p >= q)
             return euclid(p % q, q, r, l, U, (U.pow(p / q)) * R);
-        ll m = ((__int128)p * l + r) / q;
+        i64 m = ((i128)p * l + r) / q;
         if (!m)
             return R.pow(l);
         return (R.pow((q - r - 1) / p)) * U * euclid(q, p, (q - r - 1) % p, m - 1, R, U) *
-               (R.pow(l - ((__int128)q * m - r - 1) / p));
+               (R.pow(l - ((i128)q * m - r - 1) / p));
     }
 };

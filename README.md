@@ -66,12 +66,12 @@ JimmyWang0417 's Algorithm Competitive Codes
 ===============================================================================
  Autoconf               16      1885023      1885023            0            0
  C++                  2396       349342       340139         6313         2890
- C++ Header             35         4764         3803          602          359
- Markdown                2         2664            0         2630           34
+ C++ Header             36         4919         3956          603          360
+ Markdown                2         2666            0         2632           34
  Python                  5          293          251            9           33
  Shell                   1           15            5            5            5
 ===============================================================================
- Total                2455      2242101      2229221         9559         3321
+ Total                2456      2242258      2229374         9562         3322
 ===============================================================================
 ```
 <!-- count the code end -->
@@ -1423,6 +1423,7 @@ JimmyWang0417 's Algorithm Competitive Codes
 │   ├── math
 │   │   ├── euclidean.hpp
 │   │   ├── min25.hpp
+│   │   ├── numberTheory.hpp
 │   │   ├── polynomial.hpp
 │   │   └── schreierSims.hpp
 │   ├── networkFlow

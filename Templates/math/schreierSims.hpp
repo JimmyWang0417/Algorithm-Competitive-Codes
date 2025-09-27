@@ -18,7 +18,6 @@ namespace schreierSims
         }
     };
     int n;
-    vector<int> rcnt;
     vector<vector<bool>> reach;
     vector<vector<permutation>> t;
     vector<vector<permutation>> r, inv;
@@ -50,7 +49,6 @@ namespace schreierSims
         {
             reach[u][v] = true;
             r[u][v] = g;
-            ++rcnt[u];
             for (int i = 0; i < n; ++i)
                 inv[u][v][g[i]] = i;
             for (auto f : t[u])
@@ -61,15 +59,11 @@ namespace schreierSims
     {
         n = (int)per.front().size();
         t.resize(n);
-        rcnt.resize(n);
         reach.assign(n, vector<bool>(n));
         r.assign(n, vector<permutation>(n, permutation(n)));
         inv.assign(n, vector<permutation>(n, permutation(n)));
         for (int i = 0; i < n; ++i)
-        {
             reach[i][i] = true;
-            ++rcnt[i];
-        }
         for (const auto &p : per)
             add(0, p);
     }
