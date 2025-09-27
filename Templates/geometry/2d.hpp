@@ -292,9 +292,18 @@ namespace twoDimension
         }
         return flag;
     }
+    auto polygonPoint(const polygon &a, const p2 &p)
+    {
+        if (inPolygon(a, p))
+            return 0.0;
+        double res = 1e18;
+        for (int i = 0; i < (int)a.size(); ++i)
+            res = min(res, segPoint(a[i], a[(i + 1) % a.size()], p));
+        return res;
+    }
 
-    // convex hull
-    auto lowerConvexHull(polygon p)
+    // half convex hull
+    auto halfConvexHull(polygon p) // 下凸包，逆时针给出
     {
         sort(p.begin(), p.end());
         polygon st;
@@ -306,21 +315,25 @@ namespace twoDimension
         }
         return st;
     }
-    auto upperConvexHull(polygon p)
+    auto halfMinkowskiSum(polygon a, polygon b) // 逆时针凸包的闵可夫斯基和
     {
-        sort(p.begin(), p.end());
-        polygon st;
-        for (auto q : p)
-        {
-            while (st.size() >= 2 && orient(st.back(), st[st.size() - 2], q) <= 0)
-                st.pop_back();
-            st.push_back(q);
-        }
-        return st;
+        if (a.empty() || b.empty())
+            return polygon();
+        polygon c(a.size() + b.size() - 1);
+        c.front() = a.front() + b.front();
+        adjacent_difference(a.begin(), a.end(), a.begin());
+        adjacent_difference(b.begin(), b.end(), b.begin());
+        merge(a.begin() + 1, a.end(), b.begin() + 1, b.end(), c.begin() + 1, [](auto x, auto y)
+              { return cross(x, y) > 0; });
+        partial_sum(c.begin(), c.end(), c.begin());
+        return c;
     }
+
+    // full convex hull
+    auto adjust(polygon &p) { rotate(p.begin(), min_element(p.begin(), p.end()), p.end()); }
     auto convexHull(polygon p) // 逆时针给出点
     {
-        rotate(p.begin(), min_element(p.begin(), p.end()), p.end());
+        adjust(p);
         auto compare = [&](auto x, auto y)
         {
             int d = sgn(orient(p.front(), x, y));
@@ -340,9 +353,10 @@ namespace twoDimension
         return st;
     }
     auto minkowskiSum(polygon a, polygon b) // 逆时针凸包的闵可夫斯基和
-    {
+    { // 必须经过adjust的凸包才能正确处理
         if (a.empty() || b.empty())
             return polygon();
+        a.push_back(a.front()), b.push_back(b.front());
         polygon c(a.size() + b.size() - 1);
         c.front() = a.front() + b.front();
         adjacent_difference(a.begin(), a.end(), a.begin());
@@ -350,7 +364,19 @@ namespace twoDimension
         merge(a.begin() + 1, a.end(), b.begin() + 1, b.end(), c.begin() + 1, [](auto x, auto y)
               { return cross(x, y) > 0; });
         partial_sum(c.begin(), c.end(), c.begin());
+        c.pop_back();
         return c;
+    }
+    auto minkowskiDifference(polygon a, polygon b)
+    {
+        for (int i = 0; i < (int)a.size(); ++i)
+            a[i] = -a[i];
+        adjust(a);
+        return minkowskiSum(move(a), move(b));
+    }
+    auto convexConvex(const polygon &a, const polygon &b) // 凸包之间的距离
+    {
+        return polygonPoint(minkowskiDifference(a, b), p2(0, 0));
     }
 
     // half plane
