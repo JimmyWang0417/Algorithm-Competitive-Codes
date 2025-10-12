@@ -33,6 +33,7 @@
 #feature
 Environment/*
 !Environment/MultiGenerator
+!Environment/makefile
 credentials.*
 Program*
 spoj-submitter.dat

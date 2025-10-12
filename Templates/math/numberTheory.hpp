@@ -1,7 +1,7 @@
 template <typename T>
 struct numberTheory
 {
-    static auto _mul(T a, T b, T m)
+    constexpr static auto _mul = [](T a, T b, T m)
     {
         a = (a % m + m) % m, b = (b % m + m) % m;
         T res = 0;
@@ -13,7 +13,10 @@ struct numberTheory
             b >>= 1;
         }
         return res;
-    }
+    };
+    using functype = function<T(T, T, T)>;
+    functype mul;
+    numberTheory(const functype &other = _mul) : mul(other) {}
     auto exgcd(T a, T b) -> tuple<T, T, T>
     {
         if (b == 0)
@@ -21,7 +24,7 @@ struct numberTheory
         auto [d, y, x] = exgcd(b, a % b);
         return {d, x, y - (a / b) * x};
     }
-    auto crt(const vector<pair<T, T>> &p, const function<T(T, T, T)> &mul = _mul)
+    auto crt(const vector<pair<T, T>> &p)
     {
         T res = 0, m = 1;
         for (auto [a, b] : p)
@@ -34,7 +37,7 @@ struct numberTheory
         }
         return (res + m) % m;
     }
-    auto excrt(const vector<pair<T, T>> &p, const function<T(T, T, T)> &mul = _mul) -> T
+    auto excrt(const vector<pair<T, T>> &p) -> T
     {
         auto [c, d] = p.front();
         for (int i = 1; i < (int)p.size(); ++i)
@@ -69,20 +72,21 @@ struct numberTheory
         };
         return (C(n, m) + p) % p;
     }
+    template <typename _T>
+    auto pow(T a, _T b, T p)
+    {
+        T res = 1;
+        while (b)
+        {
+            if (b & 1)
+                (res *= a) %= p;
+            (a *= a) %= p;
+            b >>= 1;
+        }
+        return res;
+    };
     auto exlucas(T n, T m, T mod)
     {
-        auto pow = [](T a, T b, T p)
-        {
-            T res = 1;
-            while (b)
-            {
-                if (b & 1)
-                    (res *= a) %= p;
-                (a *= a) %= p;
-                b >>= 1;
-            }
-            return res;
-        };
         auto g = [&](T x, T p)
         {
             T res = 0;
@@ -131,5 +135,45 @@ struct numberTheory
         }
         return crt(que, [](T a, T b, T p)
                    { return a * b % p; });
+    }
+    auto sqrt(T x, T p) -> pair<T, T>
+    {
+        if (x == 0)
+            return {0, 0};
+        if (pow(x, (p - 1) / 2, p) == p - 1)
+            return {-1, -1};
+        else
+        {
+            mt19937 rng(random_device{}());
+            T r;
+            while (1)
+            {
+                r = uniform_int_distribution<T>(1, p - 1)(rng);
+                if (pow((r * r - x + p) % p, (p - 1) / 2, p) == p - 1)
+                    break;
+            }
+            auto II = (r * r - x + p) % p;
+            auto mulT = [&](const pair<T, T> &a, const pair<T, T> &b) -> pair<T, T>
+            {
+                return {
+                    (a.first * b.first + a.second * b.second % p * II) % p,
+                    (a.first * b.second + a.second * b.first) % p};
+            };
+            auto power = [&](pair<T, T> a, auto b)
+            {
+                pair<T, T> res(1, 0);
+                while (b)
+                {
+                    if (b & 1)
+                        res = mulT(res, a);
+                    a = mulT(a, a);
+                    b >>= 1;
+                }
+                return res;
+            };
+            auto root = power({r, 1}, (p + 1) / 2).first;
+            root = min(root, (p - root) % p);
+            return {root, (p - root) % p};
+        }
     }
 };

@@ -1,4 +1,4 @@
-namespace schreierSims
+struct schreierSims
 {
     struct permutation : public vector<int>
     {
@@ -30,7 +30,6 @@ namespace schreierSims
             return false;
         return contain(u + 1, inv[u][v] * g);
     }
-    void dfs(int, const permutation &);
     auto add(int u, const permutation &g)
     {
         if (contain(u, g))
@@ -55,7 +54,8 @@ namespace schreierSims
                 dfs(u, f * g);
         }
     }
-    auto SS(const vector<permutation> &per)
+    schreierSims() = default;
+    schreierSims(const vector<permutation> &per)
     {
         n = (int)per.front().size();
         t.resize(n);
