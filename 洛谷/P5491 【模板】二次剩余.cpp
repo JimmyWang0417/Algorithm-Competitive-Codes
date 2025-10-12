@@ -1,3 +1,12 @@
+#include <bits/stdc++.h>
+#include <ext/pb_ds/assoc_container.hpp>
+using namespace std;
+typedef int64_t i64;
+typedef uint64_t u64;
+typedef __int128_t i128;
+typedef __uint128_t u128;
+typedef __float80 f80;
+typedef __float128 f128;
 template <typename T>
 struct numberTheory
 {
@@ -72,21 +81,20 @@ struct numberTheory
         };
         return (C(n, m) + p) % p;
     }
-    template <typename _T>
-    auto pow(T a, _T b, T p)
-    {
-        T res = 1;
-        while (b)
-        {
-            if (b & 1)
-                (res *= a) %= p;
-            (a *= a) %= p;
-            b >>= 1;
-        }
-        return res;
-    };
     auto exlucas(T n, T m, T mod)
     {
+        auto pow = [](T a, T b, T p)
+        {
+            T res = 1;
+            while (b)
+            {
+                if (b & 1)
+                    (res *= a) %= p;
+                (a *= a) %= p;
+                b >>= 1;
+            }
+            return res;
+        };
         auto g = [&](T x, T p)
         {
             T res = 0;
@@ -140,7 +148,19 @@ struct numberTheory
     {
         if (x == 0)
             return {0, 0};
-        if (pow(x, (p - 1) / 2, p) == p - 1)
+        auto modpow = [&](T a, auto b)
+        {
+            T res = 1;
+            while (b)
+            {
+                if (b & 1)
+                    (res *= a) %= p;
+                (a *= a) %= p;
+                b >>= 1;
+            }
+            return res;
+        };
+        if (modpow(x, (p - 1) / 2) == p - 1)
             return {-1, -1};
         else
         {
@@ -149,7 +169,7 @@ struct numberTheory
             while (1)
             {
                 r = uniform_int_distribution<T>(1, p - 1)(rng);
-                if (pow((r * r - x + p) % p, (p - 1) / 2, p) == p - 1)
+                if (modpow((r * r - x + p) % p, (p - 1) / 2) == p - 1)
                     break;
             }
             auto II = (r * r - x + p) % p;
@@ -177,3 +197,28 @@ struct numberTheory
         }
     }
 };
+struct Main
+{
+    Main()
+    {
+        int a, p;
+        cin >> a >> p;
+        auto [x, y] = numberTheory<i64>().sqrt(a, p);
+        if (x == -1)
+            cout << "Hola!\n";
+        else if (x == 0)
+            cout << "0\n";
+        else
+            cout << x << ' ' << y <<  '\n';
+    }
+};
+int main()
+{
+    ios::sync_with_stdio(false);
+    cin.tie(0), cout.tie(0);
+    int T = 1;
+    cin >> T;
+    while (T--)
+        Main();
+    return 0;
+}

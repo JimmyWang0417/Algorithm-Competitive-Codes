@@ -106,7 +106,8 @@
         "text_encoding": "cpp",
         "convolution": "cpp",
         "all": "cpp",
-        "dynamic_bitset": "cpp"
+        "dynamic_bitset": "cpp",
+        "*.inc": "cpp"
     },
     "python.testing.pytestArgs": [
         "UVA"
@@ -242,7 +243,6 @@
         "*.fdb_latexmk",
     ],
     "latex-workshop.latex.recipe.default": "xelatex * 2",
-    
     "carbon.backgroundColor": "rgba(0,0,0,0)",
     "carbon.theme": "one-light",
     "carbon.dropShadow": true,
@@ -253,9 +253,21 @@
     "carbon.lineNumbers": false,
     "carbon.fontFamily": "Hack",
     "carbon.fontSize": 13,
-
     "editor.detectIndentation": false,
     "editor.insertSpaces": true,
     "editor.tabSize": 4,
-    "C_Cpp.errorSquiggles": "disabled"
+    "C_Cpp.errorSquiggles": "disabled",
+    // typst
+    "[typst]": {
+        "editor.tabSize": 4,
+        "editor.insertSpaces": true,
+        "editor.defaultFormatter": "myriad-dreamin.tinymist",
+        "editor.wordSeparators": "`~!@#$%^&*()=+[{]}\\|;:'\",.<>/?"
+    },
+    "tinymist.completion.triggerOnSnippetPlaceholders": true,
+    "tinymist.exportPdf": "onDocumentHasTitle",
+    "tinymist.formatterMode": "typstyle",
+    "tinymist.lint.enabled": true,
+    "tinymist.outputPath": "$root/articles/$name",
+    "tinymist.preview.cursorIndicator": true,
 }

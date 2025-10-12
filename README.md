@@ -65,13 +65,14 @@ JimmyWang0417 's Algorithm Competitive Codes
  Language            Files        Lines         Code     Comments       Blanks
 ===============================================================================
  Autoconf               16      1885023      1885023            0            0
- C++                  2396       349342       340139         6313         2890
- C++ Header             36         4919         3956          603          360
- Markdown                2         2666            0         2632           34
+ C++                  2397       349566       340363         6313         2890
+ C++ Header             41         5350         4380          603          367
+ Makefile                1            2            2            0            0
+ Markdown                2         2667            0         2633           34
  Python                  5          293          251            9           33
  Shell                   1           15            5            5            5
 ===============================================================================
- Total                2456      2242258      2229374         9562         3322
+ Total                2463      2242916      2230024         9563         3329
 ===============================================================================
 ```
 <!-- count the code end -->
@@ -1414,7 +1415,9 @@ JimmyWang0417 's Algorithm Competitive Codes
 ├── template.cpp
 ├── Templates
 │   ├── dataStructure
+│   │   ├── cartesianTree.hpp
 │   │   ├── decomposition.hpp
+│   │   ├── fenwick.hpp
 │   │   ├── linkCutTree.hpp
 │   │   └── topTree.hpp
 │   ├── geometry
@@ -1422,10 +1425,14 @@ JimmyWang0417 's Algorithm Competitive Codes
 │   │   └── 3d.hpp
 │   ├── math
 │   │   ├── euclidean.hpp
+│   │   ├── linnerBasis.hpp
+│   │   ├── matrix.hpp
 │   │   ├── min25.hpp
 │   │   ├── numberTheory.hpp
 │   │   ├── polynomial.hpp
 │   │   └── schreierSims.hpp
+│   ├── misc
+│   │   └── bit.hpp
 │   ├── networkFlow
 │   │   ├── minCostFlow.hpp
 │   │   └── networkFlow.hpp
@@ -2526,6 +2533,7 @@ JimmyWang0417 's Algorithm Competitive Codes
 │   ├── P5470 [NOI2019] 序列.cpp
 │   ├── P5471 [NOI2019] 弹跳.cpp
 │   ├── P5490 【模板】扫描线.cpp
+│   ├── P5491 【模板】二次剩余.cpp
 │   ├── P5494 【模板】线段树分裂.cpp
 │   ├── P5495 Dirichlet 前缀和.cpp
 │   ├── P5496 【模板】回文自动机（PAM）.cpp

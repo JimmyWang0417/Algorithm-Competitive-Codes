@@ -5,10 +5,9 @@ namespace stringAlgorithm
         vector<int> height;
         vector<int> sa, rk;
         suffixArray() = default;
-        suffixArray(const string &_str) : height(_str.size()), sa(_str.size()), rk(_str.size())
+        suffixArray(const string &str) : height(str.size()), sa(str.size()), rk(str.size())
         {
-            auto str = _str.c_str();
-            int n = (int)_str.size(), m = 128;
+            int n = (int)str.size(), m = 128;
             vector<int> x(2 * n, -1), y(2 * n, -1);
             vector<int> ws(max(m, n));
             for (int i = 0; i < n; ++i)
