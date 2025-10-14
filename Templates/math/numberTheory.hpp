@@ -136,6 +136,78 @@ struct numberTheory
         return crt(que, [](T a, T b, T p)
                    { return a * b % p; });
     }
+    auto BSGS(T a, T n, T p) -> T
+    {
+        if (n == 1)
+            return 0;
+        unordered_map<T, T> mp;
+        T res = n;
+        int m = (int)::sqrt(p) + 1;
+        for (int i = 0; i < m; ++i)
+        {
+            mp[res] = i;
+            (res *= a) %= p;
+        }
+        T x = pow(a, m, p);
+        res = 1;
+        for (int i = 1; i <= m + 1; ++i)
+        {
+            (res *= x) %= p;
+            if (mp.find(res) != mp.end())
+                return i * m - mp[res];
+        }
+        return -1;
+    }
+    auto exBSGS(T a, T b, T p) -> T
+    {
+        a %= p, b %= p;
+        if (b == 1 || p == 1)
+            return 0;
+        if (!b && !a)
+            return 1;
+        if (!a)
+            return -1;
+        if (!b)
+        {
+            T res = 0, d;
+            while ((d = gcd(a, p)) != 1)
+            {
+                ++res;
+                p /= d;
+                if (p == 1)
+                    return res;
+            }
+            return -1;
+        }
+        T res = 0, A = a, B = b, P = p, C = 1, d;
+        while ((d = gcd(A, P)) != 1)
+        {
+            if (B % d)
+                return -1;
+            P /= d, B /= d;
+            (C *= A / d) %= P;
+            ++res;
+            if (C == B)
+                return res;
+        }
+        unordered_map<T, T> mp;
+        T f = 1;
+        int t = ::sqrt(P) + 1;
+        for (int i = 0; i < t; i++)
+        {
+            mp[mul(f, B, P)] = i;
+            (f *= A) %= P;
+        }
+        auto tf = f;
+        (f *= C) %= P;
+        for (int i = 1; i <= t; i++)
+        {
+            if (mp.find(f) != mp.end())
+                return res + i * t - mp[f];
+            (f *= tf) %= P;
+        }
+        return -1;
+    }
     auto sqrt(T x, T p) -> pair<T, T>
     {
         if (x == 0)
