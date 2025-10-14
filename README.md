@@ -66,13 +66,13 @@ JimmyWang0417 's Algorithm Competitive Codes
 ===============================================================================
  Autoconf               16      1885023      1885023            0            0
  C++                  2399       349724       340519         6315         2890
- C++ Header             54         6219         5224          610          385
+ C++ Header             55         6288         5293          610          385
  Makefile                2            4            4            0            0
- Markdown                2         2690            0         2656           34
+ Markdown                2         2694            0         2660           34
  Python                  5          293          251            9           33
  Shell                   1           15            5            5            5
 ===============================================================================
- Total                2479      2243968      2231026         9595         3347
+ Total                2480      2244041      2231095         9599         3347
 ===============================================================================
 ```
 <!-- count the code end -->
@@ -1437,6 +1437,7 @@ JimmyWang0417 's Algorithm Competitive Codes
 │   │   │   └── networkFlow.hpp
 │   │   ├── ringCount.hpp
 │   │   ├── steinerTree.hpp
+│   │   ├── stoerWagner.hpp
 │   │   └── tarjan.hpp
 │   ├── initialization & misc
 │   │   ├── approx.hpp
