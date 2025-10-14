@@ -88,7 +88,7 @@ struct linnerBasis
             }
         return res;
     }
-    auto kth(T k) -> T
+    auto kth(T k) const -> T
     {
         adjust();
         T res = 0;
