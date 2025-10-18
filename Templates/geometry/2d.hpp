@@ -352,8 +352,26 @@ namespace twoDimension
         }
         return st;
     }
+    auto sqdiameter(polygon p) -> double
+    {
+        int n = (int)p.size();
+        if (n <= 1)
+            return 0;
+        if (n == 2)
+            return norm(p.front() - p.back());
+        double res = 0;
+        for (int i = 0, j = 3; i < n; ++i)
+        {
+            while (i != (j + 1) % n &&
+                   abs(orient(p[i], p[(i + 1) % n], p[j])) <= abs(orient(p[i], p[(i + 1) % n], p[(j + 1) % n])))
+                j = (j + 1) % n;
+            res = max({res, norm(p[j] - p[i]), norm(p[j] - p[(i + 1) % n])});
+        }
+        return res;
+    }
+    auto diameter(polygon p) { return sqrt(sqdiameter(p)); }
     auto minkowskiSum(polygon a, polygon b) // 逆时针凸包的闵可夫斯基和
-    { // 必须经过adjust的凸包才能正确处理
+    {                                       // 必须经过adjust的凸包才能正确处理
         if (a.empty() || b.empty())
             return polygon();
         a.push_back(a.front()), b.push_back(b.front());
