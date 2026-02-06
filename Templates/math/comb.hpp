@@ -22,7 +22,7 @@ struct Comb
     auto ifac(int n)
     {
         init(n);
-        return _fac[n];
+        return _ifac[n];
     }
     auto inv(int n)
     {
