@@ -61,19 +61,19 @@ JimmyWang0417 's Algorithm Competitive Codes
 程序的统计信息：
 <!-- count the code begin -->
 ```plain
-===============================================================================
- Language            Files        Lines         Code     Comments       Blanks
-===============================================================================
- Autoconf               16      1885023      1885023            0            0
- C++                  2405       350308       341098         6319         2891
- C++ Header             58         6490         5495          610          385
- Makefile                2            4            4            0            0
- Markdown                2         2695            0         2661           34
- Python                  5          293          251            9           33
- Shell                   1           15            5            5            5
-===============================================================================
- Total                2489      2244828      2231876         9604         3348
-===============================================================================
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ Language              Files        Lines         Code     Comments       Blanks
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ Autoconf                 16      1885023      1885023            0            0
+ C++                    2418       352017       342770         6336         2911
+ C++ Header               58         6490         5495          610          385
+ Makefile                  2            4            4            0            0
+ Markdown                  2         2704            0         2670           34
+ Python                    5          293          251            9           33
+ Shell                     1           15            5            5            5
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+ Total                  2502      2246546      2233548         9630         3368
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 <!-- count the code end -->
 
@@ -145,8 +145,6 @@ JimmyWang0417 's Algorithm Competitive Codes
 │   ├── 503. 借教室.cpp
 │   ├── 507. 积木大赛.cpp
 │   └── 730. 机器人跳跃问题.cpp
-├── articles
-│   └── project.pdf
 ├── AtCoder
 │   ├── AT1219 歴史の研究.cpp
 │   ├── AT1979 [AGC001A] BBQ Easy.cpp
@@ -1235,7 +1233,9 @@ JimmyWang0417 's Algorithm Competitive Codes
 │   │   └── L. Recover Statistics.cpp
 │   ├── The 3rd Universal Cup. Stage 16: Nanjing
 │   │   ├── B. Birthday Gift.cpp
-│   │   └── C. Topology.cpp
+│   │   ├── C. Topology.cpp
+│   │   ├── I. Bingo.cpp
+│   │   └── M. Ordainer of Inexorable Judgment.cpp
 │   ├── The 3rd Universal Cup. Stage 17: Jinan
 │   │   ├── A. The Fool.cpp
 │   │   ├── B. The Magician.cpp
@@ -1305,12 +1305,18 @@ JimmyWang0417 's Algorithm Competitive Codes
 │   │   ├── K. Kindergarten Square.cpp
 │   │   └── L. Looping RPS.cpp
 │   ├── The 3rd Universal Cup. Stage 25: Hangzhou
+│   │   ├── A. AUS.cpp
 │   │   ├── B. Barkley III.cpp
+│   │   ├── D. Dividing Sequence.cpp
+│   │   ├── E. Elevator II.cpp
 │   │   ├── F. Fuzzy Ranking.cpp
 │   │   ├── G. Gathering Mushrooms.cpp
+│   │   ├── H. Heavy-light Decomposition.cpp
 │   │   ├── I. Identify Chord.cpp
 │   │   ├── J. Japanese Bands.cpp
-│   │   └── L. Let's Go! New Adventure.cpp
+│   │   ├── K. Kind of Bingo.cpp
+│   │   ├── L. Let's Go! New Adventure.cpp
+│   │   └── M. Make It Divisible.cpp
 │   ├── The 3rd Universal Cup. Stage 27: London
 │   │   ├── E. Equal Strings.cpp
 │   │   ├── G. Geo Sharding.cpp
@@ -1370,8 +1376,14 @@ JimmyWang0417 's Algorithm Competitive Codes
 │   │   ├── K. Routing K-Codes.cpp
 │   │   ├── L. Random Numbers.cpp
 │   │   └── M. Mathematics Championships.cpp
-│   └── The 3rd Universal Cup. Stage 8: Cangqian
-│       └── H. Permutation.cpp
+│   ├── The 3rd Universal Cup. Stage 8: Cangqian
+│   │   └── H. Permutation.cpp
+│   └── 第十一届中国大学生程序设计竞赛网络预选赛（CCPC Online 2025）
+│       ├── A. Hey, Have You Seen My Kangaroo?.cpp
+│       ├── B. 魔塔.cpp
+│       ├── F. Subway.cpp
+│       ├── H. 教师.cpp
+│       └── M. 并行计算.cpp
 ├── README.md
 ├── Sphere Online Judge
 │   ├── SP10264 METEORS - Meteors.cpp
