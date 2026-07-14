@@ -1,0 +1,62 @@
+#pragma once
+#include <vector>
+
+template <typename Event>
+struct segDivide
+{
+    int n = 0;
+    std::vector<std::vector<Event>> tree;
+
+    segDivide() = default;
+    segDivide(int _n) { build(_n); }
+
+    auto build(int _n)
+    {
+        n = _n;
+        tree.assign(n * 4 + 5, {});
+    }
+
+    auto add(int rt, int l, int r, int x, int y, const Event &e) -> void
+    {
+        if (r < x || l > y)
+            return;
+        if (x <= l && r <= y)
+        {
+            tree[rt].push_back(e);
+            return;
+        }
+        int mid = (l + r) >> 1;
+        add(rt << 1, l, mid, x, y, e);
+        add(rt << 1 | 1, mid + 1, r, x, y, e);
+    }
+
+    auto add(int l, int r, const Event &e)
+    {
+        if (l <= r && n)
+            add(1, 1, n, l, r, e);
+    }
+
+    template <typename Add, typename Snapshot, typename Rollback, typename Answer>
+    auto dfs(int rt, int l, int r, Add &&addEvent, Snapshot &&snapshot, Rollback &&rollback, Answer &&answer) -> void
+    {
+        auto state = snapshot();
+        for (const auto &e : tree[rt])
+            addEvent(e);
+        if (l == r)
+            answer(l);
+        else
+        {
+            int mid = (l + r) >> 1;
+            dfs(rt << 1, l, mid, addEvent, snapshot, rollback, answer);
+            dfs(rt << 1 | 1, mid + 1, r, addEvent, snapshot, rollback, answer);
+        }
+        rollback(state);
+    }
+
+    template <typename Add, typename Snapshot, typename Rollback, typename Answer>
+    auto work(Add &&addEvent, Snapshot &&snapshot, Rollback &&rollback, Answer &&answer)
+    {
+        if (n)
+            dfs(1, 1, n, addEvent, snapshot, rollback, answer);
+    }
+};

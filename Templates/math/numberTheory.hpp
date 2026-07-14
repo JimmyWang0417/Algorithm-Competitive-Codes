@@ -17,7 +17,7 @@ struct numberTheory
     using functype = function<T(T, T, T)>;
     functype mul;
     numberTheory(const functype &other = _mul) : mul(other) {}
-    auto exgcd(T a, T b) -> tuple<T, T, T>
+    static auto exgcd(T a, T b) -> tuple<T, T, T>
     {
         if (b == 0)
             return {a, 1, 0};
@@ -51,7 +51,7 @@ struct numberTheory
         }
         return (d + c) % c;
     }
-    auto lucas(T n, T m, T p) // (p - 1) * (p - 1) <= TMAX
+    static auto lucas(T n, T m, T p) // (p - 1) * (p - 1) <= TMAX
     {
         vector<T> fac(p), ifac(p);
         fac[0] = 1;
@@ -73,7 +73,7 @@ struct numberTheory
         return (C(n, m) + p) % p;
     }
     template <typename _T>
-    auto pow(T a, _T b, T p)
+    static auto pow(T a, _T b, T p)
     {
         T res = 1;
         while (b)
@@ -136,7 +136,7 @@ struct numberTheory
         return crt(que, [](T a, T b, T p)
                    { return a * b % p; });
     }
-    auto BSGS(T a, T n, T p) -> T
+    static auto BSGS(T a, T n, T p) -> T
     {
         if (n == 1)
             return 0;
@@ -208,7 +208,7 @@ struct numberTheory
         }
         return -1;
     }
-    auto sqrt(T x, T p) -> pair<T, T>
+    static auto sqrt(T x, T p) -> pair<T, T>
     {
         if (x == 0)
             return {0, 0};

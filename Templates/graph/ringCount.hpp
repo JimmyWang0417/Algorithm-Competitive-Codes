@@ -1,6 +1,6 @@
 struct ringCount
 {
-    auto three(int n, const vector<pair<int, int>> &edges)
+    static auto three(int n, const vector<pair<int, int>> &edges)
     {
         vector<int> deg(n + 5);
         for (auto [u, v] : edges)
@@ -26,7 +26,7 @@ struct ringCount
         }
         return ans;
     }
-    auto four(int n, const vector<pair<int, int>> &edges)
+    static auto four(int n, const vector<pair<int, int>> &edges)
     {
         vector<int> deg(n + 5);
         vector<vector<int>> g(n + 5), h(n + 5);
