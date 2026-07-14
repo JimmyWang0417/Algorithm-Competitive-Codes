@@ -66,13 +66,13 @@ JimmyWang0417 's Algorithm Competitive Codes
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
  Autoconf                 16      1885023      1885023            0            0
  C++                    2457       359997       350301         6462         3234
- C++ Header               77         9225         7971          606          648
+ C++ Header               81         9780         8454          606          720
  Makefile                  2            4            4            0            0
  Markdown                  2         2777            0         2743           34
  Python                    6          294          252            9           33
  Shell                     1           15            5            5            5
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- Total                  2561      2257335      2243556         9825         3954
+ Total                  2565      2257890      2244039         9825         4026
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 <!-- count the code end -->
@@ -1483,7 +1483,9 @@ JimmyWang0417 's Algorithm Competitive Codes
 │   ├── math
 │   │   ├── berlekampMassey.hpp
 │   │   ├── comb.hpp
+│   │   ├── duSieve.hpp
 │   │   ├── euclidean.hpp
+│   │   ├── fwt.hpp
 │   │   ├── linearBasis.hpp
 │   │   ├── matrix.hpp
 │   │   ├── min25.hpp
@@ -1496,6 +1498,8 @@ JimmyWang0417 's Algorithm Competitive Codes
 │   │   ├── polynomial.hpp
 │   │   ├── prime.hpp
 │   │   ├── schreierSims.hpp
+│   │   ├── setPowerSeries.hpp
+│   │   ├── sieve.hpp
 │   │   ├── Simpson.hpp
 │   │   └── stirling.hpp
 │   └── stringAlgorithm

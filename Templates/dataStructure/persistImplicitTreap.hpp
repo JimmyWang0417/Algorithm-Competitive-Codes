@@ -4,6 +4,9 @@
 #include <random>
 #include <vector>
 
+#define lc(x) tree[x].l
+#define rc(x) tree[x].r
+
 template <typename T = long long>
 struct persistImplicitTreap
 {
@@ -15,12 +18,19 @@ struct persistImplicitTreap
         bool rev = false;
     };
 
-    std::vector<Node> tree;
-    std::vector<int> root;
-    std::mt19937 rnd;
+    vector<Node> tree;
+    vector<int> root;
+    mt19937 rnd;
 
-    persistImplicitTreap() : tree(1), root(1, 0), rnd((unsigned)std::chrono::steady_clock::now().time_since_epoch().count()) {}
-    persistImplicitTreap(const std::vector<T> &a) : persistImplicitTreap() { build(a); }
+    persistImplicitTreap() : tree(1), root(1), rnd((unsigned)chrono::steady_clock::now().time_since_epoch().count()) {}
+    persistImplicitTreap(const vector<T> &a)
+        : tree(1), root(1), rnd((unsigned)chrono::steady_clock::now().time_since_epoch().count())
+    {
+        int rt = 0;
+        for (int i = 1; i < (int)a.size(); ++i)
+            rt = merge(rt, newnode(a[i]));
+        root.push_back(rt);
+    }
 
     auto newnode(T val)
     {
@@ -42,23 +52,23 @@ struct persistImplicitTreap
 
     auto pushup(int rt)
     {
-        tree[rt].size = tree[tree[rt].l].size + tree[tree[rt].r].size + 1;
-        tree[rt].sum = tree[tree[rt].l].sum + tree[tree[rt].r].sum + tree[rt].val;
+        tree[rt].size = tree[lc(rt)].size + tree[rc(rt)].size + 1;
+        tree[rt].sum = tree[lc(rt)].sum + tree[rc(rt)].sum + tree[rt].val;
     }
 
     auto pushdown(int rt)
     {
         if (!rt || !tree[rt].rev)
             return;
-        if (tree[rt].l)
-            tree[rt].l = clone(tree[rt].l);
-        if (tree[rt].r)
-            tree[rt].r = clone(tree[rt].r);
-        std::swap(tree[rt].l, tree[rt].r);
-        if (tree[rt].l)
-            tree[tree[rt].l].rev ^= 1;
-        if (tree[rt].r)
-            tree[tree[rt].r].rev ^= 1;
+        if (lc(rt))
+            lc(rt) = clone(lc(rt));
+        if (rc(rt))
+            rc(rt) = clone(rc(rt));
+        swap(lc(rt), rc(rt));
+        if (lc(rt))
+            tree[lc(rt)].rev ^= 1;
+        if (rc(rt))
+            tree[rc(rt)].rev ^= 1;
         tree[rt].rev = false;
     }
 
@@ -71,20 +81,20 @@ struct persistImplicitTreap
         }
         rt = clone(rt);
         pushdown(rt);
-        if (tree[tree[rt].l].size < size)
+        if (tree[lc(rt)].size < size)
         {
             x = rt;
             int right = 0;
-            split(tree[x].r, size - tree[tree[x].l].size - 1, right, y);
-            tree[x].r = right;
+            split(rc(x), size - tree[lc(x)].size - 1, right, y);
+            rc(x) = right;
             pushup(x);
         }
         else
         {
             y = rt;
             int left = 0;
-            split(tree[y].l, size, x, left);
-            tree[y].l = left;
+            split(lc(y), size, x, left);
+            lc(y) = left;
             pushup(y);
         }
     }
@@ -97,18 +107,18 @@ struct persistImplicitTreap
         {
             int rt = clone(x);
             pushdown(rt);
-            tree[rt].r = merge(tree[rt].r, y);
+            rc(rt) = merge(rc(rt), y);
             pushup(rt);
             return rt;
         }
         int rt = clone(y);
         pushdown(rt);
-        tree[rt].l = merge(x, tree[rt].l);
+        lc(rt) = merge(x, lc(rt));
         pushup(rt);
         return rt;
     }
 
-    auto build(const std::vector<T> &a)
+    auto build(const vector<T> &a)
     {
         int rt = 0;
         for (int i = 1; i < (int)a.size(); ++i)
@@ -152,8 +162,8 @@ struct persistImplicitTreap
         if (x <= l && r <= y)
             return tree[rt].sum;
         bool nowRev = rev ^ tree[rt].rev;
-        int left = nowRev ? tree[rt].r : tree[rt].l;
-        int right = nowRev ? tree[rt].l : tree[rt].r;
+        int left = nowRev ? rc(rt) : lc(rt);
+        int right = nowRev ? lc(rt) : rc(rt);
         int mid = l + tree[left].size;
         return query(left, l, mid - 1, x, y, nowRev) +
                (x <= mid && mid <= y ? tree[rt].val : 0) +
@@ -165,13 +175,13 @@ struct persistImplicitTreap
         return query(root[ver], 1, tree[root[ver]].size, l, r);
     }
 
-    auto dfs(int rt, std::vector<T> &res, bool rev = false) const -> void
+    auto dfs(int rt, vector<T> &res, bool rev = false) const -> void
     {
         if (!rt)
             return;
         bool nowRev = rev ^ tree[rt].rev;
-        int left = nowRev ? tree[rt].r : tree[rt].l;
-        int right = nowRev ? tree[rt].l : tree[rt].r;
+        int left = nowRev ? rc(rt) : lc(rt);
+        int right = nowRev ? lc(rt) : rc(rt);
         dfs(left, res, nowRev);
         res.push_back(tree[rt].val);
         dfs(right, res, nowRev);
@@ -179,7 +189,7 @@ struct persistImplicitTreap
 
     auto dump(int ver) const
     {
-        std::vector<T> res;
+        vector<T> res;
         dfs(root[ver], res);
         return res;
     }
@@ -190,3 +200,6 @@ struct persistImplicitTreap
         return (int)root.size() - 1;
     }
 };
+
+#undef lc
+#undef rc

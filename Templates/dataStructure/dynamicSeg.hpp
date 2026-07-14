@@ -1,6 +1,9 @@
 #pragma once
 #include <vector>
 
+#define lc(x) tree[x].l
+#define rc(x) tree[x].r
+
 template <typename T = long long>
 struct dynamicSeg
 {
@@ -10,9 +13,9 @@ struct dynamicSeg
         T sum = 0;
     };
 
-    std::vector<Node> tree;
+    vector<Node> tree;
 
-    dynamicSeg() { tree.assign(1, Node()); }
+    dynamicSeg() : tree(1) {}
 
     auto newnode()
     {
@@ -22,7 +25,7 @@ struct dynamicSeg
 
     auto pushup(int rt)
     {
-        tree[rt].sum = tree[tree[rt].l].sum + tree[tree[rt].r].sum;
+        tree[rt].sum = tree[lc(rt)].sum + tree[rc(rt)].sum;
     }
 
     auto update(int &rt, int l, int r, int pos, T val) -> void
@@ -35,15 +38,15 @@ struct dynamicSeg
         int mid = (l + r) >> 1;
         if (pos <= mid)
         {
-            int child = tree[rt].l;
+            int child = lc(rt);
             update(child, l, mid, pos, val);
-            tree[rt].l = child;
+            lc(rt) = child;
         }
         else
         {
-            int child = tree[rt].r;
+            int child = rc(rt);
             update(child, mid + 1, r, pos, val);
-            tree[rt].r = child;
+            rc(rt) = child;
         }
     }
 
@@ -54,7 +57,7 @@ struct dynamicSeg
         if (x <= l && r <= y)
             return tree[rt].sum;
         int mid = (l + r) >> 1;
-        return query(tree[rt].l, l, mid, x, y) + query(tree[rt].r, mid + 1, r, x, y);
+        return query(lc(rt), l, mid, x, y) + query(rc(rt), mid + 1, r, x, y);
     }
 
     auto kth(int rt, int l, int r, T k) const -> int
@@ -62,9 +65,9 @@ struct dynamicSeg
         if (l == r)
             return l;
         int mid = (l + r) >> 1;
-        if (k <= tree[tree[rt].l].sum)
-            return kth(tree[rt].l, l, mid, k);
-        return kth(tree[rt].r, mid + 1, r, k - tree[tree[rt].l].sum);
+        if (k <= tree[lc(rt)].sum)
+            return kth(lc(rt), l, mid, k);
+        return kth(rc(rt), mid + 1, r, k - tree[lc(rt)].sum);
     }
 
     auto merge(int x, int y, int l, int r) -> int
@@ -77,8 +80,8 @@ struct dynamicSeg
             return x;
         }
         int mid = (l + r) >> 1;
-        tree[x].l = merge(tree[x].l, tree[y].l, l, mid);
-        tree[x].r = merge(tree[x].r, tree[y].r, mid + 1, r);
+        lc(x) = merge(lc(x), lc(y), l, mid);
+        rc(x) = merge(rc(x), rc(y), mid + 1, r);
         pushup(x);
         return x;
     }
@@ -94,15 +97,18 @@ struct dynamicSeg
             return rt;
         }
         int rt = newnode(), mid = (l + r) >> 1;
-        int leftPre = tree[pre].l, rightPre = tree[pre].r;
+        int leftPre = lc(pre), rightPre = rc(pre);
         int left = split(leftPre, l, mid, x, y);
         int right = split(rightPre, mid + 1, r, x, y);
-        tree[pre].l = leftPre;
-        tree[pre].r = rightPre;
-        tree[rt].l = left;
-        tree[rt].r = right;
+        lc(pre) = leftPre;
+        rc(pre) = rightPre;
+        lc(rt) = left;
+        rc(rt) = right;
         pushup(pre);
         pushup(rt);
         return rt;
     }
 };
+
+#undef lc
+#undef rc

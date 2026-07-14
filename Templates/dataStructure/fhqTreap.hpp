@@ -4,6 +4,9 @@
 #include <random>
 #include <vector>
 
+#define lc(x) tree[x].l
+#define rc(x) tree[x].r
+
 template <typename T = int>
 struct fhqTreap
 {
@@ -15,10 +18,10 @@ struct fhqTreap
     };
 
     int root = 0;
-    std::vector<Node> tree;
-    std::mt19937 rnd;
+    vector<Node> tree;
+    mt19937 rnd;
 
-    fhqTreap() : tree(1), rnd((unsigned)std::chrono::steady_clock::now().time_since_epoch().count()) {}
+    fhqTreap() : tree(1), rnd((unsigned)chrono::steady_clock::now().time_since_epoch().count()) {}
 
     auto size(int rt) const { return tree[rt].size; }
 
@@ -31,7 +34,7 @@ struct fhqTreap
     auto pushup(int rt)
     {
         if (rt)
-            tree[rt].size = tree[tree[rt].l].size + tree[tree[rt].r].size + 1;
+            tree[rt].size = tree[lc(rt)].size + tree[rc(rt)].size + 1;
     }
 
     auto split(int rt, T val, int &x, int &y) -> void
@@ -44,12 +47,12 @@ struct fhqTreap
         if (tree[rt].val <= val)
         {
             x = rt;
-            split(tree[rt].r, val, tree[rt].r, y);
+            split(rc(rt), val, rc(rt), y);
         }
         else
         {
             y = rt;
-            split(tree[rt].l, val, x, tree[rt].l);
+            split(lc(rt), val, x, lc(rt));
         }
         pushup(rt);
     }
@@ -60,11 +63,11 @@ struct fhqTreap
             return x | y;
         if (tree[x].key > tree[y].key)
         {
-            tree[x].r = merge(tree[x].r, y);
+            rc(x) = merge(rc(x), y);
             pushup(x);
             return x;
         }
-        tree[y].l = merge(x, tree[y].l);
+        lc(y) = merge(x, lc(y));
         pushup(y);
         return y;
     }
@@ -82,7 +85,7 @@ struct fhqTreap
         split(root, val, x, z);
         split(x, val - 1, x, y);
         if (y)
-            y = merge(tree[y].l, tree[y].r);
+            y = merge(lc(y), rc(y));
         root = merge(merge(x, y), z);
     }
 
@@ -100,12 +103,12 @@ struct fhqTreap
         int rt = root;
         while (rt)
         {
-            if (k <= tree[tree[rt].l].size)
-                rt = tree[rt].l;
-            else if (k > tree[tree[rt].l].size + 1)
+            if (k <= tree[lc(rt)].size)
+                rt = lc(rt);
+            else if (k > tree[lc(rt)].size + 1)
             {
-                k -= tree[tree[rt].l].size + 1;
-                rt = tree[rt].r;
+                k -= tree[lc(rt)].size + 1;
+                rt = rc(rt);
             }
             else
                 return tree[rt].val;
@@ -123,8 +126,8 @@ struct fhqTreap
             root = merge(x, y);
             return false;
         }
-        while (tree[rt].r)
-            rt = tree[rt].r;
+        while (rc(rt))
+            rt = rc(rt);
         res = tree[rt].val;
         root = merge(x, y);
         return true;
@@ -140,8 +143,8 @@ struct fhqTreap
             root = merge(x, y);
             return false;
         }
-        while (tree[rt].l)
-            rt = tree[rt].l;
+        while (lc(rt))
+            rt = lc(rt);
         res = tree[rt].val;
         root = merge(x, y);
         return true;
@@ -149,15 +152,18 @@ struct fhqTreap
 
     auto pre(T val)
     {
-        T res = std::numeric_limits<T>::lowest();
+        T res = numeric_limits<T>::lowest();
         pre(val, res);
         return res;
     }
 
     auto next(T val)
     {
-        T res = std::numeric_limits<T>::max();
+        T res = numeric_limits<T>::max();
         next(val, res);
         return res;
     }
 };
+
+#undef lc
+#undef rc

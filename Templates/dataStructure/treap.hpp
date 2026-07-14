@@ -4,6 +4,9 @@
 #include <random>
 #include <vector>
 
+#define lc(x) tree[x].ch[0]
+#define rc(x) tree[x].ch[1]
+
 template <typename T = int>
 struct treap
 {
@@ -16,10 +19,10 @@ struct treap
     };
 
     int root = 0;
-    std::vector<Node> tree;
-    std::mt19937 rnd;
+    vector<Node> tree;
+    mt19937 rnd;
 
-    treap() : tree(1), rnd((unsigned)std::chrono::steady_clock::now().time_since_epoch().count()) {}
+    treap() : tree(1), rnd((unsigned)chrono::steady_clock::now().time_since_epoch().count()) {}
 
     auto newnode(T val)
     {
@@ -33,7 +36,7 @@ struct treap
 
     auto pushup(int rt)
     {
-        tree[rt].size = tree[tree[rt].ch[0]].size + tree[tree[rt].ch[1]].size + tree[rt].cnt;
+        tree[rt].size = tree[lc(rt)].size + tree[rc(rt)].size + tree[rt].cnt;
     }
 
     auto rotate(int &rt, int d)
@@ -72,18 +75,18 @@ struct treap
         if (!rt)
             return;
         if (val < tree[rt].val)
-            erase(tree[rt].ch[0], val);
+            erase(lc(rt), val);
         else if (val > tree[rt].val)
-            erase(tree[rt].ch[1], val);
+            erase(rc(rt), val);
         else
         {
             if (tree[rt].cnt > 1)
                 --tree[rt].cnt;
-            else if (!tree[rt].ch[0] || !tree[rt].ch[1])
-                rt = tree[rt].ch[0] | tree[rt].ch[1];
+            else if (!lc(rt) || !rc(rt))
+                rt = lc(rt) | rc(rt);
             else
             {
-                int d = tree[tree[rt].ch[0]].key > tree[tree[rt].ch[1]].key;
+                int d = tree[lc(rt)].key > tree[rc(rt)].key;
                 rotate(rt, d);
                 erase(tree[rt].ch[d], val);
             }
@@ -100,29 +103,29 @@ struct treap
         if (!rt)
             return 1;
         if (val <= tree[rt].val)
-            return rank(tree[rt].ch[0], val);
-        return tree[tree[rt].ch[0]].size + tree[rt].cnt + rank(tree[rt].ch[1], val);
+            return rank(lc(rt), val);
+        return tree[lc(rt)].size + tree[rt].cnt + rank(rc(rt), val);
     }
 
     auto kth(int rt, int k) const -> T
     {
-        if (k <= tree[tree[rt].ch[0]].size)
-            return kth(tree[rt].ch[0], k);
-        if (k > tree[tree[rt].ch[0]].size + tree[rt].cnt)
-            return kth(tree[rt].ch[1], k - tree[tree[rt].ch[0]].size - tree[rt].cnt);
+        if (k <= tree[lc(rt)].size)
+            return kth(lc(rt), k);
+        if (k > tree[lc(rt)].size + tree[rt].cnt)
+            return kth(rc(rt), k - tree[lc(rt)].size - tree[rt].cnt);
         return tree[rt].val;
     }
 
     auto pre(T val) const
     {
         int rt = root;
-        T res = std::numeric_limits<T>::lowest();
+        T res = numeric_limits<T>::lowest();
         while (rt)
         {
             if (tree[rt].val < val)
-                res = tree[rt].val, rt = tree[rt].ch[1];
+                res = tree[rt].val, rt = rc(rt);
             else
-                rt = tree[rt].ch[0];
+                rt = lc(rt);
         }
         return res;
     }
@@ -130,13 +133,13 @@ struct treap
     auto next(T val) const
     {
         int rt = root;
-        T res = std::numeric_limits<T>::max();
+        T res = numeric_limits<T>::max();
         while (rt)
         {
             if (tree[rt].val > val)
-                res = tree[rt].val, rt = tree[rt].ch[0];
+                res = tree[rt].val, rt = lc(rt);
             else
-                rt = tree[rt].ch[1];
+                rt = rc(rt);
         }
         return res;
     }
@@ -144,3 +147,6 @@ struct treap
     auto rank(T val) const { return rank(root, val); }
     auto kth(int k) const { return kth(root, k); }
 };
+
+#undef lc
+#undef rc

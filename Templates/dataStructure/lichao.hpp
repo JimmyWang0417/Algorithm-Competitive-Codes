@@ -4,6 +4,9 @@
 #include <utility>
 #include <vector>
 
+#define lc(x) tree[x].ls
+#define rc(x) tree[x].rs
+
 struct lichao
 {
     using db = long double;
@@ -23,23 +26,29 @@ struct lichao
 
     long long L = 1, R = 0;
     int root = 0;
-    std::vector<Line> line;
-    std::vector<Node> tree;
+    vector<Line> line;
+    vector<Node> tree;
 
-    lichao() { clear(); }
-    lichao(long long l, long long r) { build(l, r); }
+    lichao() : line(1), tree(1) {}
+    lichao(long long l, long long r) : L(l), R(r), line(1), tree(1) {}
 
     void clear()
     {
         root = 0;
-        line.assign(1, Line());
-        tree.assign(1, Node());
+        line.resize(1);
+        tree.resize(1);
+        line[0] = Line();
+        tree[0] = Node();
     }
 
     void build(long long l, long long r)
     {
-        clear();
         L = l, R = r;
+        root = 0;
+        line.resize(1);
+        tree.resize(1);
+        line[0] = Line();
+        tree[0] = Node();
     }
 
     auto newnode()
@@ -76,13 +85,13 @@ struct lichao
         long long mid = (l + r) >> 1;
         int cur = tree[rt].line;
         if (better(id, cur, mid))
-            std::swap(id, tree[rt].line), cur = tree[rt].line;
+            swap(id, tree[rt].line), cur = tree[rt].line;
         if (l == r)
             return rt;
         if (better(id, cur, l))
-            tree[rt].ls = insert(tree[rt].ls, l, mid, id);
+            lc(rt) = insert(lc(rt), l, mid, id);
         else if (better(id, cur, r))
-            tree[rt].rs = insert(tree[rt].rs, mid + 1, r, id);
+            rc(rt) = insert(rc(rt), mid + 1, r, id);
         return rt;
     }
 
@@ -100,28 +109,28 @@ struct lichao
         if (!rt)
             rt = newnode();
         long long mid = (l + r) >> 1;
-        tree[rt].ls = insertSeg(tree[rt].ls, l, mid, x, y, id);
-        tree[rt].rs = insertSeg(tree[rt].rs, mid + 1, r, x, y, id);
+        lc(rt) = insertSeg(lc(rt), l, mid, x, y, id);
+        rc(rt) = insertSeg(rc(rt), mid + 1, r, x, y, id);
         return rt;
     }
 
     auto insertSeg(long long l, long long r, db k, db b, int id = -1)
     {
         if (l > r)
-            std::swap(l, r);
+            swap(l, r);
         root = insertSeg(root, L, R, l, r, addLine(k, b, id));
     }
 
     auto insertSegment(long long x1, db y1, long long x2, db y2, int id = -1)
     {
         if (x1 == x2)
-            return insertSeg(x1, x1, 0, std::max(y1, y2), id);
+            return insertSeg(x1, x1, 0, max(y1, y2), id);
         db k = (y2 - y1) / (x2 - x1);
         db b = y1 - k * x1;
-        insertSeg(std::min(x1, x2), std::max(x1, x2), k, b, id);
+        insertSeg(min(x1, x2), max(x1, x2), k, b, id);
     }
 
-    auto best(std::pair<db, int> lhs, std::pair<db, int> rhs) const
+    auto best(pair<db, int> lhs, pair<db, int> rhs) const
     {
         if (lhs.first != rhs.first)
             return lhs.first > rhs.first ? lhs : rhs;
@@ -132,11 +141,11 @@ struct lichao
         return lhs.second < rhs.second ? lhs : rhs;
     }
 
-    auto query(int rt, long long l, long long r, long long pos) const -> std::pair<db, int>
+    auto query(int rt, long long l, long long r, long long pos) const -> pair<db, int>
     {
         if (!rt)
             return {negInf, 0};
-        std::pair<db, int> res = {negInf, 0};
+        pair<db, int> res = {negInf, 0};
         if (tree[rt].line)
         {
             const auto &cur = line[tree[rt].line];
@@ -146,8 +155,8 @@ struct lichao
             return res;
         long long mid = (l + r) >> 1;
         if (pos <= mid)
-            return best(res, query(tree[rt].ls, l, mid, pos));
-        return best(res, query(tree[rt].rs, mid + 1, r, pos));
+            return best(res, query(lc(rt), l, mid, pos));
+        return best(res, query(rc(rt), mid + 1, r, pos));
     }
 
     auto query(long long pos) const
@@ -155,3 +164,6 @@ struct lichao
         return query(root, L, R, pos);
     }
 };
+
+#undef lc
+#undef rc

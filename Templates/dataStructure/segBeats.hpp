@@ -3,10 +3,13 @@
 #include <limits>
 #include <vector>
 
+#define lc (rt << 1)
+#define rc (rt << 1 | 1)
+
 template <typename T = long long>
 struct segBeats
 {
-    static constexpr T negInf = std::numeric_limits<T>::lowest() / 4;
+    static constexpr T negInf = numeric_limits<T>::lowest() / 4;
 
     struct Node
     {
@@ -18,61 +21,63 @@ struct segBeats
         auto update(T valMax, T valOther, T hisMaxVal, T hisOtherVal)
         {
             sum += valMax * cnt + valOther * (len - cnt);
-            hisMax = std::max(hisMax, max + hisMaxVal);
+            hisMax = max(hisMax, max + hisMaxVal);
             max += valMax;
             if (second > negInf)
                 second += valOther;
-            hisMaxTag = std::max(hisMaxTag, addMax + hisMaxVal);
-            hisOtherTag = std::max(hisOtherTag, addOther + hisOtherVal);
+            hisMaxTag = max(hisMaxTag, addMax + hisMaxVal);
+            hisOtherTag = max(hisOtherTag, addOther + hisOtherVal);
             addMax += valMax;
             addOther += valOther;
         }
     };
 
     int n = 0;
-    std::vector<Node> tree;
+    vector<Node> tree;
 
     segBeats() = default;
-    segBeats(const std::vector<T> &a) { build(a); }
+    segBeats(const vector<T> &a) : n((int)a.size() - 1), tree(n * 4 + 5)
+    {
+        if (n)
+            build(1, 1, n, a);
+    }
 
     auto init(int _n)
     {
         n = _n;
-        tree.assign(n * 4 + 5, {});
+        tree.resize(n * 4 + 5);
     }
 
     auto pushup(int rt)
     {
-        int lc = rt << 1, rc = rt << 1 | 1;
         tree[rt].len = tree[lc].len + tree[rc].len;
         tree[rt].sum = tree[lc].sum + tree[rc].sum;
         if (tree[lc].max > tree[rc].max)
         {
             tree[rt].max = tree[lc].max;
             tree[rt].cnt = tree[lc].cnt;
-            tree[rt].second = std::max(tree[lc].second, tree[rc].max);
+            tree[rt].second = max(tree[lc].second, tree[rc].max);
         }
         else if (tree[lc].max < tree[rc].max)
         {
             tree[rt].max = tree[rc].max;
             tree[rt].cnt = tree[rc].cnt;
-            tree[rt].second = std::max(tree[lc].max, tree[rc].second);
+            tree[rt].second = max(tree[lc].max, tree[rc].second);
         }
         else
         {
             tree[rt].max = tree[lc].max;
             tree[rt].cnt = tree[lc].cnt + tree[rc].cnt;
-            tree[rt].second = std::max(tree[lc].second, tree[rc].second);
+            tree[rt].second = max(tree[lc].second, tree[rc].second);
         }
-        tree[rt].hisMax = std::max(tree[lc].hisMax, tree[rc].hisMax);
+        tree[rt].hisMax = max(tree[lc].hisMax, tree[rc].hisMax);
     }
 
     auto pushdown(int rt)
     {
-        int lc = rt << 1, rc = rt << 1 | 1;
         if (!tree[rt].addMax && !tree[rt].addOther && !tree[rt].hisMaxTag && !tree[rt].hisOtherTag)
             return;
-        T maxv = std::max(tree[lc].max, tree[rc].max);
+        T maxv = max(tree[lc].max, tree[rc].max);
         if (tree[lc].max == maxv)
             tree[lc].update(tree[rt].addMax, tree[rt].addOther, tree[rt].hisMaxTag, tree[rt].hisOtherTag);
         else
@@ -84,7 +89,7 @@ struct segBeats
         tree[rt].addMax = tree[rt].addOther = tree[rt].hisMaxTag = tree[rt].hisOtherTag = 0;
     }
 
-    auto build(int rt, int l, int r, const std::vector<T> &a) -> void
+    auto build(int rt, int l, int r, const vector<T> &a) -> void
     {
         tree[rt] = Node();
         tree[rt].len = r - l + 1;
@@ -96,12 +101,12 @@ struct segBeats
             return;
         }
         int mid = (l + r) >> 1;
-        build(rt << 1, l, mid, a);
-        build(rt << 1 | 1, mid + 1, r, a);
+        build(lc, l, mid, a);
+        build(rc, mid + 1, r, a);
         pushup(rt);
     }
 
-    auto build(const std::vector<T> &a)
+    auto build(const vector<T> &a)
     {
         init((int)a.size() - 1);
         if (n)
@@ -116,8 +121,8 @@ struct segBeats
             return tree[rt].update(val, val, val, val);
         int mid = (l + r) >> 1;
         pushdown(rt);
-        rangeAdd(rt << 1, l, mid, x, y, val);
-        rangeAdd(rt << 1 | 1, mid + 1, r, x, y, val);
+        rangeAdd(lc, l, mid, x, y, val);
+        rangeAdd(rc, mid + 1, r, x, y, val);
         pushup(rt);
     }
 
@@ -129,8 +134,8 @@ struct segBeats
             return tree[rt].update(val - tree[rt].max, 0, val - tree[rt].max, 0);
         int mid = (l + r) >> 1;
         pushdown(rt);
-        rangeChmin(rt << 1, l, mid, x, y, val);
-        rangeChmin(rt << 1 | 1, mid + 1, r, x, y, val);
+        rangeChmin(lc, l, mid, x, y, val);
+        rangeChmin(rc, mid + 1, r, x, y, val);
         pushup(rt);
     }
 
@@ -142,7 +147,7 @@ struct segBeats
             return tree[rt].sum;
         int mid = (l + r) >> 1;
         pushdown(rt);
-        return querySum(rt << 1, l, mid, x, y) + querySum(rt << 1 | 1, mid + 1, r, x, y);
+        return querySum(lc, l, mid, x, y) + querySum(rc, mid + 1, r, x, y);
     }
 
     auto queryMax(int rt, int l, int r, int x, int y) -> T
@@ -153,8 +158,8 @@ struct segBeats
             return tree[rt].max;
         int mid = (l + r) >> 1;
         pushdown(rt);
-        return std::max(queryMax(rt << 1, l, mid, x, y),
-                        queryMax(rt << 1 | 1, mid + 1, r, x, y));
+        return max(queryMax(lc, l, mid, x, y),
+                        queryMax(rc, mid + 1, r, x, y));
     }
 
     auto queryHisMax(int rt, int l, int r, int x, int y) -> T
@@ -165,8 +170,8 @@ struct segBeats
             return tree[rt].hisMax;
         int mid = (l + r) >> 1;
         pushdown(rt);
-        return std::max(queryHisMax(rt << 1, l, mid, x, y),
-                        queryHisMax(rt << 1 | 1, mid + 1, r, x, y));
+        return max(queryHisMax(lc, l, mid, x, y),
+                        queryHisMax(rc, mid + 1, r, x, y));
     }
 
     auto rangeAdd(int l, int r, T val) { if (l <= r && n) rangeAdd(1, 1, n, l, r, val); }
@@ -175,3 +180,6 @@ struct segBeats
     auto queryMax(int l, int r) { return l <= r && n ? queryMax(1, 1, n, l, r) : negInf; }
     auto queryHisMax(int l, int r) { return l <= r && n ? queryHisMax(1, 1, n, l, r) : negInf; }
 };
+
+#undef lc
+#undef rc

@@ -4,21 +4,24 @@
 #include <utility>
 #include <vector>
 
+#define lc (rt << 1)
+#define rc (rt << 1 | 1)
+
 struct decompTree
 {
     int n = 0, root = 0;
-    std::vector<int> a, Log;
-    std::array<std::vector<int>, 23> _min, _max;
+    vector<int> a, Log;
+    array<vector<int>, 23> _min, _max;
 
-    std::vector<int> id, dep;
-    std::vector<std::vector<int>> G;
+    vector<int> id, dep;
+    vector<vector<int>> G;
     struct node
     {
         int l = 0, r = 0, m = 0;
         bool typ = false;
     };
-    std::vector<node> p;
-    std::vector<std::array<int, 23>> fa;
+    vector<node> p;
+    vector<array<int, 23>> fa;
 
     struct Tree
     {
@@ -29,7 +32,7 @@ struct decompTree
             tag += v;
         }
     };
-    std::vector<Tree> tree;
+    vector<Tree> tree;
 
     decompTree() = default;
 
@@ -42,15 +45,13 @@ struct decompTree
 
     auto pushup(int rt)
     {
-        int lc = rt << 1, rc = rt << 1 | 1;
-        tree[rt].min = std::min(tree[lc].min, tree[rc].min);
+        tree[rt].min = min(tree[lc].min, tree[rc].min);
     }
 
     auto pushdown(int rt)
     {
         if (!tree[rt].tag)
             return;
-        int lc = rt << 1, rc = rt << 1 | 1;
         tree[lc].update(tree[rt].tag);
         tree[rc].update(tree[rt].tag);
         tree[rt].tag = 0;
@@ -64,8 +65,8 @@ struct decompTree
             return tree[rt].update(v);
         int mid = (l + r) >> 1;
         pushdown(rt);
-        update(rt << 1, l, mid, x, y, v);
-        update(rt << 1 | 1, mid + 1, r, x, y, v);
+        update(lc, l, mid, x, y, v);
+        update(rc, mid + 1, r, x, y, v);
         pushup(rt);
     }
 
@@ -75,21 +76,21 @@ struct decompTree
             return l;
         int mid = (l + r) >> 1;
         pushdown(rt);
-        if (!tree[rt << 1].min)
-            return query(rt << 1, l, mid);
-        return query(rt << 1 | 1, mid + 1, r);
+        if (!tree[lc].min)
+            return query(lc, l, mid);
+        return query(rc, mid + 1, r);
     }
 
     auto calcmin(int l, int r)
     {
         int k = Log[r - l + 1];
-        return std::min(_min[k][l], _min[k][r - (1 << k) + 1]);
+        return min(_min[k][l], _min[k][r - (1 << k) + 1]);
     }
 
     auto calcmax(int l, int r)
     {
         int k = Log[r - l + 1];
-        return std::max(_max[k][l], _max[k][r - (1 << k) + 1]);
+        return max(_max[k][l], _max[k][r - (1 << k) + 1]);
     }
 
     auto check(int l, int r)
@@ -109,7 +110,7 @@ struct decompTree
     auto lca(int u, int v)
     {
         if (dep[u] < dep[v])
-            std::swap(u, v);
+            swap(u, v);
         for (int i = 20; i >= 0; --i)
             if (dep[fa[u][i]] >= dep[v])
                 u = fa[u][i];
@@ -132,19 +133,15 @@ struct decompTree
         return u;
     }
 
-    decompTree(const std::vector<int> &_a) : G(1), p(1)
+    decompTree(const vector<int> &_a)
+        : n((int)_a.size() - 1), a(_a), Log(n + 2), id(n + 2), G(1), p(1), tree(4 * n + 5)
     {
-        a = _a;
-        n = (int)a.size() - 1;
-        id.assign(n + 2, 0);
-        tree.assign(4 * n + 5, {});
         if (!n)
             return;
 
-        Log.assign(n + 2, 0);
         Log[0] = -1;
-        _min.fill(std::vector<int>(n + 2));
-        _max.fill(std::vector<int>(n + 2));
+        _min.fill(vector<int>(n + 2));
+        _max.fill(vector<int>(n + 2));
         for (int i = 1; i <= n; ++i)
         {
             Log[i] = Log[i >> 1] + 1;
@@ -153,11 +150,11 @@ struct decompTree
         for (int j = 0; j < Log[n]; ++j)
             for (int i = 1; i + (2 << j) - 1 <= n; ++i)
             {
-                _min[j + 1][i] = std::min(_min[j][i], _min[j][i + (1 << j)]);
-                _max[j + 1][i] = std::max(_max[j][i], _max[j][i + (1 << j)]);
+                _min[j + 1][i] = min(_min[j][i], _min[j][i + (1 << j)]);
+                _max[j + 1][i] = max(_max[j][i], _max[j][i + (1 << j)]);
             }
 
-        std::vector<int> st1(n + 2), st2(n + 2), st(n + 2);
+        vector<int> st1(n + 2), st2(n + 2), st(n + 2);
         int top1 = 0, top2 = 0, top = 0;
         for (int i = 1; i <= n; ++i)
         {
@@ -193,7 +190,7 @@ struct decompTree
                 }
                 else
                 {
-                    std::vector<int> son;
+                    vector<int> son;
                     while (top && !check(p[st[top]].l, i))
                         son.emplace_back(st[top--]);
                     int v = newnode(p[st[top]].l, i);
@@ -208,7 +205,7 @@ struct decompTree
         }
 
         root = st[1];
-        dep.assign(p.size(), 0);
+        dep.resize(p.size());
         fa.resize(p.size());
         dfs(root, 0);
     }
@@ -221,14 +218,17 @@ struct decompTree
     auto query(int l, int r)
     {
         if (l > r)
-            std::swap(l, r);
+            swap(l, r);
         int x = id[l], y = id[r], z = lca(x, y);
         if (p[z].typ)
         {
             int u = jump(x, dep[x] - dep[z] - 1);
             int v = jump(y, dep[y] - dep[z] - 1);
-            return std::pair<int, int>{p[u].l, p[v].r};
+            return pair<int, int>{p[u].l, p[v].r};
         }
-        return std::pair<int, int>{p[z].l, p[z].r};
+        return pair<int, int>{p[z].l, p[z].r};
     }
 };
+
+#undef lc
+#undef rc

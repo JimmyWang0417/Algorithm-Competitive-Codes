@@ -1,19 +1,22 @@
 #pragma once
 #include <vector>
 
+#define lc (rt << 1)
+#define rc (rt << 1 | 1)
+
 template <typename Event>
 struct segDivide
 {
     int n = 0;
-    std::vector<std::vector<Event>> tree;
+    vector<vector<Event>> tree;
 
     segDivide() = default;
-    segDivide(int _n) { build(_n); }
+    segDivide(int _n) : n(_n), tree(n * 4 + 5) {}
 
     auto build(int _n)
     {
         n = _n;
-        tree.assign(n * 4 + 5, {});
+        tree.resize(n * 4 + 5);
     }
 
     auto add(int rt, int l, int r, int x, int y, const Event &e) -> void
@@ -26,8 +29,8 @@ struct segDivide
             return;
         }
         int mid = (l + r) >> 1;
-        add(rt << 1, l, mid, x, y, e);
-        add(rt << 1 | 1, mid + 1, r, x, y, e);
+        add(lc, l, mid, x, y, e);
+        add(rc, mid + 1, r, x, y, e);
     }
 
     auto add(int l, int r, const Event &e)
@@ -47,8 +50,8 @@ struct segDivide
         else
         {
             int mid = (l + r) >> 1;
-            dfs(rt << 1, l, mid, addEvent, snapshot, rollback, answer);
-            dfs(rt << 1 | 1, mid + 1, r, addEvent, snapshot, rollback, answer);
+            dfs(lc, l, mid, addEvent, snapshot, rollback, answer);
+            dfs(rc, mid + 1, r, addEvent, snapshot, rollback, answer);
         }
         rollback(state);
     }
@@ -60,3 +63,6 @@ struct segDivide
             dfs(1, 1, n, addEvent, snapshot, rollback, answer);
     }
 };
+
+#undef lc
+#undef rc
