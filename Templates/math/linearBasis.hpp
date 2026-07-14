@@ -1,0 +1,138 @@
+template <typename T, int U>
+struct linearBasis : array<T, U + 1>
+{
+    using array<T, U + 1>::array;
+    using array<T, U + 1>::begin;
+    using array<T, U + 1>::end;
+    using array<T, U + 1>::at;
+
+    linearBasis() : array<T, U + 1>{} {}
+    auto insert(T v)
+    {
+        for (int i = U; i >= 0; --i)
+            if ((v >> i) & 1)
+            {
+                if (!at(i))
+                {
+                    at(i) = v;
+                    return true;
+                }
+                v ^= at(i);
+            }
+        return false;
+    }
+    auto contain(T v) const
+    {
+        for (int i = U; i >= 0; --i)
+            if ((v >> i) & 1)
+            {
+                if (!at(i))
+                    return false;
+                v ^= at(i);
+            }
+        return true;
+    }
+    auto rank() const
+    {
+        return (int)count_if(begin(), end(), [](T x)
+                             { return x != 0; });
+    }
+    auto &merge(const linearBasis &other)
+    {
+        for (auto i : other)
+            if (i)
+                insert(i);
+        return *this;
+    }
+    auto &intersect(const linearBasis &other)
+    {
+        linearBasis d = *this, tag{};
+        auto push = [&](T v, T t)
+        {
+            for (int i = U; i >= 0; --i)
+                if ((v >> i) & 1)
+                {
+                    if (!d[i])
+                    {
+                        d[i] = v;
+                        tag[i] = t;
+                        return T{};
+                    }
+                    v ^= d[i];
+                    t ^= tag[i];
+                }
+            return t;
+        };
+
+        linearBasis res;
+        for (auto i : other)
+            if (i)
+            {
+                auto v = push(i, i);
+                if (v)
+                    res.insert(v);
+            }
+        return *this = res;
+    }
+    auto max(T res = 0) const
+    {
+        for (int i = U; i >= 0; --i)
+            res = ::max(res, res ^ at(i));
+        return res;
+    }
+    auto min(T res = 0) const
+    {
+        for (int i = U; i >= 0; --i)
+            res = ::min(res, res ^ at(i));
+        return res;
+    }
+    auto &adjust()
+    {
+        for (int i = 0; i <= U; ++i)
+            if (at(i))
+                for (int j = i - 1; j >= 0; --j)
+                    if ((at(i) >> j) & 1)
+                        at(i) ^= at(j);
+        return *this;
+    }
+    auto &adjust() const
+    {
+        return const_cast<linearBasis &>(*this).adjust();
+    }
+    auto &reduced()
+    {
+        return adjust();
+    }
+    const auto &reduced() const
+    {
+        return adjust();
+    }
+    auto kth(T k) const -> T
+    {
+        const auto &basis = reduced();
+        T res = 0;
+        for (int i = 0; i <= U; ++i)
+            if (basis[i])
+            {
+                if (k & 1)
+                    res ^= basis[i];
+                k >>= 1;
+            }
+        return k ? (T)-1 : res;
+    }
+    static auto orthogonal(const linearBasis &basis)
+    {
+        basis.adjust();
+        linearBasis res;
+        for (int j = 0; j <= U; ++j)
+            if (!basis[j])
+            {
+                T v = (T)1 << j;
+                for (int i = j + 1; i <= U; ++i)
+                    if (basis[i] && ((basis[i] >> j) & 1))
+                        v |= (T)1 << i;
+                res.insert(v);
+            }
+        return res;
+    }
+};

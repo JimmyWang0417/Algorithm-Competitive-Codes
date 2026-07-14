@@ -65,14 +65,14 @@ JimmyWang0417 's Algorithm Competitive Codes
  Language              Files        Lines         Code     Comments       Blanks
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
  Autoconf                 16      1885023      1885023            0            0
- C++                    2418       352017       342770         6336         2911
- C++ Header               58         6490         5495          610          385
+ C++                    2457       359997       350301         6462         3234
+ C++ Header               77         9225         7971          606          648
  Makefile                  2            4            4            0            0
- Markdown                  2         2704            0         2670           34
- Python                    5          293          251            9           33
+ Markdown                  2         2716            0         2682           34
+ Python                    6          294          252            9           33
  Shell                     1           15            5            5            5
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- Total                  2502      2246546      2233548         9630         3368
+ Total                  2561      2257274      2243556         9764         3954
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 <!-- count the code end -->
@@ -246,9 +246,11 @@ JimmyWang0417 's Algorithm Competitive Codes
 │   ├── AT4439 [AGC028E] High Elements.cpp
 │   ├── AT4994 [AGC034D] Manhattan Max Matching.cpp
 │   ├── AT5800 [AGC043C] Giant Graph.cpp
+│   ├── AT_abc213_g [ABC213G] Connectivity 2.cpp
 │   ├── AT_abc216_h [ABC216H] Random Robots.cpp
 │   ├── AT_abc221_g [ABC221G] Jumping sequence.cpp
-│   └── AT_abc239_h [ABC239Ex] Dice Product 2.cpp
+│   ├── AT_abc239_h [ABC239Ex] Dice Product 2.cpp
+│   └── AT_arc105_f [ARC105F] Lights Out on Connected Graph.cpp
 ├── auto.sh
 ├── BZOJ
 │   ├── #1010. 玩具装箱toy.cpp
@@ -564,6 +566,8 @@ JimmyWang0417 's Algorithm Competitive Codes
 │       ├── CF1325F Ehab's Last Theorem.cpp
 │       ├── CF1326E Bombs.cpp
 │       ├── CF1327F AND Segments.cpp
+│       ├── CF1336E1 Chiori and Doll Picking (easy version).cpp
+│       ├── CF1336E2 Chiori and Doll Picking (hard version).cpp
 │       ├── CF1344C Quantifier Question.cpp
 │       ├── CF1348E Phoenix and Berries.cpp
 │       ├── CF1361C Johnny and Megan's Necklace.cpp
@@ -1378,6 +1382,8 @@ JimmyWang0417 's Algorithm Competitive Codes
 │   │   └── M. Mathematics Championships.cpp
 │   ├── The 3rd Universal Cup. Stage 8: Cangqian
 │   │   └── H. Permutation.cpp
+│   ├── 北大集训 2020 Day 4（CTT 2020 Day 4）
+│   │   └── #5411. 杏仁.cpp
 │   └── 第十一届中国大学生程序设计竞赛网络预选赛（CCPC Online 2025）
 │       ├── A. Hey, Have You Seen My Kangaroo?.cpp
 │       ├── B. 魔塔.cpp
@@ -1433,10 +1439,25 @@ JimmyWang0417 's Algorithm Competitive Codes
 │   ├── dataStructure
 │   │   ├── cartesianTree.hpp
 │   │   ├── decomposition.hpp
+│   │   ├── decompTree.hpp
+│   │   ├── dynamicSeg.hpp
 │   │   ├── fenwick.hpp
+│   │   ├── fhqTreap.hpp
+│   │   ├── implicitTreap.hpp
+│   │   ├── lichao.hpp
 │   │   ├── linkCutTree.hpp
+│   │   ├── persistImplicitTreap.hpp
+│   │   ├── persistSeg.hpp
+│   │   ├── persistTreap.hpp
+│   │   ├── scanlineSeg.hpp
+│   │   ├── scapegoat.hpp
+│   │   ├── segBeats.hpp
+│   │   ├── segDivide.hpp
 │   │   ├── segmentTreeBeats.hpp
-│   │   └── topTree.hpp
+│   │   ├── segTree.hpp
+│   │   ├── splay.hpp
+│   │   ├── topTree.hpp
+│   │   └── treap.hpp
 │   ├── geometry
 │   │   ├── 2d.hpp
 │   │   ├── 3d.hpp
@@ -1463,15 +1484,20 @@ JimmyWang0417 's Algorithm Competitive Codes
 │   │   ├── berlekampMassey.hpp
 │   │   ├── comb.hpp
 │   │   ├── euclidean.hpp
-│   │   ├── linnerBasis.hpp
+│   │   ├── linearBasis.hpp
 │   │   ├── matrix.hpp
 │   │   ├── min25.hpp
 │   │   ├── modint.hpp
 │   │   ├── numberTheory.hpp
+│   │   ├── polynomial
+│   │   │   ├── lagrange.hpp
+│   │   │   ├── linearRecurrence.hpp
+│   │   │   └── poly.hpp
 │   │   ├── polynomial.hpp
 │   │   ├── prime.hpp
 │   │   ├── schreierSims.hpp
-│   │   └── Simpson.hpp
+│   │   ├── Simpson.hpp
+│   │   └── stirling.hpp
 │   └── stringAlgorithm
 │       ├── acam.hpp
 │       ├── exkmp.hpp
@@ -1958,11 +1984,15 @@ JimmyWang0417 's Algorithm Competitive Codes
 │   ├── P1014 Cantor表.cpp
 │   ├── P1022 计算器的改良.cpp
 │   ├── P1023 税收与补贴问题.cpp
+│   ├── P10249 【模板】多项式复合函数（加强版）.cpp
 │   ├── P1031 均分纸牌.cpp
 │   ├── P1040 加分二叉树.cpp
 │   ├── P1042 乒乓球.cpp
+│   ├── P10461 【模板】多项式复合集合幂级数.cpp
 │   ├── P1047 校门外的树.cpp
 │   ├── P1056 排座椅.cpp
+│   ├── P10583 [蓝桥杯 2024 国 A] 异或路径.cpp
+│   ├── P10584 [蓝桥杯 2024 国 A] 数学题.cpp
 │   ├── P1067 多项式输出.cpp
 │   ├── P1073 最优贸易.cpp
 │   ├── P1083 [NOIP2012 提高组] 借教室.cpp
@@ -1974,6 +2004,8 @@ JimmyWang0417 's Algorithm Competitive Codes
 │   ├── P1149 火柴棒等式.cpp
 │   ├── P1168 中位数.cpp
 │   ├── P1169 [ZJOI2007]棋盘制作.cpp
+│   ├── P11714 [清华集训 2014] 主旋律.cpp
+│   ├── P11734 [集训队互测 2015] 胡策的统计.cpp
 │   ├── P1186 玛丽卡.cpp
 │   ├── P1191 矩形.cpp
 │   ├── P1196 [NOI2002]银河英雄传说.cpp
@@ -1982,8 +2014,25 @@ JimmyWang0417 's Algorithm Competitive Codes
 │   ├── P1226 【模板】快速幂&&取余运算.cpp
 │   ├── P1231 教辅的组成.cpp
 │   ├── P1251 餐巾计划问题.cpp
+│   ├── P12526 [XJTUPC 2025] 纸牌大师.cpp
+│   ├── P12527 [XJTUPC 2025] 全都登不上.cpp
+│   ├── P12528 [XJTUPC 2025] 量子力学.cpp
+│   ├── P12529 [XJTUPC 2025] 对称隔离：黑白之战.cpp
+│   ├── P12530 [XJTUPC 2025] 公道杯.cpp
+│   ├── P12533 [XJTUPC 2025] 9-Nine.cpp
+│   ├── P12540 [XJTUPC 2025] 离散对数.cpp
 │   ├── P1263 宫廷守卫.cpp
 │   ├── P1280 尼克的任务.cpp
+│   ├── P12840 [蓝桥杯 2025 国 A] OCR 校正.py
+│   ├── P12841 [蓝桥杯 2025 国 A] 小蓝的生日礼物.cpp
+│   ├── P12842 [蓝桥杯 2025 国 A] 土地整平计划.cpp
+│   ├── P12843 [蓝桥杯 2025 国 A] 生日相遇问题.cpp
+│   ├── P12844 [蓝桥杯 2025 国 A] 树.cpp
+│   ├── P12845 [蓝桥杯 2025 国 A] 连锁反应.cpp
+│   ├── P12846 [蓝桥杯 2025 国 A] 翻转硬币.cpp
+│   ├── P12847 [蓝桥杯 2025 国 A] 斐波那契数列.cpp
+│   ├── P12848 [蓝桥杯 2025 国 A] 游戏.cpp
+│   ├── P12849 [蓝桥杯 2025 国 A] 公路.cpp
 │   ├── P1298 最接近的分数.cpp
 │   ├── P1306 斐波那契公约数.cpp
 │   ├── P1307 数字反转.cpp
@@ -2021,11 +2070,14 @@ JimmyWang0417 's Algorithm Competitive Codes
 │   ├── P1606 [USACO07FEB]Lilypad Pond G.cpp
 │   ├── P1613 跑路.cpp
 │   ├── P1618 三连击（升级版）.cpp
+│   ├── P16206 边双连通生成子图计数.cpp
+│   ├── P16207 点双连通生成子图计数.cpp
 │   ├── P1631 序列合并.cpp
 │   ├── P1637 三元上升子序列.cpp
 │   ├── P1642 规划.cpp
 │   ├── P1646 [国家集训队]happiness.cpp
 │   ├── P1659 [国家集训队]拉拉队排练.cpp
+│   ├── P16790 [蓝桥杯 2026 国 A] 魔法前缀.cpp
 │   ├── P1721 [NOI2016] 国王饮水记.cpp
 │   ├── P1742 最小圆覆盖.cpp
 │   ├── P1772 [ZJOI2006]物流运输.cpp
@@ -2410,6 +2462,7 @@ JimmyWang0417 's Algorithm Competitive Codes
 │   ├── P4214 [CERC2015]Juice Junctions.cpp
 │   ├── P4218 [CTSC2010]珠宝商.cpp
 │   ├── P4219 [BJOI2014]大融合.cpp
+│   ├── P4221 [WC2018] 州区划分.cpp
 │   ├── P4234 最小差值生成树.cpp
 │   ├── P4238 【模板】多项式乘法逆.cpp
 │   ├── P4246 [SHOI2008]堵塞的交通.cpp
@@ -2479,6 +2532,7 @@ JimmyWang0417 's Algorithm Competitive Codes
 │   ├── P4726 【模板】多项式指数函数（多项式 exp）.cpp
 │   ├── P4735 最大异或和.cpp
 │   ├── P4737 [CERC2017]Buffalo Barricades.cpp
+│   ├── P4747 [CERC2017] Intrinsic Interval.cpp
 │   ├── P4751 【模板】"动态DP"&动态树分治（加强版）.cpp
 │   ├── P4756 Added Sequence.cpp
 │   ├── P4768 [NOI2018] 归程.cpp
@@ -2560,10 +2614,13 @@ JimmyWang0417 's Algorithm Competitive Codes
 │   ├── P5363 [SDOI2019]移动金币.cpp
 │   ├── P5364 [SNOI2017]礼物.cpp
 │   ├── P5367 【模板】康托展开.cpp
+│   ├── P5373 【模板】多项式复合函数.cpp
 │   ├── P5375 [THUPC2019]组合数据结构问题.cpp
 │   ├── P5384 [Cnoi2019]雪松果树.cpp
 │   ├── P5395 第二类斯特林数·行.cpp
+│   ├── P5396 第二类斯特林数·列.cpp
 │   ├── P5408 第一类斯特林数·行.cpp
+│   ├── P5409 第一类斯特林数·列.cpp
 │   ├── P5410 【模板】扩展 KMP.cpp
 │   ├── P5410 【模板】扩展 KMP（Z 函数）.cpp
 │   ├── P5415 [YNOI2019] 游戏.cpp
@@ -2606,6 +2663,8 @@ JimmyWang0417 's Algorithm Competitive Codes
 │   ├── P5745 【深基附B例】数列求和.cpp
 │   ├── P5782 [POI2001]和平委员会.cpp
 │   ├── P5787 二分图 或【模板】线段树分治.cpp
+│   ├── P5808 【模板】常系数非齐次线性递推.cpp
+│   ├── P5809 【模板】多项式复合逆.cpp
 │   ├── P5826 【模板】子序列自动机.cpp
 │   ├── P5840 [COCI2015]Divljak.cpp
 │   ├── P5858 「SWTR-03」Golden Sword.cpp
@@ -2635,6 +2694,7 @@ JimmyWang0417 's Algorithm Competitive Codes
 │   ├── P6477 [NOI Online #2 提高组]子序列问题（民间数据）.cpp
 │   ├── P6563 [SBCOI2020] 一直在你身旁.cpp
 │   ├── P6569 [NOI Online #3 提高组]魔法值（民间数据）.cpp
+│   ├── P6570 [NOI Online #3 提高组] 优秀子序列.cpp
 │   ├── P6604 [HNOI2016]序列 加强版.cpp
 │   ├── P6619 [省选联考 2020 A 或 B 卷] 冰火战士.cpp
 │   ├── P6620 [省选联考 2020 A 卷] 组合数问题.cpp
@@ -2650,6 +2710,7 @@ JimmyWang0417 's Algorithm Competitive Codes
 │   ├── P6739 [BalticOI 2014 Day1] Three Friends.cpp
 │   ├── P6792 [SNOI2020] 区间和.cpp
 │   ├── P6794 [SNOI2020] 水池.cpp
+│   ├── P6846 [CEOI 2019] Amusement Park.cpp
 │   ├── P6943 [ICPC2018 WF]Conquer The World.cpp
 │   ├── P6961 [NEERC2017]Journey from Petersburg to Moscow.cpp
 │   ├── P6967 [NEERC2016]Delight for a Cat.cpp

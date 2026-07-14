@@ -1,6 +1,6 @@
 struct min25
 {
-    auto calc(i64 n)
+    static auto calc(i64 n)
     {
         int block = (int)sqrt(n);
         vector<int> prime(1);
