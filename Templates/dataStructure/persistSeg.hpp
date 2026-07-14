@@ -1,6 +1,9 @@
 #pragma once
 #include <vector>
 
+#define lc(x) tree[x].l
+#define rc(x) tree[x].r
+
 template <typename T = int>
 struct persistSeg
 {
@@ -11,23 +14,28 @@ struct persistSeg
     };
 
     int n = 0;
-    std::vector<Node> tree;
-    std::vector<int> root;
+    vector<Node> tree;
+    vector<int> root;
 
-    persistSeg() { clear(); }
-    persistSeg(int _n) { build(_n); }
+    persistSeg() : tree(1), root(1) {}
+    persistSeg(int _n) : n(_n), tree(1), root(1) {}
 
     auto clear()
     {
         n = 0;
-        tree.assign(1, Node());
-        root.assign(1, 0);
+        tree.resize(1);
+        root.resize(1);
+        tree[0] = Node();
+        root[0] = 0;
     }
 
     auto build(int _n)
     {
-        clear();
         n = _n;
+        tree.resize(1);
+        root.resize(1);
+        tree[0] = Node();
+        root[0] = 0;
     }
 
     auto clone(int pre)
@@ -44,9 +52,9 @@ struct persistSeg
             return rt;
         int mid = (l + r) >> 1;
         if (pos <= mid)
-            tree[rt].l = update(tree[pre].l, l, mid, pos, val);
+            lc(rt) = update(lc(pre), l, mid, pos, val);
         else
-            tree[rt].r = update(tree[pre].r, mid + 1, r, pos, val);
+            rc(rt) = update(rc(pre), mid + 1, r, pos, val);
         return rt;
     }
 
@@ -68,7 +76,7 @@ struct persistSeg
         if (x <= l && r <= y)
             return tree[rt].sum;
         int mid = (l + r) >> 1;
-        return query(tree[rt].l, l, mid, x, y) + query(tree[rt].r, mid + 1, r, x, y);
+        return query(lc(rt), l, mid, x, y) + query(rc(rt), mid + 1, r, x, y);
     }
 
     auto query(int rt, int l, int r) const
@@ -81,10 +89,10 @@ struct persistSeg
         if (l == r)
             return l;
         int mid = (l + r) >> 1;
-        T size = tree[tree[rightRoot].l].sum - tree[tree[leftRoot].l].sum;
+        T size = tree[lc(rightRoot)].sum - tree[lc(leftRoot)].sum;
         if (k <= size)
-            return kth(tree[leftRoot].l, tree[rightRoot].l, l, mid, k);
-        return kth(tree[leftRoot].r, tree[rightRoot].r, mid + 1, r, k - size);
+            return kth(lc(leftRoot), lc(rightRoot), l, mid, k);
+        return kth(rc(leftRoot), rc(rightRoot), mid + 1, r, k - size);
     }
 
     auto kth(int leftRoot, int rightRoot, T k) const
@@ -92,3 +100,6 @@ struct persistSeg
         return kth(leftRoot, rightRoot, 1, n, k);
     }
 };
+
+#undef lc
+#undef rc

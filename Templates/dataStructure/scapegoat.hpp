@@ -3,6 +3,9 @@
 #include <limits>
 #include <vector>
 
+#define lc(x) tree[x].l
+#define rc(x) tree[x].r
+
 template <typename T = int>
 struct scapegoat
 {
@@ -17,8 +20,8 @@ struct scapegoat
     };
 
     int root = 0;
-    std::vector<Node> tree;
-    std::vector<int> sta;
+    vector<Node> tree;
+    vector<int> sta;
 
     scapegoat() : tree(1) {}
 
@@ -33,7 +36,7 @@ struct scapegoat
 
     auto imbalence(int rt)
     {
-        return std::max(tree[tree[rt].l].size, tree[tree[rt].r].size) > tree[rt].size * alpha ||
+        return max(tree[lc(rt)].size, tree[rc(rt)].size) > tree[rt].size * alpha ||
                tree[rt].size - tree[rt].fact > tree[rt].size * 0.3;
     }
 
@@ -41,10 +44,10 @@ struct scapegoat
     {
         if (!rt)
             return;
-        ldr(tree[rt].l);
+        ldr(lc(rt));
         if (tree[rt].exist)
             sta.push_back(rt);
-        ldr(tree[rt].r);
+        ldr(rc(rt));
     }
 
     auto lift(int l, int r, int &rt) -> void
@@ -58,10 +61,10 @@ struct scapegoat
         while (l < mid && tree[sta[mid]].val == tree[sta[mid - 1]].val)
             --mid;
         rt = sta[mid];
-        lift(l, mid - 1, tree[rt].l);
-        lift(mid + 1, r, tree[rt].r);
-        tree[rt].size = tree[tree[rt].l].size + tree[tree[rt].r].size + 1;
-        tree[rt].fact = tree[tree[rt].l].fact + tree[tree[rt].r].fact + 1;
+        lift(l, mid - 1, lc(rt));
+        lift(mid + 1, r, rc(rt));
+        tree[rt].size = tree[lc(rt)].size + tree[rc(rt)].size + 1;
+        tree[rt].fact = tree[lc(rt)].fact + tree[rc(rt)].fact + 1;
     }
 
     auto rebuild(int &rt)
@@ -82,15 +85,15 @@ struct scapegoat
         ++tree[rt].fact;
         if (val < tree[rt].val)
         {
-            int child = tree[rt].l;
+            int child = lc(rt);
             insert(child, val);
-            tree[rt].l = child;
+            lc(rt) = child;
         }
         else
         {
-            int child = tree[rt].r;
+            int child = rc(rt);
             insert(child, val);
-            tree[rt].r = child;
+            rc(rt) = child;
         }
         if (imbalence(rt))
             rebuild(rt);
@@ -108,9 +111,9 @@ struct scapegoat
         }
         bool ok = false;
         if (val < tree[rt].val)
-            ok = erase(tree[rt].l, val);
+            ok = erase(lc(rt), val);
         else
-            ok = erase(tree[rt].r, val);
+            ok = erase(rc(rt), val);
         if (ok)
         {
             --tree[rt].fact;
@@ -126,11 +129,11 @@ struct scapegoat
         while (rt)
         {
             if (val <= tree[rt].val)
-                rt = tree[rt].l;
+                rt = lc(rt);
             else
             {
-                res += tree[tree[rt].l].fact + tree[rt].exist;
-                rt = tree[rt].r;
+                res += tree[lc(rt)].fact + tree[rt].exist;
+                rt = rc(rt);
             }
         }
         return res;
@@ -142,11 +145,11 @@ struct scapegoat
         while (rt)
         {
             if (val < tree[rt].val)
-                rt = tree[rt].l;
+                rt = lc(rt);
             else
             {
-                res += tree[tree[rt].l].fact + tree[rt].exist;
-                rt = tree[rt].r;
+                res += tree[lc(rt)].fact + tree[rt].exist;
+                rt = rc(rt);
             }
         }
         return res;
@@ -157,12 +160,12 @@ struct scapegoat
         int rt = root;
         while (rt)
         {
-            if (k <= tree[tree[rt].l].fact)
-                rt = tree[rt].l;
-            else if (k > tree[tree[rt].l].fact + tree[rt].exist)
+            if (k <= tree[lc(rt)].fact)
+                rt = lc(rt);
+            else if (k > tree[lc(rt)].fact + tree[rt].exist)
             {
-                k -= tree[tree[rt].l].fact + tree[rt].exist;
-                rt = tree[rt].r;
+                k -= tree[lc(rt)].fact + tree[rt].exist;
+                rt = rc(rt);
             }
             else
                 return tree[rt].val;
@@ -178,3 +181,6 @@ struct scapegoat
     auto pre(T val) const { return kth(rank(val) - 1); }
     auto next(T val) const { return kth(upperRank(val)); }
 };
+
+#undef lc
+#undef rc

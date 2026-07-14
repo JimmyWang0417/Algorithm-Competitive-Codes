@@ -4,6 +4,9 @@
 #include <random>
 #include <vector>
 
+#define lc(x) tree[x].l
+#define rc(x) tree[x].r
+
 template <typename T = int>
 struct persistTreap
 {
@@ -14,11 +17,11 @@ struct persistTreap
         T val = 0;
     };
 
-    std::vector<Node> tree;
-    std::vector<int> root;
-    std::mt19937 rnd;
+    vector<Node> tree;
+    vector<int> root;
+    mt19937 rnd;
 
-    persistTreap() : tree(1), root(1, 0), rnd((unsigned)std::chrono::steady_clock::now().time_since_epoch().count()) {}
+    persistTreap() : tree(1), root(1), rnd((unsigned)chrono::steady_clock::now().time_since_epoch().count()) {}
 
     auto newnode(T val)
     {
@@ -36,7 +39,7 @@ struct persistTreap
 
     auto pushup(int rt)
     {
-        tree[rt].size = tree[tree[rt].l].size + tree[tree[rt].r].size + 1;
+        tree[rt].size = tree[lc(rt)].size + tree[rc(rt)].size + 1;
     }
 
     auto split(int rt, T val, int &x, int &y) -> void
@@ -50,16 +53,16 @@ struct persistTreap
         {
             x = clone(rt);
             int right = 0;
-            split(tree[x].r, val, right, y);
-            tree[x].r = right;
+            split(rc(x), val, right, y);
+            rc(x) = right;
             pushup(x);
         }
         else
         {
             y = clone(rt);
             int left = 0;
-            split(tree[y].l, val, x, left);
-            tree[y].l = left;
+            split(lc(y), val, x, left);
+            lc(y) = left;
             pushup(y);
         }
     }
@@ -71,12 +74,12 @@ struct persistTreap
         if (tree[x].key > tree[y].key)
         {
             int rt = clone(x);
-            tree[rt].r = merge(tree[rt].r, y);
+            rc(rt) = merge(rc(rt), y);
             pushup(rt);
             return rt;
         }
         int rt = clone(y);
-        tree[rt].l = merge(x, tree[rt].l);
+        lc(rt) = merge(x, lc(rt));
         pushup(rt);
         return rt;
     }
@@ -95,7 +98,7 @@ struct persistTreap
         split(root[ver], val, x, z);
         split(x, val - 1, x, y);
         if (y)
-            y = merge(tree[y].l, tree[y].r);
+            y = merge(lc(y), rc(y));
         root.push_back(merge(merge(x, y), z));
         return (int)root.size() - 1;
     }
@@ -106,11 +109,11 @@ struct persistTreap
         while (rt)
         {
             if (val <= tree[rt].val)
-                rt = tree[rt].l;
+                rt = lc(rt);
             else
             {
-                res += tree[tree[rt].l].size + 1;
-                rt = tree[rt].r;
+                res += tree[lc(rt)].size + 1;
+                rt = rc(rt);
             }
         }
         return res;
@@ -120,12 +123,12 @@ struct persistTreap
     {
         while (rt)
         {
-            if (k <= tree[tree[rt].l].size)
-                rt = tree[rt].l;
-            else if (k > tree[tree[rt].l].size + 1)
+            if (k <= tree[lc(rt)].size)
+                rt = lc(rt);
+            else if (k > tree[lc(rt)].size + 1)
             {
-                k -= tree[tree[rt].l].size + 1;
-                rt = tree[rt].r;
+                k -= tree[lc(rt)].size + 1;
+                rt = rc(rt);
             }
             else
                 return tree[rt].val;
@@ -139,13 +142,13 @@ struct persistTreap
     auto pre(int ver, T val) const
     {
         int rt = root[ver];
-        T res = std::numeric_limits<T>::lowest();
+        T res = numeric_limits<T>::lowest();
         while (rt)
         {
             if (tree[rt].val < val)
-                res = tree[rt].val, rt = tree[rt].r;
+                res = tree[rt].val, rt = rc(rt);
             else
-                rt = tree[rt].l;
+                rt = lc(rt);
         }
         return res;
     }
@@ -153,13 +156,13 @@ struct persistTreap
     auto next(int ver, T val) const
     {
         int rt = root[ver];
-        T res = std::numeric_limits<T>::max();
+        T res = numeric_limits<T>::max();
         while (rt)
         {
             if (tree[rt].val > val)
-                res = tree[rt].val, rt = tree[rt].l;
+                res = tree[rt].val, rt = lc(rt);
             else
-                rt = tree[rt].r;
+                rt = rc(rt);
         }
         return res;
     }
@@ -170,3 +173,6 @@ struct persistTreap
         return (int)root.size() - 1;
     }
 };
+
+#undef lc
+#undef rc

@@ -2,6 +2,9 @@
 #include <limits>
 #include <vector>
 
+#define lc(x) tree[x].ch[0]
+#define rc(x) tree[x].ch[1]
+
 template <typename T = int>
 struct splay
 {
@@ -13,7 +16,7 @@ struct splay
     };
 
     int root = 0;
-    std::vector<Node> tree;
+    vector<Node> tree;
 
     splay() : tree(1) {}
 
@@ -29,19 +32,19 @@ struct splay
 
     auto pushup(int rt)
     {
-        tree[rt].size = tree[tree[rt].ch[0]].size + tree[tree[rt].ch[1]].size + tree[rt].cnt;
+        tree[rt].size = tree[lc(rt)].size + tree[rc(rt)].size + tree[rt].cnt;
     }
 
-    auto direction(int rt)
+    auto check(int rt)
     {
-        return tree[tree[rt].fa].ch[1] == rt;
+        return rc(tree[rt].fa) == rt;
     }
 
     auto rotate(int x)
     {
         int y = tree[x].fa, z = tree[y].fa;
-        int k = direction(x), w = tree[x].ch[k ^ 1];
-        tree[z].ch[tree[z].ch[1] == y] = x;
+        int k = check(x), w = tree[x].ch[k ^ 1];
+        tree[z].ch[rc(z) == y] = x;
         tree[x].fa = z;
         tree[y].ch[k] = w;
         tree[w].fa = y;
@@ -56,7 +59,7 @@ struct splay
         {
             int y = tree[x].fa, z = tree[y].fa;
             if (z != target)
-                rotate(direction(x) == direction(y) ? y : x);
+                rotate(check(x) == check(y) ? y : x);
             rotate(x);
         }
         if (!target)
@@ -96,7 +99,10 @@ struct splay
         else
         {
             rt = newnode(val, las);
-            tree[las].ch[val > tree[las].val] = rt;
+            if (val < tree[las].val)
+                lc(las) = rt;
+            else
+                rc(las) = rt;
         }
         splayTo(rt);
     }
@@ -107,11 +113,11 @@ struct splay
         while (rt)
         {
             if (val <= tree[rt].val)
-                rt = tree[rt].ch[0];
+                rt = lc(rt);
             else
             {
-                res += tree[tree[rt].ch[0]].size + tree[rt].cnt;
-                rt = tree[rt].ch[1];
+                res += tree[lc(rt)].size + tree[rt].cnt;
+                rt = rc(rt);
             }
         }
         return res;
@@ -122,12 +128,12 @@ struct splay
         int rt = root;
         while (rt)
         {
-            if (k <= tree[tree[rt].ch[0]].size)
-                rt = tree[rt].ch[0];
-            else if (k > tree[tree[rt].ch[0]].size + tree[rt].cnt)
+            if (k <= tree[lc(rt)].size)
+                rt = lc(rt);
+            else if (k > tree[lc(rt)].size + tree[rt].cnt)
             {
-                k -= tree[tree[rt].ch[0]].size + tree[rt].cnt;
-                rt = tree[rt].ch[1];
+                k -= tree[lc(rt)].size + tree[rt].cnt;
+                rt = rc(rt);
             }
             else
             {
@@ -144,9 +150,9 @@ struct splay
         while (rt)
         {
             if (tree[rt].val < val)
-                ans = rt, rt = tree[rt].ch[1];
+                ans = rt, rt = rc(rt);
             else
-                rt = tree[rt].ch[0];
+                rt = lc(rt);
         }
         if (!ans)
             return false;
@@ -161,9 +167,9 @@ struct splay
         while (rt)
         {
             if (tree[rt].val > val)
-                ans = rt, rt = tree[rt].ch[0];
+                ans = rt, rt = lc(rt);
             else
-                rt = tree[rt].ch[1];
+                rt = rc(rt);
         }
         if (!ans)
             return false;
@@ -183,18 +189,18 @@ struct splay
             pushup(rt);
             return;
         }
-        if (!tree[rt].ch[0] || !tree[rt].ch[1])
+        if (!lc(rt) || !rc(rt))
         {
-            root = tree[rt].ch[0] | tree[rt].ch[1];
+            root = lc(rt) | rc(rt);
             tree[root].fa = 0;
             return;
         }
-        int x = tree[rt].ch[0];
-        while (tree[x].ch[1])
-            x = tree[x].ch[1];
+        int x = lc(rt);
+        while (rc(x))
+            x = rc(x);
         splayTo(x, rt);
-        tree[x].ch[1] = tree[rt].ch[1];
-        tree[tree[x].ch[1]].fa = x;
+        rc(x) = rc(rt);
+        tree[rc(x)].fa = x;
         tree[x].fa = 0;
         root = x;
         pushup(root);
@@ -202,15 +208,18 @@ struct splay
 
     auto pre(T val)
     {
-        T res = std::numeric_limits<T>::lowest();
+        T res = numeric_limits<T>::lowest();
         pre(val, res);
         return res;
     }
 
     auto next(T val)
     {
-        T res = std::numeric_limits<T>::max();
+        T res = numeric_limits<T>::max();
         next(val, res);
         return res;
     }
 };
+
+#undef lc
+#undef rc

@@ -3,6 +3,9 @@
 #include <array>
 #include <vector>
 
+#define lc (rt << 1)
+#define rc (rt << 1 | 1)
+
 template <typename T = long long>
 struct scanlineSeg
 {
@@ -12,18 +15,23 @@ struct scanlineSeg
         T len = 0;
     };
 
-    std::vector<T> p;
-    std::vector<Node> tree;
+    vector<T> p;
+    vector<Node> tree;
 
     scanlineSeg() = default;
-    scanlineSeg(const std::vector<T> &_p) { build(_p); }
+    scanlineSeg(const vector<T> &_p) : p(_p)
+    {
+        sort(p.begin(), p.end());
+        p.erase(unique(p.begin(), p.end()), p.end());
+        tree.resize(p.size() * 4 + 5);
+    }
 
-    auto build(const std::vector<T> &_p)
+    auto build(const vector<T> &_p)
     {
         p = _p;
-        std::sort(p.begin(), p.end());
-        p.erase(std::unique(p.begin(), p.end()), p.end());
-        tree.assign(p.size() * 4 + 5, {});
+        sort(p.begin(), p.end());
+        p.erase(unique(p.begin(), p.end()), p.end());
+        tree.resize(p.size() * 4 + 5);
     }
 
     auto pushup(int rt, int l, int r)
@@ -33,7 +41,7 @@ struct scanlineSeg
         else if (l == r)
             tree[rt].len = 0;
         else
-            tree[rt].len = tree[rt << 1].len + tree[rt << 1 | 1].len;
+            tree[rt].len = tree[lc].len + tree[rc].len;
     }
 
     auto update(int rt, int l, int r, int x, int y, int val) -> void
@@ -47,8 +55,8 @@ struct scanlineSeg
             return;
         }
         int mid = (l + r) >> 1;
-        update(rt << 1, l, mid, x, y, val);
-        update(rt << 1 | 1, mid + 1, r, x, y, val);
+        update(lc, l, mid, x, y, val);
+        update(rc, mid + 1, r, x, y, val);
         pushup(rt, l, r);
     }
 
@@ -56,8 +64,8 @@ struct scanlineSeg
     {
         if (l >= r || p.size() < 2)
             return;
-        int x = (int)(std::lower_bound(p.begin(), p.end(), l) - p.begin());
-        int y = (int)(std::lower_bound(p.begin(), p.end(), r) - p.begin()) - 1;
+        int x = (int)(lower_bound(p.begin(), p.end(), l) - p.begin());
+        int y = (int)(lower_bound(p.begin(), p.end(), r) - p.begin()) - 1;
         if (x <= y)
             update(1, 0, (int)p.size() - 2, x, y, val);
     }
@@ -67,7 +75,7 @@ struct scanlineSeg
         return tree.empty() ? T() : tree[1].len;
     }
 
-    static auto area(const std::vector<std::array<T, 4>> &rect)
+    static auto area(const vector<array<T, 4>> &rect)
     {
         struct Event
         {
@@ -75,23 +83,23 @@ struct scanlineSeg
             int v;
             auto operator<(const Event &rhs) const { return y < rhs.y; }
         };
-        std::vector<T> xs;
-        std::vector<Event> e;
+        vector<T> xs;
+        vector<Event> e;
         for (auto [x1, y1, x2, y2] : rect)
         {
             if (x1 == x2 || y1 == y2)
                 continue;
             if (x1 > x2)
-                std::swap(x1, x2);
+                swap(x1, x2);
             if (y1 > y2)
-                std::swap(y1, y2);
+                swap(y1, y2);
             xs.push_back(x1), xs.push_back(x2);
             e.push_back({x1, x2, y1, 1});
             e.push_back({x1, x2, y2, -1});
         }
         if (e.empty())
             return T();
-        std::sort(e.begin(), e.end());
+        sort(e.begin(), e.end());
         scanlineSeg seg(xs);
         T ans = 0;
         for (int i = 0; i + 1 < (int)e.size(); ++i)
@@ -102,3 +110,6 @@ struct scanlineSeg
         return ans;
     }
 };
+
+#undef lc
+#undef rc

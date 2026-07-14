@@ -4,6 +4,9 @@
 #include <random>
 #include <vector>
 
+#define lc(x) tree[x].l
+#define rc(x) tree[x].r
+
 template <typename T = long long>
 struct implicitTreap
 {
@@ -16,11 +19,16 @@ struct implicitTreap
     };
 
     int root = 0;
-    std::vector<Node> tree;
-    std::mt19937 rnd;
+    vector<Node> tree;
+    mt19937 rnd;
 
-    implicitTreap() : tree(1), rnd((unsigned)std::chrono::steady_clock::now().time_since_epoch().count()) {}
-    implicitTreap(const std::vector<T> &a) : implicitTreap() { build(a); }
+    implicitTreap() : tree(1), rnd((unsigned)chrono::steady_clock::now().time_since_epoch().count()) {}
+    implicitTreap(const vector<T> &a)
+        : tree(1), rnd((unsigned)chrono::steady_clock::now().time_since_epoch().count())
+    {
+        for (int i = 1; i < (int)a.size(); ++i)
+            root = merge(root, newnode(a[i]));
+    }
 
     auto newnode(T val)
     {
@@ -34,19 +42,19 @@ struct implicitTreap
 
     auto pushup(int rt)
     {
-        tree[rt].size = tree[tree[rt].l].size + tree[tree[rt].r].size + 1;
-        tree[rt].sum = tree[tree[rt].l].sum + tree[tree[rt].r].sum + tree[rt].val;
+        tree[rt].size = tree[lc(rt)].size + tree[rc(rt)].size + 1;
+        tree[rt].sum = tree[lc(rt)].sum + tree[rc(rt)].sum + tree[rt].val;
     }
 
     auto pushdown(int rt)
     {
         if (!rt || !tree[rt].rev)
             return;
-        std::swap(tree[rt].l, tree[rt].r);
-        if (tree[rt].l)
-            tree[tree[rt].l].rev ^= 1;
-        if (tree[rt].r)
-            tree[tree[rt].r].rev ^= 1;
+        swap(lc(rt), rc(rt));
+        if (lc(rt))
+            tree[lc(rt)].rev ^= 1;
+        if (rc(rt))
+            tree[rc(rt)].rev ^= 1;
         tree[rt].rev = false;
     }
 
@@ -58,15 +66,15 @@ struct implicitTreap
             return;
         }
         pushdown(rt);
-        if (tree[tree[rt].l].size < size)
+        if (tree[lc(rt)].size < size)
         {
             x = rt;
-            split(tree[rt].r, size - tree[tree[rt].l].size - 1, tree[rt].r, y);
+            split(rc(rt), size - tree[lc(rt)].size - 1, rc(rt), y);
         }
         else
         {
             y = rt;
-            split(tree[rt].l, size, x, tree[rt].l);
+            split(lc(rt), size, x, lc(rt));
         }
         pushup(rt);
     }
@@ -78,20 +86,21 @@ struct implicitTreap
         if (tree[x].key > tree[y].key)
         {
             pushdown(x);
-            tree[x].r = merge(tree[x].r, y);
+            rc(x) = merge(rc(x), y);
             pushup(x);
             return x;
         }
         pushdown(y);
-        tree[y].l = merge(x, tree[y].l);
+        lc(y) = merge(x, lc(y));
         pushup(y);
         return y;
     }
 
-    auto build(const std::vector<T> &a)
+    auto build(const vector<T> &a)
     {
         root = 0;
-        tree.assign(1, Node());
+        tree.resize(1);
+        tree[0] = Node();
         for (int i = 1; i < (int)a.size(); ++i)
             root = merge(root, newnode(a[i]));
     }
@@ -137,12 +146,12 @@ struct implicitTreap
         while (rt)
         {
             pushdown(rt);
-            if (pos <= tree[tree[rt].l].size)
-                rt = tree[rt].l;
-            else if (pos > tree[tree[rt].l].size + 1)
+            if (pos <= tree[lc(rt)].size)
+                rt = lc(rt);
+            else if (pos > tree[lc(rt)].size + 1)
             {
-                pos -= tree[tree[rt].l].size + 1;
-                rt = tree[rt].r;
+                pos -= tree[lc(rt)].size + 1;
+                rt = rc(rt);
             }
             else
                 return tree[rt].val;
@@ -150,20 +159,23 @@ struct implicitTreap
         return T();
     }
 
-    auto dfs(int rt, std::vector<T> &res)
+    auto dfs(int rt, vector<T> &res)
     {
         if (!rt)
             return;
         pushdown(rt);
-        dfs(tree[rt].l, res);
+        dfs(lc(rt), res);
         res.push_back(tree[rt].val);
-        dfs(tree[rt].r, res);
+        dfs(rc(rt), res);
     }
 
     auto dump()
     {
-        std::vector<T> res;
+        vector<T> res;
         dfs(root, res);
         return res;
     }
 };
+
+#undef lc
+#undef rc

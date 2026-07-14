@@ -1,12 +1,16 @@
-template <typename T, int U>
-struct linearBasis : array<T, U + 1>
-{
-    using array<T, U + 1>::array;
-    using array<T, U + 1>::begin;
-    using array<T, U + 1>::end;
-    using array<T, U + 1>::at;
+#pragma once
+#include <algorithm>
+#include <array>
 
-    linearBasis() : array<T, U + 1>{} {}
+template <typename T, int U>
+struct linearBasis : std::array<T, U + 1>
+{
+    using std::array<T, U + 1>::array;
+    using std::array<T, U + 1>::begin;
+    using std::array<T, U + 1>::end;
+    using std::array<T, U + 1>::at;
+
+    linearBasis() : std::array<T, U + 1>{} {}
     auto insert(T v)
     {
         for (int i = U; i >= 0; --i)
@@ -34,8 +38,8 @@ struct linearBasis : array<T, U + 1>
     }
     auto rank() const
     {
-        return (int)count_if(begin(), end(), [](T x)
-                             { return x != 0; });
+        return (int)std::count_if(begin(), end(), [](T x)
+                                  { return x != 0; });
     }
     auto &merge(const linearBasis &other)
     {
@@ -77,13 +81,13 @@ struct linearBasis : array<T, U + 1>
     auto max(T res = 0) const
     {
         for (int i = U; i >= 0; --i)
-            res = ::max(res, res ^ at(i));
+            res = std::max(res, res ^ at(i));
         return res;
     }
     auto min(T res = 0) const
     {
         for (int i = U; i >= 0; --i)
-            res = ::min(res, res ^ at(i));
+            res = std::min(res, res ^ at(i));
         return res;
     }
     auto &adjust()

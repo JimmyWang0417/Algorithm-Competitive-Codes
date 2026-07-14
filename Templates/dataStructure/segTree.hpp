@@ -3,29 +3,41 @@
 #include <limits>
 #include <vector>
 
+#define lc (rt << 1)
+#define rc (rt << 1 | 1)
+
 template <typename T = long long>
 struct segTree
 {
     struct Node
     {
         int len = 0, lpos = 0, minPos = 0;
-        T sum = 0, max = std::numeric_limits<T>::lowest() / 4;
-        T min = std::numeric_limits<T>::max() / 4;
+        T sum = 0, max = numeric_limits<T>::lowest() / 4;
+        T min = numeric_limits<T>::max() / 4;
         T add = 0, setv = 0;
         bool hasSet = false;
     };
 
     int n = 0;
-    std::vector<Node> tree;
+    vector<Node> tree;
 
     segTree() = default;
-    segTree(int _n) { build(_n); }
-    segTree(const std::vector<T> &a) { build(a); }
+    segTree(int _n) : n(_n), tree(n * 4 + 5)
+    {
+        vector<T> a(n + 1);
+        if (n)
+            build(1, 1, n, a);
+    }
+    segTree(const vector<T> &a) : n((int)a.size() - 1), tree(n * 4 + 5)
+    {
+        if (n)
+            build(1, 1, n, a);
+    }
 
     auto init(int _n)
     {
         n = _n;
-        tree.assign(n * 4 + 5, {});
+        tree.resize(n * 4 + 5);
     }
 
     auto merge(const Node &lhs, const Node &rhs) const
@@ -38,15 +50,15 @@ struct segTree
         res.len = lhs.len + rhs.len;
         res.lpos = lhs.lpos;
         res.sum = lhs.sum + rhs.sum;
-        res.max = std::max(lhs.max, rhs.max);
-        res.min = std::min(lhs.min, rhs.min);
+        res.max = max(lhs.max, rhs.max);
+        res.min = min(lhs.min, rhs.min);
         res.minPos = lhs.min <= rhs.min ? lhs.minPos : rhs.minPos;
         return res;
     }
 
     auto pushup(int rt)
     {
-        tree[rt] = merge(tree[rt << 1], tree[rt << 1 | 1]);
+        tree[rt] = merge(tree[lc], tree[rc]);
     }
 
     auto applySet(int rt, T val)
@@ -74,19 +86,19 @@ struct segTree
     {
         if (tree[rt].hasSet)
         {
-            applySet(rt << 1, tree[rt].setv);
-            applySet(rt << 1 | 1, tree[rt].setv);
+            applySet(lc, tree[rt].setv);
+            applySet(rc, tree[rt].setv);
             tree[rt].hasSet = false;
         }
         if (tree[rt].add)
         {
-            applyAdd(rt << 1, tree[rt].add);
-            applyAdd(rt << 1 | 1, tree[rt].add);
+            applyAdd(lc, tree[rt].add);
+            applyAdd(rc, tree[rt].add);
             tree[rt].add = 0;
         }
     }
 
-    auto build(int rt, int l, int r, const std::vector<T> &a) -> void
+    auto build(int rt, int l, int r, const vector<T> &a) -> void
     {
         tree[rt].len = r - l + 1;
         tree[rt].lpos = tree[rt].minPos = l;
@@ -99,20 +111,20 @@ struct segTree
             return;
         }
         int mid = (l + r) >> 1;
-        build(rt << 1, l, mid, a);
-        build(rt << 1 | 1, mid + 1, r, a);
+        build(lc, l, mid, a);
+        build(rc, mid + 1, r, a);
         pushup(rt);
     }
 
     auto build(int _n)
     {
         init(_n);
-        std::vector<T> a(n + 1);
+        vector<T> a(n + 1);
         if (n)
             build(1, 1, n, a);
     }
 
-    auto build(const std::vector<T> &a)
+    auto build(const vector<T> &a)
     {
         init((int)a.size() - 1);
         if (n)
@@ -127,8 +139,8 @@ struct segTree
             return applyAdd(rt, val);
         int mid = (l + r) >> 1;
         pushdown(rt);
-        rangeAdd(rt << 1, l, mid, x, y, val);
-        rangeAdd(rt << 1 | 1, mid + 1, r, x, y, val);
+        rangeAdd(lc, l, mid, x, y, val);
+        rangeAdd(rc, mid + 1, r, x, y, val);
         pushup(rt);
     }
 
@@ -140,8 +152,8 @@ struct segTree
             return applySet(rt, val);
         int mid = (l + r) >> 1;
         pushdown(rt);
-        rangeSet(rt << 1, l, mid, x, y, val);
-        rangeSet(rt << 1 | 1, mid + 1, r, x, y, val);
+        rangeSet(lc, l, mid, x, y, val);
+        rangeSet(rc, mid + 1, r, x, y, val);
         pushup(rt);
     }
 
@@ -153,8 +165,8 @@ struct segTree
             return tree[rt];
         int mid = (l + r) >> 1;
         pushdown(rt);
-        return merge(query(rt << 1, l, mid, x, y),
-                     query(rt << 1 | 1, mid + 1, r, x, y));
+        return merge(query(lc, l, mid, x, y),
+                     query(rc, mid + 1, r, x, y));
     }
 
     auto rangeAdd(int l, int r, T val)
@@ -193,10 +205,10 @@ struct segTree
             return l;
         int mid = (l + r) >> 1;
         pushdown(rt);
-        int res = findFirst(rt << 1, l, mid, x, y, pred);
+        int res = findFirst(lc, l, mid, x, y, pred);
         if (res != -1)
             return res;
-        return findFirst(rt << 1 | 1, mid + 1, r, x, y, pred);
+        return findFirst(rc, mid + 1, r, x, y, pred);
     }
 
     template <typename Func>
@@ -208,10 +220,10 @@ struct segTree
             return l;
         int mid = (l + r) >> 1;
         pushdown(rt);
-        int res = findLast(rt << 1 | 1, mid + 1, r, x, y, pred);
+        int res = findLast(rc, mid + 1, r, x, y, pred);
         if (res != -1)
             return res;
-        return findLast(rt << 1, l, mid, x, y, pred);
+        return findLast(lc, l, mid, x, y, pred);
     }
 
     template <typename Func>
@@ -226,3 +238,6 @@ struct segTree
         return l <= r && n ? findLast(1, 1, n, l, r, pred) : -1;
     }
 };
+
+#undef lc
+#undef rc
