@@ -142,6 +142,8 @@
         "terminal.ansiWhite": "#6C696E",
         "terminal.ansiYellow": "#DC8A0E"
     },
+    "terminal.integrated.fontFamily": "'Hack Nerd Font Mono', 'Noto Sans Mono CJK SC', 'Noto Color Emoji', monospace",
+    "terminal.integrated.fontLigatures": false,
     "latex-workshop.view.pdf.viewer": "tab", //tab:使用VSCode自带的pdf阅读器
     "latex-workshop.latex.autoClean.run": "onBuilt", //何时应删除LaTeX辅助文件,要清理的文件夹在latex-workshop.latex.outDir中定义,onFailed:在编译失败时清除项目,onBuild:不论编译成功与否都在编译终止时清除项目
     "latex-workshop.latex.autoBuild.run": "never", //onFileChange:在检测到任何文件中的更改（甚至被其他应用程序修改）时编译（默认）,never:当你命令编译时才编译

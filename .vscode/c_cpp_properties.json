@@ -1,21 +1,32 @@
 {
+    "env": {
+        "defaultIncludePath": [
+            "${workspaceFolder}/**"
+        ],
+        "defaultCompilerArgs": [
+            "-Wall",
+            "-Wextra",
+            "-Wshadow",
+            "-pedantic",
+            "-Wformat=2",
+            "-Wfloat-equal",
+            "-Wlogical-op",
+            "-Wcast-qual",
+            "-Wcast-align",
+            "-Wconversion",
+            "-std=c++20",
+            "-O2",
+            "-pthread",
+            "-DPAPERDOG"
+        ],
+        "LANG": "C",
+        "PATH": "/usr/local/sbin:/usr/local/bin:/usr/bin:/bin"
+    },
     "configurations": [
-        {
-            "name": "Win32",
-            "includePath": [
-                "${workspaceFolder}/**"
-            ],
-            "defines": [
-                "_DEBUG",
-                "UNICODE",
-                "_UNICODE"
-            ],
-            "intelliSenseMode": "msvc-x64"
-        },
         {
             "name": "Linux",
             "includePath": [
-                "${workspaceFolder}/**"
+                "${defaultIncludePath}"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/g++",
@@ -23,21 +34,20 @@
             "cppStandard": "c++20",
             "intelliSenseMode": "linux-gcc-x64",
             "compilerArgs": [
-                "-Wall",
-                "-Wextra",
-                "-Wshadow",
-                "-pedantic",
-                "-Wformat=2",
-                "-Wfloat-equal",
-                "-Wlogical-op",
-                "-Wcast-qual",
-                "-Wcast-align",
-                "-Wconversion",
-                "-std=c++20",
-                "-O2",
-                "-pthread",
-                "-DPAPERDOG"
+                "${defaultCompilerArgs}"
             ]
+        },
+        {
+            "name": "Win32",
+            "includePath": [
+                "${defaultIncludePath}"
+            ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE"
+            ],
+            "intelliSenseMode": "msvc-x64"
         }
     ],
     "version": 4
