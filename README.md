@@ -61,7 +61,15 @@ JimmyWang0417 's Algorithm Competitive Codes
 程序的统计信息：
 <!-- count the code begin -->
 ```plain
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+```
+<!-- count the code end -->
+
+程序的目录树：
+<!-- directory tree begin -->
+```plain
+```
+<!-- directory tree end -->
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
  Language              Files        Lines         Code     Comments       Blanks
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
  Autoconf                 16      1885023      1885023            0            0
