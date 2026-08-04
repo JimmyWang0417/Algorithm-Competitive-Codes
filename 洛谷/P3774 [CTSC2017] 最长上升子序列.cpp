@@ -112,7 +112,7 @@ struct Main
             insert(a[i]);
             while (j < m && get<0>(b[j]) <= i + 1)
             {
-                auto [m, k, id] = b[j++];
+                auto [_, k, id] = b[j++];
                 c[id] = tree.query(k);
             }
         }
