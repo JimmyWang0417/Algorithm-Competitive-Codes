@@ -65,14 +65,14 @@ JimmyWang0417 's Algorithm Competitive Codes
  Language              Files        Lines         Code     Comments       Blanks
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
  Autoconf                 16      1885023      1885023            0            0
- C++                    2459       360302       350604         6464         3234
+ C++                    2460       360439       350740         6465         3234
  C++ Header               81         9780         8454          606          720
  Makefile                  2            4            4            0            0
  Markdown                  3         5526            0         5487           39
  Python                    6          294          252            9           33
  Shell                     1           15            5            5            5
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- Total                  2568      2260944      2244342        12571         4031
+ Total                  2569      2261081      2244478        12572         4031
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 <!-- count the code end -->
@@ -845,6 +845,9 @@ JimmyWang0417 's Algorithm Competitive Codes
 │       ├── CF997C Sky Full of Stars.cpp
 │       └── CF997E Good Subsegments.cpp
 ├── custom_code_generator.py
+├── docs
+│   └── superpowers
+│       └── plans
 ├── Generator.py
 ├── HackerRank
 │   ├── Subset
@@ -2578,6 +2581,7 @@ JimmyWang0417 's Algorithm Competitive Codes
 │   ├── P5142 区间方差.cpp
 │   ├── P5158 【模板】多项式快速插值.cpp
 │   ├── P5170 【模板】类欧几里得算法.cpp
+│   ├── P5180 【模板】支配树.cpp
 │   ├── P5192 Zoj3229 Shoot the Bullet 或 东方文花帖 或 【模板】有源汇上下界最大流.cpp
 │   ├── P5205 【模板】多项式开根.cpp
 │   ├── P5212 SubString.cpp
@@ -3562,6 +3566,9 @@ JimmyWang0417 's Algorithm Competitive Codes
 │       ├── CF997C Sky Full of Stars.cpp
 │       └── CF997E Good Subsegments.cpp
 ├── custom_code_generator.py
+├── docs
+│   └── superpowers
+│       └── plans
 ├── Generator.py
 ├── HackerRank
 │   ├── Subset
@@ -5295,6 +5302,7 @@ JimmyWang0417 's Algorithm Competitive Codes
 │   ├── P5142 区间方差.cpp
 │   ├── P5158 【模板】多项式快速插值.cpp
 │   ├── P5170 【模板】类欧几里得算法.cpp
+│   ├── P5180 【模板】支配树.cpp
 │   ├── P5192 Zoj3229 Shoot the Bullet 或 东方文花帖 或 【模板】有源汇上下界最大流.cpp
 │   ├── P5205 【模板】多项式开根.cpp
 │   ├── P5212 SubString.cpp
