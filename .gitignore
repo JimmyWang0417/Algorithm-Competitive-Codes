@@ -42,3 +42,8 @@ __pycache__/*
 *.otf
 Environment/Contest
 articles
+
+# Local agent and browser automation state
+.agents/
+.playwright-mcp/
+.hvigor/
