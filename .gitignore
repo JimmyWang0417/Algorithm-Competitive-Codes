@@ -45,5 +45,8 @@ articles
 
 # Local agent and browser automation state
 .agents/
+.claude/
+.codex/
 .playwright-mcp/
 .hvigor/
+.pytest_cache/
