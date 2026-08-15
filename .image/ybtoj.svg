@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="title">
+  <title>Ybt Online Judge</title>
+  <defs>
+    <linearGradient id="background" x1="18" y1="14" x2="110" y2="114" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#a855f7"/>
+      <stop offset="1" stop-color="#6d28d9"/>
+    </linearGradient>
+  </defs>
+  <rect width="128" height="128" rx="26" fill="url(#background)"/>
+  <circle cx="96" cy="31" r="17" fill="#facc15" fill-opacity=".95"/>
+  <path d="m88 31 6 6 11-13" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="5"/>
+  <text x="56" y="68" fill="#fff" font-family="Arial, Helvetica, sans-serif" font-size="36" font-weight="800" text-anchor="middle">Ybt</text>
+  <rect x="31" y="76" width="66" height="30" rx="15" fill="#fff"/>
+  <text x="64" y="99" fill="#6d28d9" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="800" letter-spacing="3" text-anchor="middle">OJ</text>
+</svg>
