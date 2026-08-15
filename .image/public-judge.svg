@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="title">
+  <title>Public Judge</title>
+  <defs>
+    <linearGradient id="background" x1="16" y1="12" x2="112" y2="116" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#38bdf8"/>
+      <stop offset="1" stop-color="#2563eb"/>
+    </linearGradient>
+  </defs>
+  <rect width="128" height="128" rx="26" fill="url(#background)"/>
+  <path d="M25 27h78a10 10 0 0 1 10 10v54a10 10 0 0 1-10 10H25a10 10 0 0 1-10-10V37a10 10 0 0 1 10-10Z" fill="#fff" fill-opacity=".14" stroke="#fff" stroke-opacity=".5" stroke-width="3"/>
+  <text x="64" y="59" fill="#fff" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="800" letter-spacing="1.5" text-anchor="middle">PUBLIC</text>
+  <rect x="22" y="68" width="84" height="31" rx="15.5" fill="#0f172a" fill-opacity=".86"/>
+  <text x="64" y="91" fill="#fff" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="800" letter-spacing="1" text-anchor="middle">JUDGE</text>
+</svg>
