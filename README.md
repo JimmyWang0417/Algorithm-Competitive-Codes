@@ -65,14 +65,14 @@ JimmyWang0417 's Algorithm Competitive Codes
  Language              Files        Lines         Code     Comments       Blanks
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
  Autoconf                 16      1885023      1885023            0            0
- C++                    2462       360618       350919         6465         3234
+ C++                    2687       384016       373669         6738         3609
  C++ Header               81         9780         8454          606          720
  Makefile                  2            4            4            0            0
- Markdown                  3         5534            0         5495           39
- Python                    6          294          252            9           33
+ Markdown                  3         5543            0         5502           41
+ Python                    8          329          283            9           37
  Shell                     1           15            5            5            5
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- Total                  2571      2261268      2244657        12580         4031
+ Total                  2798      2284710      2267438        12860         4412
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 <!-- count the code end -->
@@ -1136,6 +1136,12 @@ JimmyWang0417 's Algorithm Competitive Codes
 │   ├── #21626. 【PR #3】猜数.cpp
 │   └── #21627. 【PR #3】抽卡.cpp
 ├── Qingyu Online Judge
+│   ├── Petrozavodsk Winter 2023. Day 7: Gennady Korotkevich Contest 7
+│   │   ├── A. Classical A+B Problem.py
+│   │   ├── B. Classical Counting Problem.cpp
+│   │   ├── F. Classical Geometry Problem.cpp
+│   │   ├── J. Classical Scheduling Problem.cpp
+│   │   └── K. Classical Summation Problem.cpp
 │   ├── The 1st Universal Cup. Stage 16: Gomel
 │   │   ├── A. Classical A+B Problem.py
 │   │   ├── B. Classical Counting Problem.cpp
@@ -1145,6 +1151,9 @@ JimmyWang0417 's Algorithm Competitive Codes
 │   │   ├── H. Classical Maximization Problem.cpp
 │   │   ├── J. Classical Scheduling Problem.cpp
 │   │   └── K. Classical Summation Problem.cpp
+│   ├── The 2023 ICPC German Collegiate Programming Contest
+│   │   ├── H. Highway Combinatorics.cpp
+│   │   └── J. Japanese Lottery.cpp
 │   ├── The 2024 ICPC Northwestern Europe Regional Contest (NWERC 2024)
 │   │   ├── A. Alphabetical Aristocrats.cpp
 │   │   ├── D. Dutch Democracy.cpp
@@ -1153,6 +1162,8 @@ JimmyWang0417 's Algorithm Competitive Codes
 │   │   ├── H. Hash Collision.cpp
 │   │   ├── J. Jib Job.cpp
 │   │   └── L. Limited Library.cpp
+│   ├── The 2025 ICPC Asia East Continent Online Contest (I)
+│   │   └── K. Counting.cpp
 │   ├── The 2nd Universal Cup. Stage 10: Harbin
 │   │   ├── A. Go go Baron Bunny!.cpp
 │   │   ├── B. Memory.cpp
@@ -1197,6 +1208,13 @@ JimmyWang0417 's Algorithm Competitive Codes
 │   │   ├── I. Interval Addition.cpp
 │   │   ├── J. Joining Cats.cpp
 │   │   └── L. Lines.cpp
+│   ├── The 3rd Universal Cup Semifinals
+│   │   ├── C. Adjacent Add.cpp
+│   │   ├── D. Circular Matching.cpp
+│   │   ├── E. Circular Convolution 2.cpp
+│   │   ├── F. Even Circuit.cpp
+│   │   ├── G. Master of Cards.cpp
+│   │   └── H. Shortcut on Tree.cpp
 │   ├── The 3rd Universal Cup. Stage 0: Trial Contest
 │   │   ├── A. Arrested Development.cpp
 │   │   ├── D. Dihedral Group.cpp
@@ -1239,8 +1257,10 @@ JimmyWang0417 's Algorithm Competitive Codes
 │   │   ├── K. Magical Set.cpp
 │   │   └── L. Recover Statistics.cpp
 │   ├── The 3rd Universal Cup. Stage 16: Nanjing
+│   │   ├── A. Hey, Have You Seen My Kangaroo?.cpp
 │   │   ├── B. Birthday Gift.cpp
 │   │   ├── C. Topology.cpp
+│   │   ├── F. Subway.cpp
 │   │   ├── I. Bingo.cpp
 │   │   └── M. Ordainer of Inexorable Judgment.cpp
 │   ├── The 3rd Universal Cup. Stage 17: Jinan
@@ -1301,6 +1321,9 @@ JimmyWang0417 's Algorithm Competitive Codes
 │   ├── The 3rd Universal Cup. Stage 22: Zhengzhou
 │   │   ├── A. A + B = C Problem.cpp
 │   │   └── K. Brotato.cpp
+│   ├── The 3rd Universal Cup. Stage 23: Hong Kong
+│   │   ├── C. The Story of Emperor Bie.cpp
+│   │   └── K. LR String.cpp
 │   ├── The 3rd Universal Cup. Stage 24: Poland
 │   │   ├── A. Acronym.cpp
 │   │   ├── B. Baggage.cpp
@@ -1350,6 +1373,21 @@ JimmyWang0417 's Algorithm Competitive Codes
 │   │   ├── K. Power Divisions.cpp
 │   │   ├── L. Chords.cpp
 │   │   └── M. Balance of Permutation.cpp
+│   ├── The 3rd Universal Cup. Stage 31: Wroclaw
+│   │   ├── D. Divisors.cpp
+│   │   ├── F. Flats.cpp
+│   │   ├── I. Illuminati.cpp
+│   │   ├── K. King's Festival.cpp
+│   │   └── L. Labyrinth.cpp
+│   ├── The 3rd Universal Cup. Stage 36: Wulin
+│   │   ├── A. Outer LIS.cpp
+│   │   ├── B. Turn on the Light 3.cpp
+│   │   ├── D. Too Clever by Half.cpp
+│   │   ├── F. Challenge NPC III.cpp
+│   │   ├── G. Tariff-ied.cpp
+│   │   ├── I. Version Number.py
+│   │   ├── L. Nailoongs Always Lie.cpp
+│   │   └── M. Master of Both VII.cpp
 │   ├── The 3rd Universal Cup. Stage 37: Wuhan
 │   │   ├── B. Black Red Tree.cpp
 │   │   ├── C. One Must Imagine Sisyphus Happy.cpp
@@ -1357,6 +1395,20 @@ JimmyWang0417 's Algorithm Competitive Codes
 │   │   ├── F. Knapsack.cpp
 │   │   ├── K. Las Vegas.cpp
 │   │   └── M. Flight Tracker.cpp
+│   ├── The 3rd Universal Cup. Stage 39: Tokyo
+│   │   ├── A. Array Similarity.cpp
+│   │   ├── B. Bracket Character Frequency.cpp
+│   │   ├── C. Card Deck.cpp
+│   │   ├── D. Digits of Prefix Product.cpp
+│   │   ├── K. K-rep Array.cpp
+│   │   ├── L. LIS Triangle.cpp
+│   │   ├── N. Nice Bouquets.cpp
+│   │   └── Q. Quadratic Pieces.cpp
+│   ├── The 3rd Universal Cup. Stage 40: Potyczki
+│   │   ├── A. AGI.cpp
+│   │   ├── D. Fern Market.cpp
+│   │   ├── L. Directed Hanoi.cpp
+│   │   └── N. Frequency Function.cpp
 │   ├── The 3rd Universal Cup. Stage 4: Hongō
 │   │   ├── C. Contour Multiplication.cpp
 │   │   ├── D. DRD String.cpp
@@ -1385,8 +1437,212 @@ JimmyWang0417 's Algorithm Competitive Codes
 │   │   └── M. Mathematics Championships.cpp
 │   ├── The 3rd Universal Cup. Stage 8: Cangqian
 │   │   └── H. Permutation.cpp
+│   ├── The 4th Universal Cup. Extra Stage 1: Xi'an (Unrated)
+│   │   ├── A. Azalea Garden.cpp
+│   │   ├── B. Beautiful Dangos.cpp
+│   │   ├── C. Catch the Monster.cpp
+│   │   ├── F. Follow the Penguins.cpp
+│   │   ├── G. Grand Voting.cpp
+│   │   ├── I. Imagined Holly.cpp
+│   │   ├── J. January's Color.cpp
+│   │   ├── K. Killing Bits.cpp
+│   │   ├── L. Let's Make a Convex!.cpp
+│   │   └── M. Mystique as Iris.cpp
+│   ├── The 4th Universal Cup. Extra Stage 2: Wuhan
+│   │   ├── A. Planting Trees.cpp
+│   │   ├── B. 77G Network.cpp
+│   │   ├── G. Projection.cpp
+│   │   └── I. Dolls 2.cpp
+│   ├── The 4th Universal Cup. Extra Stage 5: Shenzhen
+│   │   ├── A. Greetings from Prof. Chen.cpp
+│   │   ├── B. All-Star Showdown.cpp
+│   │   ├── D. City Management.cpp
+│   │   ├── E. Card Checking.cpp
+│   │   ├── F. Astra.cpp
+│   │   ├── G. Snake.cpp
+│   │   ├── H. Telepathy.cpp
+│   │   ├── I. Calendar Cubes.cpp
+│   │   ├── K. Sum and Product.cpp
+│   │   ├── L. Critical Strike.cpp
+│   │   └── M. Night at the Museum.cpp
+│   ├── The 4th Universal Cup. Extra Stage 6: Shaanxi
+│   │   ├── A. North and South.cpp
+│   │   ├── B. Operating Robot.cpp
+│   │   ├── C. Palindromic and Balanced.cpp
+│   │   ├── D. Qenerals.cpp
+│   │   ├── E. Registration.cpp
+│   │   ├── F. Split Sticks.cpp
+│   │   ├── G. Transform.cpp
+│   │   ├── I. VIP Coupon.cpp
+│   │   ├── J. Would You Make a Convex?.cpp
+│   │   ├── K. XOR and LCA.cpp
+│   │   ├── L. Yesterday Once More (Easy Version).cpp
+│   │   └── M. Yesterday Once More (Hard Version).cpp
+│   ├── The 4th Universal Cup. Extra Stage 7: Hubei
+│   │   ├── A. Sort.cpp
+│   │   ├── B. Sequence Operations.cpp
+│   │   ├── C. Believe in You.cpp
+│   │   ├── D. Prime Game.cpp
+│   │   ├── E. Rook.cpp
+│   │   ├── F. Lottery.cpp
+│   │   ├── G. I Will Always Remember You.cpp
+│   │   ├── H. Rectangle Cutting.cpp
+│   │   ├── I. Nailoong vs. Bombloong 2.cpp
+│   │   ├── J. The Best Card.cpp
+│   │   ├── K. Deletion Game.cpp
+│   │   └── L. String Matching.cpp
+│   ├── The 4th Universal Cup. Stage 10: Grand Prix of Wrocław
+│   │   ├── D. DNA.cpp
+│   │   ├── G. Game of Darts.cpp
+│   │   ├── H. Hiking.cpp
+│   │   ├── I. Identical Fences.cpp
+│   │   ├── K. Key Properties.cpp
+│   │   └── L. Letters on T-shirts.cpp
+│   ├── The 4th Universal Cup. Stage 12: Grand Prix of Shanghai
+│   │   ├── B. Hamu.cpp
+│   │   ├── K. No more regrets.cpp
+│   │   ├── L. Yet another permutation problem.cpp
+│   │   └── M. Yet another 01 problem.cpp
+│   ├── The 4th Universal Cup. Stage 14: Grand Prix of Hong Kong
+│   │   ├── A. Bipartite Graph Matching Problem.cpp
+│   │   ├── B. Travelling.cpp
+│   │   ├── C. Stonebag.cpp
+│   │   ├── D. Dumb Problem.cpp
+│   │   ├── F. Find the Circuit.cpp
+│   │   ├── G. Watering System.cpp
+│   │   ├── H. Longest Common Prefix.cpp
+│   │   ├── I. DFS Order - Extra Stage.cpp
+│   │   ├── J. Re: Becoming the Programming Champion.cpp
+│   │   └── K. Cyclic Shift.cpp
+│   ├── The 4th Universal Cup. Stage 16: Grand Prix of Warsaw
+│   │   ├── B. Bitwise Beach.cpp
+│   │   ├── C. Copy-paste.cpp
+│   │   ├── D. Deque Sort.cpp
+│   │   ├── E. Evaluation.cpp
+│   │   ├── G. Good Permutations.cpp
+│   │   ├── I. Palindromes.cpp
+│   │   ├── J. Jewel Guards.cpp
+│   │   └── K. Multiset Variance.cpp
+│   ├── The 4th Universal Cup. Stage 22: Grand Prix of Kyoto
+│   │   ├── A. Kendama Challenge.cpp
+│   │   ├── B. Cat Cut.cpp
+│   │   ├── C. Partition AND_OR Aggregation.cpp
+│   │   ├── D. Campaign Speech.cpp
+│   │   ├── E. Ball Dumping Golf.cpp
+│   │   ├── F. 1e16 Cities.cpp
+│   │   ├── G. The Symbolic Tree.cpp
+│   │   ├── I. Xor Magic Square.cpp
+│   │   ├── J. Sum of max of iai.cpp
+│   │   ├── K. Square Resistance Value.cpp
+│   │   ├── L. Make Many KUPC.cpp
+│   │   ├── M. Linked VERSE.cpp
+│   │   ├── N. Cellular Component Constellation.cpp
+│   │   └── O. Xor Triangle.cpp
+│   ├── The 4th Universal Cup. Stage 24: Grand Prix of Wulin
+│   │   ├── B. Cloud-Ascending Platform.cpp
+│   │   ├── C. PalindromemordnilaP.cpp
+│   │   ├── D. GG.cpp
+│   │   ├── E. Is this a problem?.cpp
+│   │   ├── F. Tired.cpp
+│   │   ├── G. Boring Constructive Problem.cpp
+│   │   ├── H. ucup-team7610.cpp
+│   │   ├── I. Hikoutei.cpp
+│   │   ├── J. Ballon Problem.cpp
+│   │   ├── K. Soul Link.cpp
+│   │   ├── L. Marcel Adventure.cpp
+│   │   └── M. Rounddog.cpp
+│   ├── The 4th Universal Cup. Stage 25: Grand Prix of Zagreb
+│   │   ├── A. Arrow Array.cpp
+│   │   ├── B. Big Balls.cpp
+│   │   ├── C. Crooked Cycles.cpp
+│   │   ├── D. Dangerous Data.cpp
+│   │   ├── E. Exchange Error.cpp
+│   │   ├── F. Flipping Frenzy.cpp
+│   │   ├── G. Grid Gradient.cpp
+│   │   ├── H. Halfway Hawser.cpp
+│   │   ├── J. Jolly Janes.cpp
+│   │   ├── K. Kempt Kale.cpp
+│   │   ├── L. Loop Land.cpp
+│   │   └── M. Maximum Mex.cpp
+│   ├── The 4th Universal Cup. Stage 3: Polar Grand Prix
+│   │   ├── B. Christmas Tree.cpp
+│   │   ├── C. Roman Numerals.cpp
+│   │   ├── D. Disjoint Set Splitting.cpp
+│   │   ├── E. Maximum Segment Sum.cpp
+│   │   ├── F. This Time I Will Be Lucky.cpp
+│   │   ├── G. Far Away.cpp
+│   │   ├── I. Two Permutations.cpp
+│   │   ├── J. One Permutation.cpp
+│   │   └── K. Game on Board.cpp
+│   ├── The 4th Universal Cup. Stage 4: Grand Prix of Chengdu
+│   │   ├── A. A Lot of Paintings.cpp
+│   │   ├── B. Blood Memories.cpp
+│   │   ├── C. Crossing River.cpp
+│   │   ├── D. Deductive Snooker Scoring.cpp
+│   │   ├── G. GCD of Subsets.cpp
+│   │   ├── I. Inside Triangle.cpp
+│   │   ├── J. Judging Papers.cpp
+│   │   ├── K. K-Coverage.cpp
+│   │   ├── L. Label Matching.cpp
+│   │   └── M. Meeting for Meals.cpp
+│   ├── The 4th Universal Cup. Stage 5: Grand Prix of Nanjing
+│   │   ├── B. What, More Kangaroos?.cpp
+│   │   ├── C. Distributing Candies.cpp
+│   │   ├── E. Cyan White Tree.cpp
+│   │   ├── F. Bitwise And Path.cpp
+│   │   ├── G. Bucket Bonanza.cpp
+│   │   ├── H. Pen Pineapple Apple Pen.cpp
+│   │   ├── I. Chi Fan.cpp
+│   │   ├── J. Trajan Algorithm.cpp
+│   │   ├── K. Xiangqi.cpp
+│   │   └── M. Many Convex Polygons.cpp
+│   ├── The 4th Universal Cup. Stage 6: Grand Prix of Shenyang
+│   │   ├── A. Square Kingdom.cpp
+│   │   ├── B. Buggy Painting Software I.cpp
+│   │   ├── C. Buggy Painting Software II.cpp
+│   │   ├── F. The Bond Beyond Time.cpp
+│   │   ├── G. Collision Damage.cpp
+│   │   ├── I. Volunteer Simulator.cpp
+│   │   ├── K. Relay Jump.cpp
+│   │   └── M. The End?.cpp
+│   ├── The 4th Universal Cup. Stage 7: Grand Prix of Zhengzhou
+│   │   ├── B. Cutting Chocolate.cpp
+│   │   ├── D. Diameter of a Tree.cpp
+│   │   ├── G. Plus Xor.cpp
+│   │   ├── H. Random Shuffle.cpp
+│   │   ├── I. Dumb Problem II.cpp
+│   │   ├── J. Subrectangle Count.cpp
+│   │   ├── K. Parentheses and Swapping.cpp
+│   │   └── M. Replacement.cpp
+│   ├── The 4th Universal Cup. Stage 9: Grand Prix of Jinan
+│   │   ├── A. Cipher.cpp
+│   │   ├── C. Finding Keywords.cpp
+│   │   ├── E. Tree and Subgraph Problem.cpp
+│   │   ├── F. Grid Filling Game.cpp
+│   │   ├── H. Hashing.cpp
+│   │   ├── I. I Love CCPC.cpp
+│   │   ├── J. Memory, Permutation, and Rooted Tree.cpp
+│   │   ├── K. Card Game.cpp
+│   │   ├── L. Activity Rehearsal.cpp
+│   │   └── M. MEX Problem.cpp
 │   ├── 北大集训 2020 Day 4（CTT 2020 Day 4）
 │   │   └── #5411. 杏仁.cpp
+│   ├── 第八届中国大学生程序设计竞赛网络预选赛（CCPC Online 2022）
+│   │   ├── C. Guess.cpp
+│   │   ├── J. Count Permutation.cpp
+│   │   └── L. Tree Division.cpp
+│   ├── 第十一届中国大学生程序设计竞赛 哈尔滨站（CCPC 2025 Harbin Site）
+│   │   ├── A. k-子集和最大公约数问题.cpp
+│   │   ├── B. 液压机.cpp
+│   │   ├── C. Many Many Sequence Covering Problems.cpp
+│   │   ├── F. 1-2-按位或子序列问题.cpp
+│   │   ├── G. 扫雪.cpp
+│   │   ├── H. 匹配.cpp
+│   │   ├── I. 六边形翻转.cpp
+│   │   ├── J. 幻想乡的裁判长.cpp
+│   │   ├── K. 01 背包.cpp
+│   │   ├── L. 网格避障.cpp
+│   │   └── M. 连通的正三角形.cpp
 │   └── 第十一届中国大学生程序设计竞赛网络预选赛（CCPC Online 2025）
 │       ├── A. Hey, Have You Seen My Kangaroo?.cpp
 │       ├── B. 魔塔.cpp
@@ -3856,6 +4112,12 @@ JimmyWang0417 's Algorithm Competitive Codes
 │   ├── #21626. 【PR #3】猜数.cpp
 │   └── #21627. 【PR #3】抽卡.cpp
 ├── Qingyu Online Judge
+│   ├── Petrozavodsk Winter 2023. Day 7: Gennady Korotkevich Contest 7
+│   │   ├── A. Classical A+B Problem.py
+│   │   ├── B. Classical Counting Problem.cpp
+│   │   ├── F. Classical Geometry Problem.cpp
+│   │   ├── J. Classical Scheduling Problem.cpp
+│   │   └── K. Classical Summation Problem.cpp
 │   ├── The 1st Universal Cup. Stage 16: Gomel
 │   │   ├── A. Classical A+B Problem.py
 │   │   ├── B. Classical Counting Problem.cpp
@@ -3865,6 +4127,9 @@ JimmyWang0417 's Algorithm Competitive Codes
 │   │   ├── H. Classical Maximization Problem.cpp
 │   │   ├── J. Classical Scheduling Problem.cpp
 │   │   └── K. Classical Summation Problem.cpp
+│   ├── The 2023 ICPC German Collegiate Programming Contest
+│   │   ├── H. Highway Combinatorics.cpp
+│   │   └── J. Japanese Lottery.cpp
 │   ├── The 2024 ICPC Northwestern Europe Regional Contest (NWERC 2024)
 │   │   ├── A. Alphabetical Aristocrats.cpp
 │   │   ├── D. Dutch Democracy.cpp
@@ -3873,6 +4138,8 @@ JimmyWang0417 's Algorithm Competitive Codes
 │   │   ├── H. Hash Collision.cpp
 │   │   ├── J. Jib Job.cpp
 │   │   └── L. Limited Library.cpp
+│   ├── The 2025 ICPC Asia East Continent Online Contest (I)
+│   │   └── K. Counting.cpp
 │   ├── The 2nd Universal Cup. Stage 10: Harbin
 │   │   ├── A. Go go Baron Bunny!.cpp
 │   │   ├── B. Memory.cpp
@@ -3917,6 +4184,13 @@ JimmyWang0417 's Algorithm Competitive Codes
 │   │   ├── I. Interval Addition.cpp
 │   │   ├── J. Joining Cats.cpp
 │   │   └── L. Lines.cpp
+│   ├── The 3rd Universal Cup Semifinals
+│   │   ├── C. Adjacent Add.cpp
+│   │   ├── D. Circular Matching.cpp
+│   │   ├── E. Circular Convolution 2.cpp
+│   │   ├── F. Even Circuit.cpp
+│   │   ├── G. Master of Cards.cpp
+│   │   └── H. Shortcut on Tree.cpp
 │   ├── The 3rd Universal Cup. Stage 0: Trial Contest
 │   │   ├── A. Arrested Development.cpp
 │   │   ├── D. Dihedral Group.cpp
@@ -3959,8 +4233,10 @@ JimmyWang0417 's Algorithm Competitive Codes
 │   │   ├── K. Magical Set.cpp
 │   │   └── L. Recover Statistics.cpp
 │   ├── The 3rd Universal Cup. Stage 16: Nanjing
+│   │   ├── A. Hey, Have You Seen My Kangaroo?.cpp
 │   │   ├── B. Birthday Gift.cpp
 │   │   ├── C. Topology.cpp
+│   │   ├── F. Subway.cpp
 │   │   ├── I. Bingo.cpp
 │   │   └── M. Ordainer of Inexorable Judgment.cpp
 │   ├── The 3rd Universal Cup. Stage 17: Jinan
@@ -4021,6 +4297,9 @@ JimmyWang0417 's Algorithm Competitive Codes
 │   ├── The 3rd Universal Cup. Stage 22: Zhengzhou
 │   │   ├── A. A + B = C Problem.cpp
 │   │   └── K. Brotato.cpp
+│   ├── The 3rd Universal Cup. Stage 23: Hong Kong
+│   │   ├── C. The Story of Emperor Bie.cpp
+│   │   └── K. LR String.cpp
 │   ├── The 3rd Universal Cup. Stage 24: Poland
 │   │   ├── A. Acronym.cpp
 │   │   ├── B. Baggage.cpp
@@ -4070,6 +4349,21 @@ JimmyWang0417 's Algorithm Competitive Codes
 │   │   ├── K. Power Divisions.cpp
 │   │   ├── L. Chords.cpp
 │   │   └── M. Balance of Permutation.cpp
+│   ├── The 3rd Universal Cup. Stage 31: Wroclaw
+│   │   ├── D. Divisors.cpp
+│   │   ├── F. Flats.cpp
+│   │   ├── I. Illuminati.cpp
+│   │   ├── K. King's Festival.cpp
+│   │   └── L. Labyrinth.cpp
+│   ├── The 3rd Universal Cup. Stage 36: Wulin
+│   │   ├── A. Outer LIS.cpp
+│   │   ├── B. Turn on the Light 3.cpp
+│   │   ├── D. Too Clever by Half.cpp
+│   │   ├── F. Challenge NPC III.cpp
+│   │   ├── G. Tariff-ied.cpp
+│   │   ├── I. Version Number.py
+│   │   ├── L. Nailoongs Always Lie.cpp
+│   │   └── M. Master of Both VII.cpp
 │   ├── The 3rd Universal Cup. Stage 37: Wuhan
 │   │   ├── B. Black Red Tree.cpp
 │   │   ├── C. One Must Imagine Sisyphus Happy.cpp
@@ -4077,6 +4371,20 @@ JimmyWang0417 's Algorithm Competitive Codes
 │   │   ├── F. Knapsack.cpp
 │   │   ├── K. Las Vegas.cpp
 │   │   └── M. Flight Tracker.cpp
+│   ├── The 3rd Universal Cup. Stage 39: Tokyo
+│   │   ├── A. Array Similarity.cpp
+│   │   ├── B. Bracket Character Frequency.cpp
+│   │   ├── C. Card Deck.cpp
+│   │   ├── D. Digits of Prefix Product.cpp
+│   │   ├── K. K-rep Array.cpp
+│   │   ├── L. LIS Triangle.cpp
+│   │   ├── N. Nice Bouquets.cpp
+│   │   └── Q. Quadratic Pieces.cpp
+│   ├── The 3rd Universal Cup. Stage 40: Potyczki
+│   │   ├── A. AGI.cpp
+│   │   ├── D. Fern Market.cpp
+│   │   ├── L. Directed Hanoi.cpp
+│   │   └── N. Frequency Function.cpp
 │   ├── The 3rd Universal Cup. Stage 4: Hongō
 │   │   ├── C. Contour Multiplication.cpp
 │   │   ├── D. DRD String.cpp
@@ -4105,8 +4413,212 @@ JimmyWang0417 's Algorithm Competitive Codes
 │   │   └── M. Mathematics Championships.cpp
 │   ├── The 3rd Universal Cup. Stage 8: Cangqian
 │   │   └── H. Permutation.cpp
+│   ├── The 4th Universal Cup. Extra Stage 1: Xi'an (Unrated)
+│   │   ├── A. Azalea Garden.cpp
+│   │   ├── B. Beautiful Dangos.cpp
+│   │   ├── C. Catch the Monster.cpp
+│   │   ├── F. Follow the Penguins.cpp
+│   │   ├── G. Grand Voting.cpp
+│   │   ├── I. Imagined Holly.cpp
+│   │   ├── J. January's Color.cpp
+│   │   ├── K. Killing Bits.cpp
+│   │   ├── L. Let's Make a Convex!.cpp
+│   │   └── M. Mystique as Iris.cpp
+│   ├── The 4th Universal Cup. Extra Stage 2: Wuhan
+│   │   ├── A. Planting Trees.cpp
+│   │   ├── B. 77G Network.cpp
+│   │   ├── G. Projection.cpp
+│   │   └── I. Dolls 2.cpp
+│   ├── The 4th Universal Cup. Extra Stage 5: Shenzhen
+│   │   ├── A. Greetings from Prof. Chen.cpp
+│   │   ├── B. All-Star Showdown.cpp
+│   │   ├── D. City Management.cpp
+│   │   ├── E. Card Checking.cpp
+│   │   ├── F. Astra.cpp
+│   │   ├── G. Snake.cpp
+│   │   ├── H. Telepathy.cpp
+│   │   ├── I. Calendar Cubes.cpp
+│   │   ├── K. Sum and Product.cpp
+│   │   ├── L. Critical Strike.cpp
+│   │   └── M. Night at the Museum.cpp
+│   ├── The 4th Universal Cup. Extra Stage 6: Shaanxi
+│   │   ├── A. North and South.cpp
+│   │   ├── B. Operating Robot.cpp
+│   │   ├── C. Palindromic and Balanced.cpp
+│   │   ├── D. Qenerals.cpp
+│   │   ├── E. Registration.cpp
+│   │   ├── F. Split Sticks.cpp
+│   │   ├── G. Transform.cpp
+│   │   ├── I. VIP Coupon.cpp
+│   │   ├── J. Would You Make a Convex?.cpp
+│   │   ├── K. XOR and LCA.cpp
+│   │   ├── L. Yesterday Once More (Easy Version).cpp
+│   │   └── M. Yesterday Once More (Hard Version).cpp
+│   ├── The 4th Universal Cup. Extra Stage 7: Hubei
+│   │   ├── A. Sort.cpp
+│   │   ├── B. Sequence Operations.cpp
+│   │   ├── C. Believe in You.cpp
+│   │   ├── D. Prime Game.cpp
+│   │   ├── E. Rook.cpp
+│   │   ├── F. Lottery.cpp
+│   │   ├── G. I Will Always Remember You.cpp
+│   │   ├── H. Rectangle Cutting.cpp
+│   │   ├── I. Nailoong vs. Bombloong 2.cpp
+│   │   ├── J. The Best Card.cpp
+│   │   ├── K. Deletion Game.cpp
+│   │   └── L. String Matching.cpp
+│   ├── The 4th Universal Cup. Stage 10: Grand Prix of Wrocław
+│   │   ├── D. DNA.cpp
+│   │   ├── G. Game of Darts.cpp
+│   │   ├── H. Hiking.cpp
+│   │   ├── I. Identical Fences.cpp
+│   │   ├── K. Key Properties.cpp
+│   │   └── L. Letters on T-shirts.cpp
+│   ├── The 4th Universal Cup. Stage 12: Grand Prix of Shanghai
+│   │   ├── B. Hamu.cpp
+│   │   ├── K. No more regrets.cpp
+│   │   ├── L. Yet another permutation problem.cpp
+│   │   └── M. Yet another 01 problem.cpp
+│   ├── The 4th Universal Cup. Stage 14: Grand Prix of Hong Kong
+│   │   ├── A. Bipartite Graph Matching Problem.cpp
+│   │   ├── B. Travelling.cpp
+│   │   ├── C. Stonebag.cpp
+│   │   ├── D. Dumb Problem.cpp
+│   │   ├── F. Find the Circuit.cpp
+│   │   ├── G. Watering System.cpp
+│   │   ├── H. Longest Common Prefix.cpp
+│   │   ├── I. DFS Order - Extra Stage.cpp
+│   │   ├── J. Re: Becoming the Programming Champion.cpp
+│   │   └── K. Cyclic Shift.cpp
+│   ├── The 4th Universal Cup. Stage 16: Grand Prix of Warsaw
+│   │   ├── B. Bitwise Beach.cpp
+│   │   ├── C. Copy-paste.cpp
+│   │   ├── D. Deque Sort.cpp
+│   │   ├── E. Evaluation.cpp
+│   │   ├── G. Good Permutations.cpp
+│   │   ├── I. Palindromes.cpp
+│   │   ├── J. Jewel Guards.cpp
+│   │   └── K. Multiset Variance.cpp
+│   ├── The 4th Universal Cup. Stage 22: Grand Prix of Kyoto
+│   │   ├── A. Kendama Challenge.cpp
+│   │   ├── B. Cat Cut.cpp
+│   │   ├── C. Partition AND_OR Aggregation.cpp
+│   │   ├── D. Campaign Speech.cpp
+│   │   ├── E. Ball Dumping Golf.cpp
+│   │   ├── F. 1e16 Cities.cpp
+│   │   ├── G. The Symbolic Tree.cpp
+│   │   ├── I. Xor Magic Square.cpp
+│   │   ├── J. Sum of max of iai.cpp
+│   │   ├── K. Square Resistance Value.cpp
+│   │   ├── L. Make Many KUPC.cpp
+│   │   ├── M. Linked VERSE.cpp
+│   │   ├── N. Cellular Component Constellation.cpp
+│   │   └── O. Xor Triangle.cpp
+│   ├── The 4th Universal Cup. Stage 24: Grand Prix of Wulin
+│   │   ├── B. Cloud-Ascending Platform.cpp
+│   │   ├── C. PalindromemordnilaP.cpp
+│   │   ├── D. GG.cpp
+│   │   ├── E. Is this a problem?.cpp
+│   │   ├── F. Tired.cpp
+│   │   ├── G. Boring Constructive Problem.cpp
+│   │   ├── H. ucup-team7610.cpp
+│   │   ├── I. Hikoutei.cpp
+│   │   ├── J. Ballon Problem.cpp
+│   │   ├── K. Soul Link.cpp
+│   │   ├── L. Marcel Adventure.cpp
+│   │   └── M. Rounddog.cpp
+│   ├── The 4th Universal Cup. Stage 25: Grand Prix of Zagreb
+│   │   ├── A. Arrow Array.cpp
+│   │   ├── B. Big Balls.cpp
+│   │   ├── C. Crooked Cycles.cpp
+│   │   ├── D. Dangerous Data.cpp
+│   │   ├── E. Exchange Error.cpp
+│   │   ├── F. Flipping Frenzy.cpp
+│   │   ├── G. Grid Gradient.cpp
+│   │   ├── H. Halfway Hawser.cpp
+│   │   ├── J. Jolly Janes.cpp
+│   │   ├── K. Kempt Kale.cpp
+│   │   ├── L. Loop Land.cpp
+│   │   └── M. Maximum Mex.cpp
+│   ├── The 4th Universal Cup. Stage 3: Polar Grand Prix
+│   │   ├── B. Christmas Tree.cpp
+│   │   ├── C. Roman Numerals.cpp
+│   │   ├── D. Disjoint Set Splitting.cpp
+│   │   ├── E. Maximum Segment Sum.cpp
+│   │   ├── F. This Time I Will Be Lucky.cpp
+│   │   ├── G. Far Away.cpp
+│   │   ├── I. Two Permutations.cpp
+│   │   ├── J. One Permutation.cpp
+│   │   └── K. Game on Board.cpp
+│   ├── The 4th Universal Cup. Stage 4: Grand Prix of Chengdu
+│   │   ├── A. A Lot of Paintings.cpp
+│   │   ├── B. Blood Memories.cpp
+│   │   ├── C. Crossing River.cpp
+│   │   ├── D. Deductive Snooker Scoring.cpp
+│   │   ├── G. GCD of Subsets.cpp
+│   │   ├── I. Inside Triangle.cpp
+│   │   ├── J. Judging Papers.cpp
+│   │   ├── K. K-Coverage.cpp
+│   │   ├── L. Label Matching.cpp
+│   │   └── M. Meeting for Meals.cpp
+│   ├── The 4th Universal Cup. Stage 5: Grand Prix of Nanjing
+│   │   ├── B. What, More Kangaroos?.cpp
+│   │   ├── C. Distributing Candies.cpp
+│   │   ├── E. Cyan White Tree.cpp
+│   │   ├── F. Bitwise And Path.cpp
+│   │   ├── G. Bucket Bonanza.cpp
+│   │   ├── H. Pen Pineapple Apple Pen.cpp
+│   │   ├── I. Chi Fan.cpp
+│   │   ├── J. Trajan Algorithm.cpp
+│   │   ├── K. Xiangqi.cpp
+│   │   └── M. Many Convex Polygons.cpp
+│   ├── The 4th Universal Cup. Stage 6: Grand Prix of Shenyang
+│   │   ├── A. Square Kingdom.cpp
+│   │   ├── B. Buggy Painting Software I.cpp
+│   │   ├── C. Buggy Painting Software II.cpp
+│   │   ├── F. The Bond Beyond Time.cpp
+│   │   ├── G. Collision Damage.cpp
+│   │   ├── I. Volunteer Simulator.cpp
+│   │   ├── K. Relay Jump.cpp
+│   │   └── M. The End?.cpp
+│   ├── The 4th Universal Cup. Stage 7: Grand Prix of Zhengzhou
+│   │   ├── B. Cutting Chocolate.cpp
+│   │   ├── D. Diameter of a Tree.cpp
+│   │   ├── G. Plus Xor.cpp
+│   │   ├── H. Random Shuffle.cpp
+│   │   ├── I. Dumb Problem II.cpp
+│   │   ├── J. Subrectangle Count.cpp
+│   │   ├── K. Parentheses and Swapping.cpp
+│   │   └── M. Replacement.cpp
+│   ├── The 4th Universal Cup. Stage 9: Grand Prix of Jinan
+│   │   ├── A. Cipher.cpp
+│   │   ├── C. Finding Keywords.cpp
+│   │   ├── E. Tree and Subgraph Problem.cpp
+│   │   ├── F. Grid Filling Game.cpp
+│   │   ├── H. Hashing.cpp
+│   │   ├── I. I Love CCPC.cpp
+│   │   ├── J. Memory, Permutation, and Rooted Tree.cpp
+│   │   ├── K. Card Game.cpp
+│   │   ├── L. Activity Rehearsal.cpp
+│   │   └── M. MEX Problem.cpp
 │   ├── 北大集训 2020 Day 4（CTT 2020 Day 4）
 │   │   └── #5411. 杏仁.cpp
+│   ├── 第八届中国大学生程序设计竞赛网络预选赛（CCPC Online 2022）
+│   │   ├── C. Guess.cpp
+│   │   ├── J. Count Permutation.cpp
+│   │   └── L. Tree Division.cpp
+│   ├── 第十一届中国大学生程序设计竞赛 哈尔滨站（CCPC 2025 Harbin Site）
+│   │   ├── A. k-子集和最大公约数问题.cpp
+│   │   ├── B. 液压机.cpp
+│   │   ├── C. Many Many Sequence Covering Problems.cpp
+│   │   ├── F. 1-2-按位或子序列问题.cpp
+│   │   ├── G. 扫雪.cpp
+│   │   ├── H. 匹配.cpp
+│   │   ├── I. 六边形翻转.cpp
+│   │   ├── J. 幻想乡的裁判长.cpp
+│   │   ├── K. 01 背包.cpp
+│   │   ├── L. 网格避障.cpp
+│   │   └── M. 连通的正三角形.cpp
 │   └── 第十一届中国大学生程序设计竞赛网络预选赛（CCPC Online 2025）
 │       ├── A. Hey, Have You Seen My Kangaroo?.cpp
 │       ├── B. 魔塔.cpp
