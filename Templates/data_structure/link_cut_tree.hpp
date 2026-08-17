@@ -1,6 +1,6 @@
 namespace dataStructure
 {
-    struct linkCutTree
+    struct LinkCutTree
     {
         struct node
         {
@@ -116,8 +116,8 @@ namespace dataStructure
             tree[x].val = y;
             pushup(x);
         }
-        linkCutTree() = default;
-        linkCutTree(const vector<int> &p) : tree(p.size())
+        LinkCutTree() = default;
+        LinkCutTree(const vector<int> &p) : tree(p.size())
         {
             for (int i = 1; i < (int)p.size(); ++i)
             {

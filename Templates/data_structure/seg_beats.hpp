@@ -7,7 +7,7 @@
 #define rc (rt << 1 | 1)
 
 template <typename T = long long>
-struct segBeats
+struct SegBeats
 {
     static constexpr T negInf = numeric_limits<T>::lowest() / 4;
 
@@ -35,8 +35,8 @@ struct segBeats
     int n = 0;
     vector<Node> tree;
 
-    segBeats() = default;
-    segBeats(const vector<T> &a) : n((int)a.size() - 1), tree(n * 4 + 5)
+    SegBeats() = default;
+    SegBeats(const vector<T> &a) : n((int)a.size() - 1), tree(n * 4 + 5)
     {
         if (n)
             build(1, 1, n, a);

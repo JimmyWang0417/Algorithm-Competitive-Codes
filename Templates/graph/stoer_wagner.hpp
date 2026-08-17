@@ -1,8 +1,8 @@
-struct stoerWagner
+struct StoerWagner
 {
     int mincut;
-    stoerWagner() = default;
-    stoerWagner(int n, const vector<tuple<int, int, int>> &edges) : mincut(INT_MAX)
+    StoerWagner() = default;
+    StoerWagner(int n, const vector<tuple<int, int, int>> &edges) : mincut(INT_MAX)
     {
         vector<int> fa(n + 5);
         auto isConnected = [&]()

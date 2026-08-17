@@ -1,5 +1,5 @@
 template <typename T>
-struct numberTheory
+struct NumberTheory
 {
     constexpr static auto _mul = [](T a, T b, T m)
     {
@@ -16,7 +16,7 @@ struct numberTheory
     };
     using functype = function<T(T, T, T)>;
     functype mul;
-    numberTheory(const functype &other = _mul) : mul(other) {}
+    NumberTheory(const functype &other = _mul) : mul(other) {}
     static auto exgcd(T a, T b) -> tuple<T, T, T>
     {
         if (b == 0)

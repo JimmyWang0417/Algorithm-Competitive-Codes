@@ -3,14 +3,14 @@
 #include <array>
 
 template <typename T, int U>
-struct linearBasis : std::array<T, U + 1>
+struct LinearBasis : std::array<T, U + 1>
 {
     using std::array<T, U + 1>::array;
     using std::array<T, U + 1>::begin;
     using std::array<T, U + 1>::end;
     using std::array<T, U + 1>::at;
 
-    linearBasis() : std::array<T, U + 1>{} {}
+    LinearBasis() : std::array<T, U + 1>{} {}
     auto insert(T v)
     {
         for (int i = U; i >= 0; --i)
@@ -41,16 +41,16 @@ struct linearBasis : std::array<T, U + 1>
         return (int)std::count_if(begin(), end(), [](T x)
                                   { return x != 0; });
     }
-    auto &merge(const linearBasis &other)
+    auto &merge(const LinearBasis &other)
     {
         for (auto i : other)
             if (i)
                 insert(i);
         return *this;
     }
-    auto &intersect(const linearBasis &other)
+    auto &intersect(const LinearBasis &other)
     {
-        linearBasis d = *this, tag{};
+        LinearBasis d = *this, tag{};
         auto push = [&](T v, T t)
         {
             for (int i = U; i >= 0; --i)
@@ -68,7 +68,7 @@ struct linearBasis : std::array<T, U + 1>
             return t;
         };
 
-        linearBasis res;
+        LinearBasis res;
         for (auto i : other)
             if (i)
             {
@@ -101,7 +101,7 @@ struct linearBasis : std::array<T, U + 1>
     }
     auto &adjust() const
     {
-        return const_cast<linearBasis &>(*this).adjust();
+        return const_cast<LinearBasis &>(*this).adjust();
     }
     auto &reduced()
     {
@@ -124,10 +124,10 @@ struct linearBasis : std::array<T, U + 1>
             }
         return k ? (T)-1 : res;
     }
-    static auto orthogonal(const linearBasis &basis)
+    static auto orthogonal(const LinearBasis &basis)
     {
         basis.adjust();
-        linearBasis res;
+        LinearBasis res;
         for (int j = 0; j <= U; ++j)
             if (!basis[j])
             {

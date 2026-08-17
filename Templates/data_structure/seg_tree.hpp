@@ -7,7 +7,7 @@
 #define rc (rt << 1 | 1)
 
 template <typename T = long long>
-struct segTree
+struct SegTree
 {
     struct Node
     {
@@ -21,14 +21,14 @@ struct segTree
     int n = 0;
     vector<Node> tree;
 
-    segTree() = default;
-    segTree(int _n) : n(_n), tree(n * 4 + 5)
+    SegTree() = default;
+    SegTree(int _n) : n(_n), tree(n * 4 + 5)
     {
         vector<T> a(n + 1);
         if (n)
             build(1, 1, n, a);
     }
-    segTree(const vector<T> &a) : n((int)a.size() - 1), tree(n * 4 + 5)
+    SegTree(const vector<T> &a) : n((int)a.size() - 1), tree(n * 4 + 5)
     {
         if (n)
             build(1, 1, n, a);

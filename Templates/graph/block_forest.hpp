@@ -1,11 +1,11 @@
-struct blockForest
+struct BlockForest
 {
     vector<int> dfn, low;
     vector<int> belong;
     vector<vector<int>> h;
     int color;
-    blockForest() = default;
-    blockForest(int n, const vector<vector<int>> &g)
+    BlockForest() = default;
+    BlockForest(int n, const vector<vector<int>> &g)
         : dfn(n + 5), low(n + 5), belong(n + 5), h(n + 1), color(0)
     {
         int dfstime = 0;

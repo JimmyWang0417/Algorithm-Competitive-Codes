@@ -1,4 +1,4 @@
-struct ringCount
+struct RingCount
 {
     static auto three(int n, const vector<pair<int, int>> &edges)
     {

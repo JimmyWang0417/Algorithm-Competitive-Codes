@@ -5,7 +5,7 @@
 #define rc(x) tree[x].r
 
 template <typename T = int>
-struct persistSeg
+struct PersistSeg
 {
     struct Node
     {
@@ -17,8 +17,8 @@ struct persistSeg
     vector<Node> tree;
     vector<int> root;
 
-    persistSeg() : tree(1), root(1) {}
-    persistSeg(int _n) : n(_n), tree(1), root(1) {}
+    PersistSeg() : tree(1), root(1) {}
+    PersistSeg(int _n) : n(_n), tree(1), root(1) {}
 
     auto clear()
     {

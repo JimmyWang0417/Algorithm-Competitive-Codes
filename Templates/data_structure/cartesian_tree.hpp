@@ -1,10 +1,10 @@
 template <bool minHeap = true>
-struct cartesianTree
+struct CartesianTree
 {
     int root;
     vector<int> lc, rc;
-    cartesianTree() = default;
-    cartesianTree(const vector<int> &p) : lc(p.size()), rc(p.size())
+    CartesianTree() = default;
+    CartesianTree(const vector<int> &p) : lc(p.size()), rc(p.size())
     {
         int n = (int)p.size() - 1;
         stack<int> st;
