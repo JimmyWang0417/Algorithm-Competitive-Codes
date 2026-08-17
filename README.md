@@ -65,14 +65,17 @@ JimmyWang0417 's Algorithm Competitive Codes
  Language              Files        Lines         Code     Comments       Blanks
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
  Autoconf                 16      1885023      1885023            0            0
- C++                    2460       360439       350740         6465         3234
- C++ Header               81         9780         8454          606          720
+ C++                    2461       360505       350805         6466         3234
+ C++ Header               82         9807         8481          606          720
  Makefile                  2            4            4            0            0
- Markdown                  3         5526            0         5487           39
  Python                    6          294          252            9           33
  Shell                     1           15            5            5            5
+─────────────────────────────────────────────────────────────────────────────────
+ Markdown                  5         5734            0         5644           90
+ |- BASH                   1            9            9            0            0
+ (Total)                             5743            9         5644           90
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- Total                  2569      2261081      2244478        12572         4031
+ Total                  2573      2261391      2244579        12730         4082
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 <!-- count the code end -->
@@ -847,7 +850,10 @@ JimmyWang0417 's Algorithm Competitive Codes
 ├── custom_code_generator.py
 ├── docs
 │   └── superpowers
-│       └── plans
+│       ├── plans
+│       │   └── 2026-08-14-minimum-representation.md
+│       └── specs
+│           └── 2026-08-14-minimum-representation-design.md
 ├── Generator.py
 ├── HackerRank
 │   ├── Subset
@@ -1513,6 +1519,7 @@ JimmyWang0417 's Algorithm Competitive Codes
 │       ├── kmp.hpp
 │       ├── lyndon.hpp
 │       ├── manacher.hpp
+│       ├── minRep.hpp
 │       ├── pam.hpp
 │       ├── sa.hpp
 │       ├── sam.hpp
@@ -2046,6 +2053,7 @@ JimmyWang0417 's Algorithm Competitive Codes
 │   ├── P1307 数字反转.cpp
 │   ├── P1314 [NOIP2011 提高组] 聪明的质监员.cpp
 │   ├── P1326 足球.cpp
+│   ├── P13270 【模板】最小表示法.cpp
 │   ├── P1337 [JSOI2004]平衡点.cpp
 │   ├── P1337 平衡点.cpp
 │   ├── P1342 请柬.cpp
@@ -3568,7 +3576,10 @@ JimmyWang0417 's Algorithm Competitive Codes
 ├── custom_code_generator.py
 ├── docs
 │   └── superpowers
-│       └── plans
+│       ├── plans
+│       │   └── 2026-08-14-minimum-representation.md
+│       └── specs
+│           └── 2026-08-14-minimum-representation-design.md
 ├── Generator.py
 ├── HackerRank
 │   ├── Subset
@@ -4234,6 +4245,7 @@ JimmyWang0417 's Algorithm Competitive Codes
 │       ├── kmp.hpp
 │       ├── lyndon.hpp
 │       ├── manacher.hpp
+│       ├── minRep.hpp
 │       ├── pam.hpp
 │       ├── sa.hpp
 │       ├── sam.hpp
@@ -4767,6 +4779,7 @@ JimmyWang0417 's Algorithm Competitive Codes
 │   ├── P1307 数字反转.cpp
 │   ├── P1314 [NOIP2011 提高组] 聪明的质监员.cpp
 │   ├── P1326 足球.cpp
+│   ├── P13270 【模板】最小表示法.cpp
 │   ├── P1337 [JSOI2004]平衡点.cpp
 │   ├── P1337 平衡点.cpp
 │   ├── P1342 请柬.cpp
