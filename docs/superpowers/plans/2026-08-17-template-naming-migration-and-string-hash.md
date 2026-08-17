@@ -288,6 +288,7 @@ Create `/tmp/template_hash_test.cpp` with:
 
 ```cpp
 #include <bits/stdc++.h>
+#include <cassert>
 using namespace std;
 using i64 = int64_t;
 #include "Templates/string_algorithm/hash.hpp"
@@ -352,7 +353,7 @@ namespace stringAlgorithm
     struct Hash : vector<i64>
     {
         using vector<i64>::vector;
-        static inline vector<int> power{1};
+        static inline std::vector<int> power{1};
         static void ensure(int n)
         {
             while ((int)power.size() <= n)
@@ -447,6 +448,7 @@ Create `/tmp/template_min_rep_test.cpp` with:
 
 ```cpp
 #include <bits/stdc++.h>
+#include <cassert>
 using namespace std;
 #include "Templates/string_algorithm/min_rep.hpp"
 
