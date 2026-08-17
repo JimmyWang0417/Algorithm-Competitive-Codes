@@ -1,11 +1,11 @@
 namespace stringAlgorithm
 {
-    struct suffixArray
+    struct SuffixArray
     { // ababa 对应 4 2 0 3 1; 1 3 0 2
         vector<int> height;
         vector<int> sa, rk;
-        suffixArray() = default;
-        suffixArray(const string &str) : height(str.size()), sa(str.size()), rk(str.size())
+        SuffixArray() = default;
+        SuffixArray(const string &str) : height(str.size()), sa(str.size()), rk(str.size())
         {
             int n = (int)str.size(), m = 128;
             vector<int> x(2 * n, -1), y(2 * n, -1);

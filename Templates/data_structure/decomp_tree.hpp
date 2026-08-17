@@ -7,7 +7,7 @@
 #define lc (rt << 1)
 #define rc (rt << 1 | 1)
 
-struct decompTree
+struct DecompTree
 {
     int n = 0, root = 0;
     vector<int> a, Log;
@@ -34,7 +34,7 @@ struct decompTree
     };
     vector<Tree> tree;
 
-    decompTree() = default;
+    DecompTree() = default;
 
     auto newnode(int l, int r, int m = 0, bool typ = false)
     {
@@ -133,7 +133,7 @@ struct decompTree
         return u;
     }
 
-    decompTree(const vector<int> &_a)
+    DecompTree(const vector<int> &_a)
         : n((int)_a.size() - 1), a(_a), Log(n + 2), id(n + 2), G(1), p(1), tree(4 * n + 5)
     {
         if (!n)

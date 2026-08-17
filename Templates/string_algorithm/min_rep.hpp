@@ -1,6 +1,6 @@
 namespace stringAlgorithm
 {
-    struct minRep
+    struct MinRep
     {
         static auto solve(const string &s)
         {

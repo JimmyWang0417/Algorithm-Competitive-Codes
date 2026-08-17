@@ -8,7 +8,7 @@
 #define rc(x) tree[x].r
 
 template <typename T = long long>
-struct persistImplicitTreap
+struct PersistImplicitTreap
 {
     struct Node
     {
@@ -22,8 +22,8 @@ struct persistImplicitTreap
     vector<int> root;
     mt19937 rnd;
 
-    persistImplicitTreap() : tree(1), root(1), rnd((unsigned)chrono::steady_clock::now().time_since_epoch().count()) {}
-    persistImplicitTreap(const vector<T> &a)
+    PersistImplicitTreap() : tree(1), root(1), rnd((unsigned)chrono::steady_clock::now().time_since_epoch().count()) {}
+    PersistImplicitTreap(const vector<T> &a)
         : tree(1), root(1), rnd((unsigned)chrono::steady_clock::now().time_since_epoch().count())
     {
         int rt = 0;

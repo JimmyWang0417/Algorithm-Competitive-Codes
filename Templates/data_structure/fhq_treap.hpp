@@ -8,7 +8,7 @@
 #define rc(x) tree[x].r
 
 template <typename T = int>
-struct fhqTreap
+struct FhqTreap
 {
     struct Node
     {
@@ -21,7 +21,7 @@ struct fhqTreap
     vector<Node> tree;
     mt19937 rnd;
 
-    fhqTreap() : tree(1), rnd((unsigned)chrono::steady_clock::now().time_since_epoch().count()) {}
+    FhqTreap() : tree(1), rnd((unsigned)chrono::steady_clock::now().time_since_epoch().count()) {}
 
     auto size(int rt) const { return tree[rt].size; }
 

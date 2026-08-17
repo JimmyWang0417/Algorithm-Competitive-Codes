@@ -6,7 +6,7 @@
 #include <vector>
 
 template <typename T = long long>
-struct duSieve
+struct DuSieve
 {
     using i64 = long long;
 
@@ -16,10 +16,10 @@ struct duSieve
     std::function<T(i64)> prefixC;
     std::function<T(i64, i64)> prefixB;
 
-    duSieve() = default;
+    DuSieve() = default;
 
     template <typename PrefixC, typename PrefixB>
-    duSieve(const std::vector<T> &_pre, PrefixC _prefixC, PrefixB _prefixB)
+    DuSieve(const std::vector<T> &_pre, PrefixC _prefixC, PrefixB _prefixB)
         : lim((int)_pre.size() - 1), pre(_pre), prefixC(_prefixC), prefixB(_prefixB)
     {
     }
@@ -57,15 +57,15 @@ struct duSieve
 };
 
 template <typename T = long long>
-struct duSieveMuPhi
+struct DuSieveMuPhi
 {
     using i64 = long long;
 
     sieve<T> s;
-    duSieve<T> mu, phi;
+    DuSieve<T> mu, phi;
 
-    duSieveMuPhi() = default;
-    duSieveMuPhi(int n) : s(n),
+    DuSieveMuPhi() = default;
+    DuSieveMuPhi(int n) : s(n),
                           mu(s.preMu,
                              [](i64) -> T
                              { return T(1); },

@@ -1,6 +1,6 @@
 namespace networkFlow
 {
-    struct networkFlow
+    struct NetworkFlow
     {
         vector<int> head, cur, dis;
         vector<bool> exist;

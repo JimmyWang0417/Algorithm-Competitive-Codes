@@ -2,7 +2,7 @@
 #include <vector>
 
 template <int mod = 998244353>
-struct setPowerSeries
+struct SetPowerSeries
 {
     using i64 = long long;
 

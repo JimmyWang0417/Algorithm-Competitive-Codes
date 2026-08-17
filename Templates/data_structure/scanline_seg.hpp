@@ -7,7 +7,7 @@
 #define rc (rt << 1 | 1)
 
 template <typename T = long long>
-struct scanlineSeg
+struct ScanlineSeg
 {
     struct Node
     {
@@ -18,8 +18,8 @@ struct scanlineSeg
     vector<T> p;
     vector<Node> tree;
 
-    scanlineSeg() = default;
-    scanlineSeg(const vector<T> &_p) : p(_p)
+    ScanlineSeg() = default;
+    ScanlineSeg(const vector<T> &_p) : p(_p)
     {
         sort(p.begin(), p.end());
         p.erase(unique(p.begin(), p.end()), p.end());
@@ -100,7 +100,7 @@ struct scanlineSeg
         if (e.empty())
             return T();
         sort(e.begin(), e.end());
-        scanlineSeg seg(xs);
+        ScanlineSeg seg(xs);
         T ans = 0;
         for (int i = 0; i + 1 < (int)e.size(); ++i)
         {

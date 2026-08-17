@@ -7,11 +7,11 @@ typedef __int128_t i128;
 typedef __uint128_t u128;
 typedef __float80 f80;
 typedef __float128 f128;
-struct eulerTour
+struct EulerTour
 { // 字典序最小
     vector<int> p;
-    eulerTour() = default;
-    eulerTour(int n, const vector<pair<int, int>> &edges)
+    EulerTour() = default;
+    EulerTour(int n, const vector<pair<int, int>> &edges)
     {
         vector<vector<int>> g(n + 5);
         vector<int> in(n + 5), out(n + 5);
@@ -63,7 +63,7 @@ struct Main
         vector<pair<int, int>> edges(m);
         for (auto &[u, v] : edges)
             cin >> u >> v;
-        eulerTour tour(n, edges);
+        EulerTour tour(n, edges);
         if (tour.p.empty())
             cout << "No\n";
         else

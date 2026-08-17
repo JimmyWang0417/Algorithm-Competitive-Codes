@@ -1,5 +1,5 @@
 template <typename T>
-struct hashTableBase
+struct HashTableBase
 {
     constexpr static u64 C = (u64)(2e18 * M_PI) | 71;
     auto operator()(T x) const
@@ -11,8 +11,8 @@ struct hashTableBase
     }
 };
 template <typename T, typename G>
-struct hashTable : public __gnu_pbds::gp_hash_table<T, G, hashTableBase<T>>
+struct HashTable : public __gnu_pbds::gp_hash_table<T, G, HashTableBase<T>>
 {
-    using base = __gnu_pbds::gp_hash_table<T, G, hashTableBase<T>>;
+    using base = __gnu_pbds::gp_hash_table<T, G, HashTableBase<T>>;
     using base::base;
 };

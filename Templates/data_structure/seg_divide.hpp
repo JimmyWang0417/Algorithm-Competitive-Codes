@@ -5,13 +5,13 @@
 #define rc (rt << 1 | 1)
 
 template <typename Event>
-struct segDivide
+struct SegDivide
 {
     int n = 0;
     vector<vector<Event>> tree;
 
-    segDivide() = default;
-    segDivide(int _n) : n(_n), tree(n * 4 + 5) {}
+    SegDivide() = default;
+    SegDivide(int _n) : n(_n), tree(n * 4 + 5) {}
 
     auto build(int _n)
     {

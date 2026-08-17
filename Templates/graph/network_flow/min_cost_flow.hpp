@@ -1,6 +1,6 @@
 namespace networkFlow
 {
-    struct minCostFlow
+    struct MinCostFlow
     {
         vector<ll> dis;
         vector<int> head, cur;

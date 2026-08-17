@@ -5,7 +5,7 @@
 #define rc(x) tree[x].r
 
 template <typename T = long long>
-struct dynamicSeg
+struct DynamicSeg
 {
     struct Node
     {
@@ -15,7 +15,7 @@ struct dynamicSeg
 
     vector<Node> tree;
 
-    dynamicSeg() : tree(1) {}
+    DynamicSeg() : tree(1) {}
 
     auto newnode()
     {

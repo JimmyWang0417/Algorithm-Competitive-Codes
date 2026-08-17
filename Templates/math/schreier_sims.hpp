@@ -1,4 +1,4 @@
-struct schreierSims
+struct SchreierSims
 {
     struct permutation : public vector<int>
     {
@@ -54,8 +54,8 @@ struct schreierSims
                 dfs(u, f * g);
         }
     }
-    schreierSims() = default;
-    schreierSims(const vector<permutation> &per)
+    SchreierSims() = default;
+    SchreierSims(const vector<permutation> &per)
     {
         n = (int)per.front().size();
         t.resize(n);
