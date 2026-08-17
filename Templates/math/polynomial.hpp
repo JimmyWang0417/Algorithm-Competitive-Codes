@@ -1,2 +1,2 @@
 #pragma once
-#include "polynomial/linearRecurrence.hpp"
+#include "polynomial/linear_recurrence.hpp"
