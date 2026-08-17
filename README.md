@@ -57,16 +57,16 @@ JimmyWang0417 's Algorithm Competitive Codes
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
  Autoconf                 16      1885023      1885023            0            0
  C++                    2688       384082       373734         6739         3609
- C++ Header               82         9807         8481          606          720
+ C++ Header               83         9833         8507          606          720
  Makefile                  2            4            4            0            0
  Python                    8          353          305            9           39
  Shell                     1           15            5            5            5
 ─────────────────────────────────────────────────────────────────────────────────
- Markdown                  5         3361            0         3296           65
- |- BASH                   1            9            9            0            0
- (Total)                             3370            9         3296           65
+ Markdown                  7         3968            0         3754          214
+ |- BASH                   2          103          103            0            0
+ (Total)                             4071          103         3754          214
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- Total                  2802      2282654      2267561        10655         4438
+ Total                  2805      2283381      2267681        11113         4587
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 <!-- count the code end -->
@@ -900,9 +900,11 @@ JimmyWang0417 's Algorithm Competitive Codes
 ├── docs
 │   └── superpowers
 │       ├── plans
-│       │   └── 2026-08-14-minimum-representation.md
+│       │   ├── 2026-08-14-minimum-representation.md
+│       │   └── 2026-08-17-template-naming-migration-and-string-hash.md
 │       └── specs
-│           └── 2026-08-14-minimum-representation-design.md
+│           ├── 2026-08-14-minimum-representation-design.md
+│           └── 2026-08-17-template-naming-migration-design.md
 ├── Environment
 │   ├── makefile
 │   ├── MultiGenerator
@@ -1775,80 +1777,81 @@ JimmyWang0417 's Algorithm Competitive Codes
 │   └── SP913 QTREE2 - Query on a tree II.cpp
 ├── template.cpp
 ├── Templates
-│   ├── dataStructure
-│   │   ├── cartesianTree.hpp
+│   ├── data_structure
+│   │   ├── cartesian_tree.hpp
+│   │   ├── decomp_tree.hpp
 │   │   ├── decomposition.hpp
-│   │   ├── decompTree.hpp
-│   │   ├── dynamicSeg.hpp
+│   │   ├── dynamic_seg.hpp
 │   │   ├── fenwick.hpp
-│   │   ├── fhqTreap.hpp
-│   │   ├── implicitTreap.hpp
+│   │   ├── fhq_treap.hpp
+│   │   ├── implicit_treap.hpp
 │   │   ├── lichao.hpp
-│   │   ├── linkCutTree.hpp
-│   │   ├── persistImplicitTreap.hpp
-│   │   ├── persistSeg.hpp
-│   │   ├── persistTreap.hpp
-│   │   ├── scanlineSeg.hpp
+│   │   ├── link_cut_tree.hpp
+│   │   ├── persist_implicit_treap.hpp
+│   │   ├── persist_seg.hpp
+│   │   ├── persist_treap.hpp
+│   │   ├── scanline_seg.hpp
 │   │   ├── scapegoat.hpp
-│   │   ├── segBeats.hpp
-│   │   ├── segDivide.hpp
-│   │   ├── segmentTreeBeats.hpp
-│   │   ├── segTree.hpp
+│   │   ├── seg_beats.hpp
+│   │   ├── seg_divide.hpp
+│   │   ├── seg_tree.hpp
+│   │   ├── segment_tree_beats.hpp
 │   │   ├── splay.hpp
-│   │   ├── topTree.hpp
+│   │   ├── top_tree.hpp
 │   │   └── treap.hpp
 │   ├── geometry
 │   │   ├── 2d.hpp
 │   │   ├── 3d.hpp
-│   │   └── nearestPoints.cpp
+│   │   └── nearest_points.cpp
 │   ├── graph
-│   │   ├── blockForest.hpp
-│   │   ├── eulerTour.hpp
+│   │   ├── block_forest.hpp
+│   │   ├── euler_tour.hpp
 │   │   ├── johnson.hpp
-│   │   ├── minCycle.hpp
-│   │   ├── networkFlow
-│   │   │   ├── minCostFlow.hpp
-│   │   │   └── networkFlow.hpp
-│   │   ├── ringCount.hpp
-│   │   ├── steinerTree.hpp
-│   │   ├── stoerWagner.hpp
+│   │   ├── min_cycle.hpp
+│   │   ├── network_flow
+│   │   │   ├── min_cost_flow.hpp
+│   │   │   └── network_flow.hpp
+│   │   ├── ring_count.hpp
+│   │   ├── steiner_tree.hpp
+│   │   ├── stoer_wagner.hpp
 │   │   └── tarjan.hpp
-│   ├── initialization & misc
+│   ├── initialization_misc
 │   │   ├── approx.hpp
 │   │   ├── bit.hpp
-│   │   ├── hashTable.hpp
+│   │   ├── hash_table.hpp
 │   │   ├── io.hpp
 │   │   └── makefile
 │   ├── math
-│   │   ├── berlekampMassey.hpp
+│   │   ├── berlekamp_massey.hpp
 │   │   ├── comb.hpp
-│   │   ├── duSieve.hpp
+│   │   ├── du_sieve.hpp
 │   │   ├── euclidean.hpp
 │   │   ├── fwt.hpp
-│   │   ├── linearBasis.hpp
+│   │   ├── linear_basis.hpp
 │   │   ├── matrix.hpp
 │   │   ├── min25.hpp
 │   │   ├── modint.hpp
-│   │   ├── numberTheory.hpp
+│   │   ├── number_theory.hpp
 │   │   ├── polynomial
 │   │   │   ├── lagrange.hpp
-│   │   │   ├── linearRecurrence.hpp
+│   │   │   ├── linear_recurrence.hpp
 │   │   │   └── poly.hpp
 │   │   ├── polynomial.hpp
 │   │   ├── prime.hpp
-│   │   ├── schreierSims.hpp
-│   │   ├── setPowerSeries.hpp
+│   │   ├── schreier_sims.hpp
+│   │   ├── set_power_series.hpp
 │   │   ├── sieve.hpp
 │   │   ├── Simpson.hpp
 │   │   └── stirling.hpp
-│   └── stringAlgorithm
+│   └── string_algorithm
 │       ├── acam.hpp
 │       ├── exkmp.hpp
 │       ├── exsam.hpp
+│       ├── hash.hpp
 │       ├── kmp.hpp
 │       ├── lyndon.hpp
 │       ├── manacher.hpp
-│       ├── minRep.hpp
+│       ├── min_rep.hpp
 │       ├── pam.hpp
 │       ├── sa.hpp
 │       ├── sam.hpp
