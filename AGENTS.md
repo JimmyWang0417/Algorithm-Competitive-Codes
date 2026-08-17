@@ -7,6 +7,17 @@
 - Preserve the user's own debugging practice: explain the failing condition and the minimal counterexample, but avoid applying the fix directly.
 - Do not point out where the code is wrong, identify buggy lines, or explain the root cause unless the user explicitly asks for that level of diagnosis.
 
+## Online Judge Submission Synchronization
+
+- When synchronizing accepted submissions from an online judge, preserve every existing local solution. If a target problem already has a local file, do not replace or update it even when the remote accepted submission is newer.
+- When the remote account has multiple accepted submissions for one problem, use the accepted submission with the greatest submission ID, unless the judge provides a more authoritative chronological field.
+- Add a remote solution only when the corresponding local problem is missing. Recheck immediately before writing and never overwrite an existing file.
+- When browser automation must coexist with Cloudflare, use an ordinary Firefox window through desktop accessibility controls. Do not bypass or defeat Cloudflare, and stop on the first challenge instead of repeatedly asking for verification.
+- Keep browser usage bounded: after reading or processing a temporary tab, close it immediately so tabs do not accumulate.
+- For hacked submissions, use the links explicitly provided by the judge's system-message page as the authoritative list. Do not infer additional hacked submissions merely from mixed verdict history.
+- Start from each linked hacked source and make the smallest correction that preserves the author's naming, formatting, and abstraction style. Do not replace it wholesale with an unrelated accepted solution.
+- Never write account names, passwords, cookie values, remember tokens, session IDs, Cloudflare clearance values, or other authentication material into repository files, agent documentation, logs, commits, or final responses. Use temporary profiles and runtime parameters for account-specific state.
+
 ## Chinese Mathematical Tutorial Style
 
 These rules apply to 杨表详细教程.md and similar Chinese mathematical tutorials in this repository.

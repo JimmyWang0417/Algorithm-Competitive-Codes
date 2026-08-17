@@ -26,16 +26,13 @@ signed main()
 		for (int j = 0; j < (1 << i); ++j)
 			sum[(1 << i) | j] = p[i] + sum[j];
 	}
-	int ans = n;
+	dp[0] = 0;
 	for (int S = 1; S < (1 << n); ++S)
 	{
-		if (sum[S])
-			continue;
-		for (int T = (S - 1) & S; T; T = (T - 1) & S)
-			dp[S] = max(dp[S], dp[S ^ T]);
-		++dp[S];
-		ans = min(ans, n - dp[S]);
+		dp[S] = n;
+		for (int T = S; T; T -= T & -T)
+			dp[S] = min(dp[S], dp[S ^ (T & -T)] + (sum[S] != 0));
 	}
-	cout << ans << '\n';
+	cout << dp[(1 << n) - 1] << '\n';
 	return 0;
 }
