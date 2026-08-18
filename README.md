@@ -56,17 +56,14 @@ JimmyWang0417 's Algorithm Competitive Codes
  Language              Files        Lines         Code     Comments       Blanks
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
  Autoconf                 16      1885023      1885023            0            0
- C++                    2688       384082       373734         6739         3609
+ C++                    2690       384258       373907         6742         3609
  C++ Header               83         9833         8507          606          720
  Makefile                  2            4            4            0            0
+ Markdown                  3         3164            0         3150           14
  Python                    8          353          305            9           39
  Shell                     1           15            5            5            5
-─────────────────────────────────────────────────────────────────────────────────
- Markdown                  7         3968            0         3754          214
- |- BASH                   2          103          103            0            0
- (Total)                             4071          103         3754          214
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- Total                  2805      2283381      2267681        11113         4587
+ Total                  2803      2282650      2267751        10512         4387
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 <!-- count the code end -->
@@ -897,14 +894,6 @@ JimmyWang0417 's Algorithm Competitive Codes
 │       ├── CF997C Sky Full of Stars.cpp
 │       └── CF997E Good Subsegments.cpp
 ├── custom_code_generator.py
-├── docs
-│   └── superpowers
-│       ├── plans
-│       │   ├── 2026-08-14-minimum-representation.md
-│       │   └── 2026-08-17-template-naming-migration-and-string-hash.md
-│       └── specs
-│           ├── 2026-08-14-minimum-representation-design.md
-│           └── 2026-08-17-template-naming-migration-design.md
 ├── Environment
 │   ├── makefile
 │   ├── MultiGenerator
@@ -1555,11 +1544,13 @@ JimmyWang0417 's Algorithm Competitive Codes
 │   │   ├── E. Registration.cpp
 │   │   ├── F. Split Sticks.cpp
 │   │   ├── G. Transform.cpp
+│   │   ├── H. Unreachable Land.cpp
 │   │   ├── I. VIP Coupon.cpp
 │   │   ├── J. Would You Make a Convex?.cpp
 │   │   ├── K. XOR and LCA.cpp
 │   │   ├── L. Yesterday Once More (Easy Version).cpp
-│   │   └── M. Yesterday Once More (Hard Version).cpp
+│   │   ├── M. Yesterday Once More (Hard Version).cpp
+│   │   └── N. Zebra Crossing.cpp
 │   ├── The 4th Universal Cup. Extra Stage 7: Hubei
 │   │   ├── A. Sort.cpp
 │   │   ├── B. Sequence Operations.cpp
