@@ -42,6 +42,7 @@ __pycache__/*
 *.otf
 Environment/Contest
 articles
+docs/superpowers/
 
 # Local agent and browser automation state
 .agents/
