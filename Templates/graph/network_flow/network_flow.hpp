@@ -1,4 +1,4 @@
-namespace networkFlow
+namespace NetworkFlow
 {
     struct NetworkFlow
     {
@@ -82,7 +82,7 @@ namespace networkFlow
                 addEdge(to, from, 0, false);
         }
 
-        inline auto solve()
+        auto solve()
         {
             int flow = 0;
             while (bfs())

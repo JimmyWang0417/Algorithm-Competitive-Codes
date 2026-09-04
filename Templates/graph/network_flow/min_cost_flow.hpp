@@ -1,4 +1,4 @@
-namespace networkFlow
+namespace NetworkFlow
 {
     struct MinCostFlow
     {
@@ -89,7 +89,7 @@ namespace networkFlow
                 addEdge(to, from, 0, -cost, false);
         }
 
-        inline auto solve() -> pair<int, ll>
+        auto solve() -> pair<int, ll>
         {
             int flow = 0;
             ll res = 0;

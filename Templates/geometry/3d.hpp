@@ -79,7 +79,7 @@ namespace threeDimension
         }
         auto dist(p3 p) const
         {
-            return dot(n, p) / abs(n);
+            return abs(side(p)) / abs(n);
         }
 
         auto translate(p3 t) const
@@ -114,6 +114,7 @@ namespace threeDimension
         {
             dx = (q - p) / abs(q - p);
             dz = cross(dx, (r - p) / abs(r - p));
+            dz = dz / abs(dz);
             dy = cross(dz, dx);
         }
 
@@ -214,20 +215,21 @@ namespace threeDimension
             for (int i = 0; i < (int)p[u].size(); ++i)
             {
                 auto a = p[u][i], b = p[u][(i + 1) % p[u].size()];
-                if (mp[{a, b}])
+                auto same = mp.find({a, b}), rev = mp.find({b, a});
+                if (same != mp.end())
                 {
-                    int v = mp[{a, b}];
+                    int v = same->second;
                     g[u].emplace_back(v, true);
                     g[v].emplace_back(u, true);
                 }
-                else if (mp[{b, a}])
+                else if (rev != mp.end())
                 {
-                    int v = mp[{b, a}];
+                    int v = rev->second;
                     g[u].emplace_back(v, false);
                     g[v].emplace_back(u, false);
                 }
                 else
-                    mp[{a, b}] = i;
+                    mp[{a, b}] = u;
             }
         }
         vector<bool> flip(n), vis(n);
@@ -282,7 +284,7 @@ namespace threeDimension
     auto onSphSegment(p3 a, p3 b, p3 p)
     {
         p3 n = cross(a, b);
-        if (sgn(norm(n)))
+        if (!sgn(norm(n)))
             return sgn(norm(cross(a, p))) == 0 && dot(a, p) > 0;
         return sgn(dot(n, p)) == 0 && mixed(n, a, p) >= 0 && mixed(n, p, b) >= 0;
     }
@@ -293,7 +295,7 @@ namespace threeDimension
         int ob = sgn(dot(cd, b));
         int oc = sgn(dot(ab, c));
         int od = sgn(dot(ab, d));
-        return {oa != ob && oc != od && oa != oc, cross(ab, cd) * od};
+        return {oa * ob < 0 && oc * od < 0 && oa != oc, cross(ab, cd) * od};
     }
     auto intersSph(p3 a, p3 b, p3 c, p3 d) -> vector<p3>
     {

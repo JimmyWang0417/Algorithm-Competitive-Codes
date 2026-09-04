@@ -53,16 +53,16 @@ struct Point
 int n;
 inline ll calc(const Point &x, const Point &y)
 {
-    return (ll)(x.x - y.x) * (x.x - y.x) + (ll)(x.y - y.y) * (x.y - y.y);
+    return ((ll)x.x - y.x) * ((ll)x.x - y.x) + ((ll)x.y - y.y) * ((ll)x.y - y.y);
 }
 inline ll solve(int l, int r)
 {
     if (l >= r)
-        return 1e18;
+        return numeric_limits<ll>::max();
     int tot = 0;
     int mid = (l + r) >> 1;
     ll mindis = min(solve(l, mid - 1), solve(mid + 1, r));
-    int res = (int)ceil(sqrt((double)mindis));
+    ll res = (ll)ceil(sqrt((long double)mindis));
     for (int i = l; i < mid; ++i)
         if (a[mid].x - res < a[i].x)
             b[++tot] = a[i];
@@ -75,7 +75,7 @@ inline ll solve(int l, int r)
         for (int j = i + 1; j <= tot && b[i].y + res > b[j].y; ++j)
         {
             mindis = min(mindis, calc(b[i], b[j]));
-            res = (int)ceil(sqrt((double)mindis));
+            res = (ll)ceil(sqrt((long double)mindis));
         }
     return mindis;
 }
