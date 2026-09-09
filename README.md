@@ -1770,6 +1770,7 @@ JimmyWang0417 's Algorithm Competitive Codes
 ├── Templates
 │   ├── data_structure
 │   │   ├── cartesian_tree.hpp
+│   │   ├── cdq.hpp
 │   │   ├── decomp_tree.hpp
 │   │   ├── decomposition.hpp
 │   │   ├── dynamic_seg.hpp
@@ -1790,17 +1791,24 @@ JimmyWang0417 's Algorithm Competitive Codes
 │   │   ├── splay.hpp
 │   │   ├── top_tree.hpp
 │   │   └── treap.hpp
+│   ├── dynamic_programming
+│   │   ├── monotone_dp.hpp
+│   │   └── plug_dp.hpp
 │   ├── geometry
 │   │   ├── 2d.hpp
 │   │   ├── 3d.hpp
 │   │   └── nearest_points.hpp
 │   ├── graph
 │   │   ├── block_forest.hpp
+│   │   ├── centroid_decomposition.hpp
+│   │   ├── centroid_tree.hpp
 │   │   ├── euler_tour.hpp
 │   │   ├── johnson.hpp
 │   │   ├── lca.hpp
+│   │   ├── long_chain_dp.hpp
 │   │   ├── min_cycle.hpp
 │   │   ├── network_flow
+│   │   │   ├── cancel_cycle.hpp
 │   │   │   ├── min_cost_flow.hpp
 │   │   │   └── network_flow.hpp
 │   │   ├── ring_count.hpp

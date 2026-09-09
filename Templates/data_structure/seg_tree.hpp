@@ -170,7 +170,9 @@ struct SegTree
     template <typename Func>
     auto findFirst(int rt, int l, int r, int x, int y, const Func &pred) -> int
     {
-        if (r < x || l > y || !pred(tree[rt]))
+        if (r < x || l > y)
+            return -1;
+        if (x <= l && r <= y && !pred(tree[rt]))
             return -1;
         if (l == r)
             return l;
@@ -184,7 +186,9 @@ struct SegTree
     template <typename Func>
     auto findLast(int rt, int l, int r, int x, int y, const Func &pred) -> int
     {
-        if (r < x || l > y || !pred(tree[rt]))
+        if (r < x || l > y)
+            return -1;
+        if (x <= l && r <= y && !pred(tree[rt]))
             return -1;
         if (l == r)
             return l;
