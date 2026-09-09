@@ -1,5 +1,3 @@
-#pragma once
-#include "polynomial.hpp"
 using namespace polynomial;
 struct stirling
 {
@@ -45,7 +43,6 @@ struct stirling
         ifac[n] = quickpow(fac[n]);
         for (int i = n; i >= 1; --i)
             ifac[i - 1] = ifac[i] * i % mod;
-
         poly F(n + 1), G(n + 1);
         for (int i = 0; i <= n; ++i)
         {
@@ -65,7 +62,6 @@ struct stirling
         ifac[n] = quickpow(fac[n]);
         for (int i = n; i >= 1; --i)
             ifac[i - 1] = ifac[i] * i % mod;
-
         poly F(n + 1);
         for (int i = 1; i <= n; ++i)
             F[i] = ifac[i];

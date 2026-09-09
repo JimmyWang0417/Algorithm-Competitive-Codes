@@ -152,14 +152,11 @@ namespace dataStructure
             if (z)
                 tree[z].ch[direction(y)] = x;
             fa(x) = z;
-
             tree[x].ch[k ^ 1] = y;
             fa(y) = x;
-
             tree[y].ch[k] = w;
             if (w)
                 fa(w) = y;
-
             pushup(y, t), pushup(x, t);
         }
         stack<int, vector<int>> st;
@@ -307,7 +304,7 @@ namespace dataStructure
         }
 #undef lc
 #undef rc
-#undef ms
+#undef mc
 #undef fa
     };
 }

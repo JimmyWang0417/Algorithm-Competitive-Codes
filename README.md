@@ -1793,11 +1793,12 @@ JimmyWang0417 's Algorithm Competitive Codes
 │   ├── geometry
 │   │   ├── 2d.hpp
 │   │   ├── 3d.hpp
-│   │   └── nearest_points.cpp
+│   │   └── nearest_points.hpp
 │   ├── graph
 │   │   ├── block_forest.hpp
 │   │   ├── euler_tour.hpp
 │   │   ├── johnson.hpp
+│   │   ├── lca.hpp
 │   │   ├── min_cycle.hpp
 │   │   ├── network_flow
 │   │   │   ├── min_cost_flow.hpp
@@ -1818,21 +1819,19 @@ JimmyWang0417 's Algorithm Competitive Codes
 │   │   ├── du_sieve.hpp
 │   │   ├── euclidean.hpp
 │   │   ├── fwt.hpp
+│   │   ├── lagrange.hpp
 │   │   ├── linear_basis.hpp
+│   │   ├── linear_recurrence.hpp
 │   │   ├── matrix.hpp
 │   │   ├── min25.hpp
 │   │   ├── modint.hpp
 │   │   ├── number_theory.hpp
-│   │   ├── polynomial
-│   │   │   ├── lagrange.hpp
-│   │   │   ├── linear_recurrence.hpp
-│   │   │   └── poly.hpp
 │   │   ├── polynomial.hpp
 │   │   ├── prime.hpp
 │   │   ├── schreier_sims.hpp
 │   │   ├── set_power_series.hpp
 │   │   ├── sieve.hpp
-│   │   ├── Simpson.hpp
+│   │   ├── simpson.hpp
 │   │   └── stirling.hpp
 │   └── string_algorithm
 │       ├── acam.hpp

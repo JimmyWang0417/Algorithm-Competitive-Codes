@@ -1,39 +1,21 @@
-#pragma once
-#include <algorithm>
-#include <array>
-#include <vector>
-
-#define lc (rt << 1)
-#define rc (rt << 1 | 1)
-
 template <typename T = long long>
 struct ScanlineSeg
 {
-    struct Node
+    struct node
     {
         int cnt = 0;
         T len = 0;
     };
-
     vector<T> p;
-    vector<Node> tree;
-
-    ScanlineSeg() = default;
+    vector<node> tree;
+#define lc (rt << 1)
+#define rc (rt << 1 | 1)
     ScanlineSeg(const vector<T> &_p) : p(_p)
     {
         sort(p.begin(), p.end());
         p.erase(unique(p.begin(), p.end()), p.end());
         tree.resize(p.size() * 4 + 5);
     }
-
-    auto build(const vector<T> &_p)
-    {
-        p = _p;
-        sort(p.begin(), p.end());
-        p.erase(unique(p.begin(), p.end()), p.end());
-        tree.resize(p.size() * 4 + 5);
-    }
-
     auto pushup(int rt, int l, int r)
     {
         if (tree[rt].cnt)
@@ -43,7 +25,6 @@ struct ScanlineSeg
         else
             tree[rt].len = tree[lc].len + tree[rc].len;
     }
-
     auto update(int rt, int l, int r, int x, int y, int val) -> void
     {
         if (r < x || l > y)
@@ -59,7 +40,6 @@ struct ScanlineSeg
         update(rc, mid + 1, r, x, y, val);
         pushup(rt, l, r);
     }
-
     auto update(T l, T r, int val)
     {
         if (l >= r || p.size() < 2)
@@ -69,12 +49,10 @@ struct ScanlineSeg
         if (x <= y)
             update(1, 0, (int)p.size() - 2, x, y, val);
     }
-
     auto query() const
     {
         return tree.empty() ? T() : tree[1].len;
     }
-
     static auto area(const vector<array<T, 4>> &rect)
     {
         struct Event
@@ -109,7 +87,6 @@ struct ScanlineSeg
         }
         return ans;
     }
-};
-
 #undef lc
 #undef rc
+};

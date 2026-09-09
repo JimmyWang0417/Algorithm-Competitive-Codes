@@ -1,45 +1,34 @@
-#pragma once
-#include <limits>
-#include <vector>
-
-#define lc(x) tree[x].ch[0]
-#define rc(x) tree[x].ch[1]
-
 template <typename T = int>
 struct splay
 {
-    struct Node
+    struct node
     {
         T val = 0;
         int ch[2] = {0, 0};
         int fa = 0, cnt = 0, size = 0;
     };
-
     int root = 0;
-    vector<Node> tree;
-
+    vector<node> tree;
+#define lc(x) tree[x].ch[0]
+#define rc(x) tree[x].ch[1]
     splay() : tree(1) {}
-
     auto newnode(T val, int fa)
     {
-        tree.push_back(Node());
+        tree.push_back(node());
         int rt = (int)tree.size() - 1;
         tree[rt].val = val;
         tree[rt].fa = fa;
         tree[rt].cnt = tree[rt].size = 1;
         return rt;
     }
-
     auto pushup(int rt)
     {
         tree[rt].size = tree[lc(rt)].size + tree[rc(rt)].size + tree[rt].cnt;
     }
-
     auto check(int rt)
     {
         return rc(tree[rt].fa) == rt;
     }
-
     auto rotate(int x)
     {
         int y = tree[x].fa, z = tree[y].fa;
@@ -52,7 +41,6 @@ struct splay
         tree[y].fa = x;
         pushup(y), pushup(x);
     }
-
     auto splayTo(int x, int target = 0)
     {
         while (tree[x].fa != target)
@@ -65,7 +53,6 @@ struct splay
         if (!target)
             root = x;
     }
-
     auto find(T val)
     {
         int rt = root, las = 0;
@@ -80,7 +67,6 @@ struct splay
             splayTo(las);
         return rt;
     }
-
     auto insert(T val)
     {
         if (!root)
@@ -106,7 +92,6 @@ struct splay
         }
         splayTo(rt);
     }
-
     auto rank(T val)
     {
         int rt = root, res = 1;
@@ -122,7 +107,6 @@ struct splay
         }
         return res;
     }
-
     auto kth(int k)
     {
         int rt = root;
@@ -143,7 +127,6 @@ struct splay
         }
         return T();
     }
-
     auto pre(T val, T &res)
     {
         int rt = root, ans = 0;
@@ -160,7 +143,6 @@ struct splay
         res = tree[ans].val;
         return true;
     }
-
     auto next(T val, T &res)
     {
         int rt = root, ans = 0;
@@ -177,7 +159,6 @@ struct splay
         res = tree[ans].val;
         return true;
     }
-
     auto erase(T val)
     {
         int rt = find(val);
@@ -205,21 +186,18 @@ struct splay
         root = x;
         pushup(root);
     }
-
     auto pre(T val)
     {
         T res = numeric_limits<T>::lowest();
         pre(val, res);
         return res;
     }
-
     auto next(T val)
     {
         T res = numeric_limits<T>::max();
         next(val, res);
         return res;
     }
-};
-
 #undef lc
 #undef rc
+};

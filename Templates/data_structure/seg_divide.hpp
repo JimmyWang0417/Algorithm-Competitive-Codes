@@ -1,24 +1,11 @@
-#pragma once
-#include <vector>
-
-#define lc (rt << 1)
-#define rc (rt << 1 | 1)
-
 template <typename Event>
 struct SegDivide
 {
     int n = 0;
     vector<vector<Event>> tree;
-
-    SegDivide() = default;
+#define lc (rt << 1)
+#define rc (rt << 1 | 1)
     SegDivide(int _n) : n(_n), tree(n * 4 + 5) {}
-
-    auto build(int _n)
-    {
-        n = _n;
-        tree.resize(n * 4 + 5);
-    }
-
     auto add(int rt, int l, int r, int x, int y, const Event &e) -> void
     {
         if (r < x || l > y)
@@ -32,13 +19,11 @@ struct SegDivide
         add(lc, l, mid, x, y, e);
         add(rc, mid + 1, r, x, y, e);
     }
-
     auto add(int l, int r, const Event &e)
     {
         if (l <= r && n)
             add(1, 1, n, l, r, e);
     }
-
     template <typename Add, typename Snapshot, typename Rollback, typename Answer>
     auto dfs(int rt, int l, int r, Add &&addEvent, Snapshot &&snapshot, Rollback &&rollback, Answer &&answer) -> void
     {
@@ -55,14 +40,12 @@ struct SegDivide
         }
         rollback(state);
     }
-
     template <typename Add, typename Snapshot, typename Rollback, typename Answer>
     auto work(Add &&addEvent, Snapshot &&snapshot, Rollback &&rollback, Answer &&answer)
     {
         if (n)
             dfs(1, 1, n, addEvent, snapshot, rollback, answer);
     }
-};
-
 #undef lc
 #undef rc
+};

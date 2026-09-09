@@ -14,9 +14,10 @@ struct prime
         return res;
     };
     constexpr static int test_time = 10;
-    using functype = function<T(T, T, T)>;
-    functype mul;
-    prime(const functype &other = _mul) : mul(other) {}
+    function<T(T, T, T)> mul;
+    prime() : mul(_mul) {}
+    template <typename F>
+    prime(F f) : mul(f) {}
     template <typename _T>
     auto pow(T a, _T b, T p)
     {

@@ -1,5 +1,3 @@
-#pragma once
-#include "lagrange.hpp"
 namespace polynomial
 {
     auto linearRecurrence(int n, poly a, poly f)
@@ -20,10 +18,8 @@ namespace polynomial
         iota(X.begin(), X.end(), k);
         auto Y = lagrange().eval(p, X);
         B.insert(B.end(), Y.begin(), Y.end());
-
         auto A = B * C.fit(m + k + 1).inv();
         A.resize(m + k + 1);
-
         auto Q = C * poly{1, -1}.fit(m + 2).pow(m + 1);
         auto P = A * Q;
         P.resize(k + m + 1);

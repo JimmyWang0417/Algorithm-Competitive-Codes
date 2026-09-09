@@ -1,42 +1,51 @@
-auto Floyd(const int &n)
+template <typename T = i64>
+struct MinimumCycle
 {
-    static int dis[MAXN + 1][MAXN + 1]; // 最短路矩阵
-    static int pos[MAXN + 1][MAXN + 1];
-    memcpy(dis, val, sizeof(val));
-    memset(pos, 0, sizeof(pos));
-    i64 ans = 0;
-    for (int k = 1; k <= n; ++k)
+    static constexpr T inf = numeric_limits<T>::max() / 4;
+    int n;
+    T weight = inf;
+    vector<int> path;
+    vector<vector<T>> G, dis;
+    vector<vector<int>> pos;
+    auto getpath(int u, int v) -> void
     {
-        for (int i = 1; i < k; ++i)
-            for (int j = 1; j < i; ++j)
-                if (ans > (i64)val[i][k] + val[k][j] + dis[i][j])
-                { // 发现了更短的环
-                    // 由于这里保证了 j<i<k，所以三个点不同，不会出现零环。
-                    function<void(int, int)> get_path = [&](int u, int v)
-                    { // 获得 u 到 v 之间的路径
-                        if (pos[u][v] == 0)
-                            return;
-
-                        int k = pos[u][v];
-                        get_path(u, k);
-                        path[++cnt] = k;
-                        get_path(k, v);
-                    };
-                    ans = val[i][k] + val[k][j] + dis[i][j], cnt = 0;
-                    path[++cnt] = i, path[++cnt] = k,
-                    path[++cnt] = j; // 依次加入 i,k,j 三点
-                    get_path(j, i);  // 加入 j 到 i 的路径
-                }
-
-        for (int i = 1; i <= n; ++i) // 正常 Floyd 更新最短路
-            for (int j = 1; j <= n; ++j)
-            {
-                if (dis[i][j] > dis[i][k] + dis[k][j])
-                {
-                    dis[i][j] = dis[i][k] + dis[k][j];
-                    pos[i][j] = k; // 当前路径可以由 k 更新得到
-                }
-            }
+        if (!pos[u][v])
+            return;
+        int k = pos[u][v];
+        getpath(u, k);
+        path.emplace_back(k);
+        getpath(k, v);
     }
-    return ans;
-}
+    MinimumCycle(int _n, const vector<tuple<int, int, T>> &edges)
+        : n(_n), G(n + 1, vector<T>(n + 1, inf)), pos(n + 1, vector<int>(n + 1))
+    {
+        for (int i = 1; i <= n; ++i)
+            G[i][i] = 0;
+        for (auto [u, v, w] : edges)
+            G[u][v] = G[v][u] = min(G[u][v], w);
+        dis = G;
+        for (int k = 1; k <= n; ++k)
+        {
+            for (int i = 1; i < k; ++i)
+                for (int j = 1; j < i; ++j)
+                {
+                    T now = dis[i][j] + G[i][k] + G[k][j];
+                    if (now < weight)
+                    {
+                        weight = now;
+                        path = {i};
+                        getpath(i, j);
+                        path.emplace_back(j);
+                        path.emplace_back(k);
+                    }
+            }
+            for (int i = 1; i <= n; ++i)
+                for (int j = 1; j <= n; ++j)
+                    if (dis[i][j] > dis[i][k] + dis[k][j])
+                    {
+                        dis[i][j] = dis[i][k] + dis[k][j];
+                        pos[i][j] = k;
+                    }
+        }
+    }
+};

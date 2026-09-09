@@ -1,53 +1,36 @@
-#pragma once
-#include <algorithm>
-#include <limits>
-#include <vector>
-
-#define lc (rt << 1)
-#define rc (rt << 1 | 1)
-
 template <typename T = long long>
 struct SegBeats
 {
     static constexpr T negInf = numeric_limits<T>::lowest() / 4;
-
-    struct Node
+    struct node
     {
         int len = 0, cnt = 0;
         T sum = 0;
         T max = negInf, second = negInf, hisMax = negInf;
         T addMax = 0, addOther = 0, hisMaxTag = 0, hisOtherTag = 0;
-
         auto update(T valMax, T valOther, T hisMaxVal, T hisOtherVal)
         {
             sum += valMax * cnt + valOther * (len - cnt);
-            hisMax = max(hisMax, max + hisMaxVal);
+            hisMax = ::max(hisMax, max + hisMaxVal);
             max += valMax;
             if (second > negInf)
                 second += valOther;
-            hisMaxTag = max(hisMaxTag, addMax + hisMaxVal);
-            hisOtherTag = max(hisOtherTag, addOther + hisOtherVal);
+            hisMaxTag = ::max(hisMaxTag, addMax + hisMaxVal);
+            hisOtherTag = ::max(hisOtherTag, addOther + hisOtherVal);
             addMax += valMax;
             addOther += valOther;
         }
     };
-
     int n = 0;
-    vector<Node> tree;
-
+    vector<node> tree;
+#define lc (rt << 1)
+#define rc (rt << 1 | 1)
     SegBeats() = default;
     SegBeats(const vector<T> &a) : n((int)a.size() - 1), tree(n * 4 + 5)
     {
         if (n)
             build(1, 1, n, a);
     }
-
-    auto init(int _n)
-    {
-        n = _n;
-        tree.resize(n * 4 + 5);
-    }
-
     auto pushup(int rt)
     {
         tree[rt].len = tree[lc].len + tree[rc].len;
@@ -72,7 +55,6 @@ struct SegBeats
         }
         tree[rt].hisMax = max(tree[lc].hisMax, tree[rc].hisMax);
     }
-
     auto pushdown(int rt)
     {
         if (!tree[rt].addMax && !tree[rt].addOther && !tree[rt].hisMaxTag && !tree[rt].hisOtherTag)
@@ -88,10 +70,9 @@ struct SegBeats
             tree[rc].update(tree[rt].addOther, tree[rt].addOther, tree[rt].hisOtherTag, tree[rt].hisOtherTag);
         tree[rt].addMax = tree[rt].addOther = tree[rt].hisMaxTag = tree[rt].hisOtherTag = 0;
     }
-
     auto build(int rt, int l, int r, const vector<T> &a) -> void
     {
-        tree[rt] = Node();
+        tree[rt] = node();
         tree[rt].len = r - l + 1;
         if (l == r)
         {
@@ -105,14 +86,13 @@ struct SegBeats
         build(rc, mid + 1, r, a);
         pushup(rt);
     }
-
     auto build(const vector<T> &a)
     {
-        init((int)a.size() - 1);
+        n = (int)a.size() - 1;
+        tree.resize(n * 4 + 5);
         if (n)
             build(1, 1, n, a);
     }
-
     auto rangeAdd(int rt, int l, int r, int x, int y, T val) -> void
     {
         if (r < x || l > y)
@@ -125,7 +105,6 @@ struct SegBeats
         rangeAdd(rc, mid + 1, r, x, y, val);
         pushup(rt);
     }
-
     auto rangeChmin(int rt, int l, int r, int x, int y, T val) -> void
     {
         if (r < x || l > y || tree[rt].max <= val)
@@ -138,7 +117,6 @@ struct SegBeats
         rangeChmin(rc, mid + 1, r, x, y, val);
         pushup(rt);
     }
-
     auto querySum(int rt, int l, int r, int x, int y) -> T
     {
         if (r < x || l > y)
@@ -149,7 +127,6 @@ struct SegBeats
         pushdown(rt);
         return querySum(lc, l, mid, x, y) + querySum(rc, mid + 1, r, x, y);
     }
-
     auto queryMax(int rt, int l, int r, int x, int y) -> T
     {
         if (r < x || l > y)
@@ -161,7 +138,6 @@ struct SegBeats
         return max(queryMax(lc, l, mid, x, y),
                         queryMax(rc, mid + 1, r, x, y));
     }
-
     auto queryHisMax(int rt, int l, int r, int x, int y) -> T
     {
         if (r < x || l > y)
@@ -173,13 +149,11 @@ struct SegBeats
         return max(queryHisMax(lc, l, mid, x, y),
                         queryHisMax(rc, mid + 1, r, x, y));
     }
-
     auto rangeAdd(int l, int r, T val) { if (l <= r && n) rangeAdd(1, 1, n, l, r, val); }
     auto rangeChmin(int l, int r, T val) { if (l <= r && n) rangeChmin(1, 1, n, l, r, val); }
     auto querySum(int l, int r) { return l <= r && n ? querySum(1, 1, n, l, r) : T(); }
     auto queryMax(int l, int r) { return l <= r && n ? queryMax(1, 1, n, l, r) : negInf; }
     auto queryHisMax(int l, int r) { return l <= r && n ? queryHisMax(1, 1, n, l, r) : negInf; }
-};
-
 #undef lc
 #undef rc
+};

@@ -1,42 +1,29 @@
-#pragma once
-#include <chrono>
-#include <limits>
-#include <random>
-#include <vector>
-
-#define lc(x) tree[x].l
-#define rc(x) tree[x].r
-
 template <typename T = int>
 struct FhqTreap
 {
-    struct Node
+    struct node
     {
         T val = 0;
         unsigned key = 0;
-        int size = 0, l = 0, r = 0;
+        int size = 0, lc = 0, rc = 0;
     };
-
     int root = 0;
-    vector<Node> tree;
+    vector<node> tree;
+#define lc(x) tree[x].lc
+#define rc(x) tree[x].rc
     mt19937 rnd;
-
     FhqTreap() : tree(1), rnd((unsigned)chrono::steady_clock::now().time_since_epoch().count()) {}
-
     auto size(int rt) const { return tree[rt].size; }
-
     auto newnode(T val)
     {
         tree.push_back({val, (unsigned)rnd(), 1, 0, 0});
         return (int)tree.size() - 1;
     }
-
     auto pushup(int rt)
     {
         if (rt)
             tree[rt].size = tree[lc(rt)].size + tree[rc(rt)].size + 1;
     }
-
     auto split(int rt, T val, int &x, int &y) -> void
     {
         if (!rt)
@@ -56,7 +43,6 @@ struct FhqTreap
         }
         pushup(rt);
     }
-
     auto merge(int x, int y) -> int
     {
         if (!x || !y)
@@ -71,14 +57,12 @@ struct FhqTreap
         pushup(y);
         return y;
     }
-
     auto insert(T val)
     {
         int x, y;
         split(root, val, x, y);
         root = merge(merge(x, newnode(val)), y);
     }
-
     auto erase(T val)
     {
         int x, y, z;
@@ -88,7 +72,6 @@ struct FhqTreap
             y = merge(lc(y), rc(y));
         root = merge(merge(x, y), z);
     }
-
     auto rank(T val)
     {
         int x, y;
@@ -97,7 +80,6 @@ struct FhqTreap
         root = merge(x, y);
         return res;
     }
-
     auto kth(int k) const
     {
         int rt = root;
@@ -115,7 +97,6 @@ struct FhqTreap
         }
         return T();
     }
-
     auto pre(T val, T &res)
     {
         int x, y;
@@ -132,7 +113,6 @@ struct FhqTreap
         root = merge(x, y);
         return true;
     }
-
     auto next(T val, T &res)
     {
         int x, y;
@@ -149,21 +129,18 @@ struct FhqTreap
         root = merge(x, y);
         return true;
     }
-
     auto pre(T val)
     {
         T res = numeric_limits<T>::lowest();
         pre(val, res);
         return res;
     }
-
     auto next(T val)
     {
         T res = numeric_limits<T>::max();
         next(val, res);
         return res;
     }
-};
-
 #undef lc
 #undef rc
+};

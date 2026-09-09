@@ -1,27 +1,18 @@
-#pragma once
-#include <algorithm>
-#include <chrono>
-#include <random>
-#include <vector>
-
-#define lc(x) tree[x].l
-#define rc(x) tree[x].r
-
 template <typename T = long long>
 struct ImplicitTreap
 {
-    struct Node
+    struct node
     {
-        int l = 0, r = 0, size = 0;
+        int lc = 0, rc = 0, size = 0;
         unsigned key = 0;
         T val = 0, sum = 0;
         bool rev = false;
     };
-
     int root = 0;
-    vector<Node> tree;
+    vector<node> tree;
+#define lc(x) tree[x].lc
+#define rc(x) tree[x].rc
     mt19937 rnd;
-
     ImplicitTreap() : tree(1), rnd((unsigned)chrono::steady_clock::now().time_since_epoch().count()) {}
     ImplicitTreap(const vector<T> &a)
         : tree(1), rnd((unsigned)chrono::steady_clock::now().time_since_epoch().count())
@@ -29,23 +20,20 @@ struct ImplicitTreap
         for (int i = 1; i < (int)a.size(); ++i)
             root = merge(root, newnode(a[i]));
     }
-
     auto newnode(T val)
     {
-        tree.push_back(Node());
+        tree.push_back(node());
         int rt = (int)tree.size() - 1;
         tree[rt].val = tree[rt].sum = val;
         tree[rt].key = rnd();
         tree[rt].size = 1;
         return rt;
     }
-
     auto pushup(int rt)
     {
         tree[rt].size = tree[lc(rt)].size + tree[rc(rt)].size + 1;
         tree[rt].sum = tree[lc(rt)].sum + tree[rc(rt)].sum + tree[rt].val;
     }
-
     auto pushdown(int rt)
     {
         if (!rt || !tree[rt].rev)
@@ -57,7 +45,6 @@ struct ImplicitTreap
             tree[rc(rt)].rev ^= 1;
         tree[rt].rev = false;
     }
-
     auto split(int rt, int size, int &x, int &y) -> void
     {
         if (!rt)
@@ -78,7 +65,6 @@ struct ImplicitTreap
         }
         pushup(rt);
     }
-
     auto merge(int x, int y) -> int
     {
         if (!x || !y)
@@ -95,23 +81,12 @@ struct ImplicitTreap
         pushup(y);
         return y;
     }
-
-    auto build(const vector<T> &a)
-    {
-        root = 0;
-        tree.resize(1);
-        tree[0] = Node();
-        for (int i = 1; i < (int)a.size(); ++i)
-            root = merge(root, newnode(a[i]));
-    }
-
     auto insert(int pos, T val)
     {
         int x, y;
         split(root, pos, x, y);
         root = merge(merge(x, newnode(val)), y);
     }
-
     auto erase(int pos)
     {
         int x, y, z;
@@ -119,7 +94,6 @@ struct ImplicitTreap
         split(y, 1, y, z);
         root = merge(x, z);
     }
-
     auto reverse(int l, int r)
     {
         int x, y, z;
@@ -129,7 +103,6 @@ struct ImplicitTreap
             tree[y].rev ^= 1;
         root = merge(x, merge(y, z));
     }
-
     auto query(int l, int r)
     {
         int x, y, z;
@@ -139,7 +112,6 @@ struct ImplicitTreap
         root = merge(x, merge(y, z));
         return res;
     }
-
     auto kth(int pos)
     {
         int rt = root;
@@ -158,7 +130,6 @@ struct ImplicitTreap
         }
         return T();
     }
-
     auto dfs(int rt, vector<T> &res)
     {
         if (!rt)
@@ -168,14 +139,12 @@ struct ImplicitTreap
         res.push_back(tree[rt].val);
         dfs(rc(rt), res);
     }
-
     auto dump()
     {
         vector<T> res;
         dfs(root, res);
         return res;
     }
-};
-
 #undef lc
 #undef rc
+};

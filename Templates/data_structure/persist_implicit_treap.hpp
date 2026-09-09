@@ -1,27 +1,18 @@
-#pragma once
-#include <algorithm>
-#include <chrono>
-#include <random>
-#include <vector>
-
-#define lc(x) tree[x].l
-#define rc(x) tree[x].r
-
 template <typename T = long long>
 struct PersistImplicitTreap
 {
-    struct Node
+    struct node
     {
-        int l = 0, r = 0, size = 0;
+        int lc = 0, rc = 0, size = 0;
         unsigned key = 0;
         T val = 0, sum = 0;
         bool rev = false;
     };
-
-    vector<Node> tree;
+    vector<node> tree;
+#define lc(x) tree[x].lc
+#define rc(x) tree[x].rc
     vector<int> root;
     mt19937 rnd;
-
     PersistImplicitTreap() : tree(1), root(1), rnd((unsigned)chrono::steady_clock::now().time_since_epoch().count()) {}
     PersistImplicitTreap(const vector<T> &a)
         : tree(1), root(1), rnd((unsigned)chrono::steady_clock::now().time_since_epoch().count())
@@ -31,17 +22,15 @@ struct PersistImplicitTreap
             rt = merge(rt, newnode(a[i]));
         root.push_back(rt);
     }
-
     auto newnode(T val)
     {
-        tree.push_back(Node());
+        tree.push_back(node());
         int rt = (int)tree.size() - 1;
         tree[rt].val = tree[rt].sum = val;
         tree[rt].size = 1;
         tree[rt].key = rnd();
         return rt;
     }
-
     auto clone(int rt)
     {
         if (!rt)
@@ -49,13 +38,11 @@ struct PersistImplicitTreap
         tree.push_back(tree[rt]);
         return (int)tree.size() - 1;
     }
-
     auto pushup(int rt)
     {
         tree[rt].size = tree[lc(rt)].size + tree[rc(rt)].size + 1;
         tree[rt].sum = tree[lc(rt)].sum + tree[rc(rt)].sum + tree[rt].val;
     }
-
     auto pushdown(int rt)
     {
         if (!rt || !tree[rt].rev)
@@ -71,7 +58,6 @@ struct PersistImplicitTreap
             tree[rc(rt)].rev ^= 1;
         tree[rt].rev = false;
     }
-
     auto split(int rt, int size, int &x, int &y) -> void
     {
         if (!rt)
@@ -98,7 +84,6 @@ struct PersistImplicitTreap
             pushup(y);
         }
     }
-
     auto merge(int x, int y) -> int
     {
         if (!x || !y)
@@ -117,7 +102,6 @@ struct PersistImplicitTreap
         pushup(rt);
         return rt;
     }
-
     auto build(const vector<T> &a)
     {
         int rt = 0;
@@ -126,7 +110,6 @@ struct PersistImplicitTreap
         root.push_back(rt);
         return (int)root.size() - 1;
     }
-
     auto insert(int ver, int pos, T val)
     {
         int x, y;
@@ -134,7 +117,6 @@ struct PersistImplicitTreap
         root.push_back(merge(merge(x, newnode(val)), y));
         return (int)root.size() - 1;
     }
-
     auto erase(int ver, int pos)
     {
         int x, y, z;
@@ -143,7 +125,6 @@ struct PersistImplicitTreap
         root.push_back(merge(x, z));
         return (int)root.size() - 1;
     }
-
     auto reverse(int ver, int l, int r)
     {
         int x, y, z;
@@ -154,7 +135,6 @@ struct PersistImplicitTreap
         root.push_back(merge(x, merge(y, z)));
         return (int)root.size() - 1;
     }
-
     auto query(int rt, int l, int r, int x, int y, bool rev = false) const -> T
     {
         if (!rt || r < x || l > y)
@@ -169,12 +149,10 @@ struct PersistImplicitTreap
                (x <= mid && mid <= y ? tree[rt].val : 0) +
                query(right, mid + 1, r, x, y, nowRev);
     }
-
     auto query(int ver, int l, int r) const
     {
         return query(root[ver], 1, tree[root[ver]].size, l, r);
     }
-
     auto dfs(int rt, vector<T> &res, bool rev = false) const -> void
     {
         if (!rt)
@@ -186,20 +164,17 @@ struct PersistImplicitTreap
         res.push_back(tree[rt].val);
         dfs(right, res, nowRev);
     }
-
     auto dump(int ver) const
     {
         vector<T> res;
         dfs(root[ver], res);
         return res;
     }
-
     auto copyVersion(int ver)
     {
         root.push_back(root[ver]);
         return (int)root.size() - 1;
     }
-};
-
 #undef lc
 #undef rc
+};

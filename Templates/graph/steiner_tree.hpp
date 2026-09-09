@@ -7,11 +7,9 @@ struct SteinerTree
     {
         vector<bool> vis(n + 1, false);
         priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> q;
-
         for (int i = 1; i <= n; ++i)
             if (dist[i] < INT_MAX / 2)
                 q.emplace(dist[i], i);
-
         while (!q.empty())
         {
             int u = q.top().second;
@@ -19,7 +17,6 @@ struct SteinerTree
             if (vis[u])
                 continue;
             vis[u] = true;
-
             for (auto [v, w] : g[u])
             {
                 if (dist[v] > dist[u] + w)
@@ -44,7 +41,6 @@ struct SteinerTree
         for (int i = 0; i < (int)p.size(); ++i)
             dp[1 << i][p[i]] = 0;
     }
-
     // 计算最小斯坦纳树的总权重
     auto solve()
     {
@@ -57,7 +53,6 @@ struct SteinerTree
             // Dijkstra松弛
             dijkstra(dp[S]);
         }
-
         int ans = INT_MAX;
         for (int i = 1; i <= n; ++i)
             ans = min(ans, dp[(1 << k) - 1][i]);

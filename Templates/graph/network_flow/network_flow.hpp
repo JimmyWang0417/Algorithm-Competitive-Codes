@@ -81,7 +81,6 @@ namespace NetworkFlow
             if (flag)
                 addEdge(to, from, 0, false);
         }
-
         auto solve()
         {
             int flow = 0;
@@ -89,7 +88,6 @@ namespace NetworkFlow
                 flow += dinic(S, INT_MAX);
             return flow;
         }
-
         // 网络流
         auto normal(int _n, const vector<array<int, 3>> &e, int s, int t)
         {
@@ -99,7 +97,6 @@ namespace NetworkFlow
                 addEdge(u, v, c);
             return solve();
         }
-
         // 有源上下界最大流
         auto maxFlow(int _n, const vector<array<int, 4>> &e, int s, int t)
         { // 返回-1则说明没有可行流
@@ -112,7 +109,6 @@ namespace NetworkFlow
                 deg[u] -= l, deg[v] += l;
             }
             auto lasHead = head;
-
             int sum = 0;
             for (int i = 1; i <= n; ++i)
             {
@@ -127,11 +123,9 @@ namespace NetworkFlow
             addEdge(t, s, INT_MAX);
             if (solve() < sum)
                 return -1;
-
             int flow = edge[numEdge].cap;
             head = lasHead;
             S = s, T = t;
-
             return flow + solve();
         }
         // 有源上下界最小流
@@ -146,7 +140,6 @@ namespace NetworkFlow
                 deg[u] -= l, deg[v] += l;
             }
             auto lasHead = head;
-
             int sum = 0;
             for (int i = 1; i <= n; ++i)
             {
@@ -161,11 +154,9 @@ namespace NetworkFlow
             addEdge(t, s, INT_MAX);
             if (solve() < sum)
                 return -1;
-
             int flow = edge[numEdge].cap;
             head = lasHead;
             S = t, T = s;
-
             return flow - solve();
         }
     };

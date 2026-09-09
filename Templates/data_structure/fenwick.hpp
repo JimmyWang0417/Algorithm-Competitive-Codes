@@ -2,12 +2,10 @@ template <typename T, bool isPrefix = true>
 struct fenwick
 {
     vector<T> c;
-
     using functype = function<void(T &x, T y)>;
     functype func;
     constexpr static auto _func = [](T &x, T y)
     { x += y; };
-
     fenwick() = default;
     fenwick(int n, const functype &other = _func) : c(n + 1), func(other) {}
     constexpr static auto lowbit = [](int x)

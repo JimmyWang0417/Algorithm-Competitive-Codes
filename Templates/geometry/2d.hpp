@@ -1,9 +1,9 @@
 namespace std
 {
     template <typename T>
-    bool operator<(const complex<T> &lhs, const complex<T> &rhs)
+    auto operator<=>(const complex<T> &lhs, const complex<T> &rhs)
     {
-        return make_pair(lhs.real(), lhs.imag()) < make_pair(rhs.real(), rhs.imag());
+        return pair{lhs.real(), lhs.imag()} <=> pair{rhs.real(), rhs.imag()};
     }
 }
 namespace twoDimension
@@ -13,7 +13,6 @@ namespace twoDimension
     {
         return x < -eps ? -1 : (x > eps ? 1 : 0);
     };
-
     // point
     typedef complex<double> p2;
     auto dot(p2 lhs, p2 rhs)
@@ -24,7 +23,6 @@ namespace twoDimension
     {
         return (conj(lhs) * rhs).imag();
     }
-
     auto perp(p2 p)
     {
         return p2(-p.imag(), p.real());
@@ -33,7 +31,6 @@ namespace twoDimension
     {
         return p * polar(1.0, theta);
     }
-
     auto translate(p2 lhs, p2 rhs)
     {
         return lhs + rhs;
@@ -42,7 +39,6 @@ namespace twoDimension
     {
         return c + (p - c) * factor;
     }
-
     auto isPerp(p2 p, p2 q)
     {
         return sgn(dot(p, q)) == 0;
@@ -55,7 +51,6 @@ namespace twoDimension
     {
         return arg(conj(a) * b);
     }
-
     auto orient(p2 a, p2 b, p2 c)
     {
         return cross(b - a, c - a);
@@ -66,7 +61,6 @@ namespace twoDimension
             swap(b, c);
         return orient(a, b, p) >= 0 && orient(a, p, c) >= 0;
     }
-
     // line
     struct line
     {
@@ -76,7 +70,6 @@ namespace twoDimension
         line(p2 _v, double _c) : v(_v), c(_c) {}
         line(p2 p, p2 q) : v(q - p), c(cross(v, p)) {}
         line(double p, double q, double r) : v({q, -p}), c(r) {}
-
         auto friend operator<(const line &p, const line &q)
         {
             auto ar = arg(p.v) - arg(q.v);
@@ -85,7 +78,6 @@ namespace twoDimension
             else
                 return ar < 0;
         }
-
         auto side(p2 p) const
         {
             return cross(v, p) - c;
@@ -139,7 +131,6 @@ namespace twoDimension
             return line(l2.v / abs(l2.v) + l1.v / abs(l1.v) * sign, l2.c / abs(l2.v) + l1.c / abs(l1.v) * sign);
         }
     };
-
     // segment
     auto onSegment(p2 a, p2 b, p2 p)
     {
@@ -191,7 +182,6 @@ namespace twoDimension
             return 0;
         return min({segPoint(a, b, c), segPoint(a, b, d), segPoint(c, d, a), segPoint(c, d, b)});
     }
-
     // circle
     p2 circumcenter(p2 a, p2 b, p2 c)
     {
@@ -262,7 +252,6 @@ namespace twoDimension
         else
             return {};
     }
-
     // polygon
     typedef vector<p2> polygon;
     double areaPolygon(const polygon &p)
@@ -301,7 +290,6 @@ namespace twoDimension
             res = min(res, segPoint(a[i], a[(i + 1) % a.size()], p));
         return res;
     }
-
     // half convex hull
     auto halfConvexHull(polygon p) // 下凸包，逆时针给出
     {
@@ -328,7 +316,6 @@ namespace twoDimension
         partial_sum(c.begin(), c.end(), c.begin());
         return c;
     }
-
     // full convex hull
     auto adjust(polygon &p) { rotate(p.begin(), min_element(p.begin(), p.end()), p.end()); }
     auto convexHull(polygon p) // 逆时针给出点
@@ -396,7 +383,6 @@ namespace twoDimension
     {
         return polygonPoint(minkowskiDifference(a, b), p2(0, 0));
     }
-
     // half plane
     auto halfPlane(vector<line> li)
     {
@@ -404,7 +390,6 @@ namespace twoDimension
         li.push_back(line(p2(1e9, -1e9), p2(1e9, 1e9)));
         li.push_back(line(p2(1e9, 1e9), p2(-1e9, 1e9)));
         li.push_back(line(p2(-1e9, 1e9), p2(-1e9, -1e9)));
-
         sort(li.begin(), li.end());
         vector<p2> vec(li.size());
         vector<line> que(li.size());
@@ -421,17 +406,13 @@ namespace twoDimension
             if (r - l >= 1)
                 vec[r] = inter(que[r], que[r - 1]).second;
         }
-
         while (r - l >= 1 && sgn(que[l].side(vec[r])) <= 0)
             --r;
         vec[l] = inter(que[l], que[r]).second;
-
         vec.erase(vec.begin() + r + 1, vec.end());
         vec.erase(vec.begin(), vec.begin() + l);
-
         que.erase(que.begin() + r + 1, que.end());
         que.erase(que.begin(), que.begin() + l);
-
         return make_pair(vec, que);
     }
 };

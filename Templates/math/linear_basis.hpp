@@ -1,7 +1,3 @@
-#pragma once
-#include <algorithm>
-#include <array>
-
 template <typename T, int U>
 struct LinearBasis : std::array<T, U + 1>
 {
@@ -9,7 +5,6 @@ struct LinearBasis : std::array<T, U + 1>
     using std::array<T, U + 1>::begin;
     using std::array<T, U + 1>::end;
     using std::array<T, U + 1>::at;
-
     LinearBasis() : std::array<T, U + 1>{} {}
     auto insert(T v)
     {
@@ -67,7 +62,6 @@ struct LinearBasis : std::array<T, U + 1>
                 }
             return t;
         };
-
         LinearBasis res;
         for (auto i : other)
             if (i)

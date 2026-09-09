@@ -5,7 +5,6 @@ namespace threeDimension
     {
         return x < -eps ? -1 : (x > eps ? 1 : 0);
     };
-
     // point
     struct p3
     {
@@ -32,7 +31,6 @@ namespace threeDimension
         {
             return p3(x / p, y / p, z / p);
         }
-
         auto friend dot(p3 a, p3 b)
         {
             return a.x * b.x + a.y * b.y + a.z * b.z;
@@ -62,7 +60,6 @@ namespace threeDimension
             return mixed(q - p, r - p, n);
         }
     };
-
     // plane
     struct plane
     {
@@ -72,7 +69,6 @@ namespace threeDimension
         plane(p3 _n, double _d) : n(_n), d(_d) {}
         plane(p3 _n, p3 _p) : n(_n), d(dot(_n, _p)) {}
         plane(p3 p, p3 q, p3 r) : plane(cross(q - p, r - p), p) {}
-
         auto side(p3 p) const
         {
             return dot(n, p) - d;
@@ -81,7 +77,6 @@ namespace threeDimension
         {
             return abs(side(p)) / abs(n);
         }
-
         auto translate(p3 t) const
         {
             return plane(n, d + dot(n, t));
@@ -98,13 +93,11 @@ namespace threeDimension
         {
             return p - n * side(p) * 2 / norm(n);
         }
-
         auto friend angle(plane a, plane b)
         {
             return angle(a.n, b.n);
         }
     };
-
     // Coordinate System
     struct coords
     {
@@ -117,7 +110,6 @@ namespace threeDimension
             dz = dz / abs(dz);
             dy = cross(dz, dx);
         }
-
         auto pos2d(p3 p) const
         {
             p = p - o;
@@ -188,7 +180,6 @@ namespace threeDimension
             return plane(l.d, o);
         }
     };
-
     // polygon
     typedef vector<p3> polygon;
     auto vectorArea2(const polygon &p)
@@ -202,7 +193,6 @@ namespace threeDimension
     {
         return abs(vectorArea2(p)) / 2;
     }
-
     // polyhedron
     typedef vector<polygon> polyhedron;
     auto reorient(polyhedron &p)
@@ -258,7 +248,6 @@ namespace threeDimension
             res += dot(q.front(), vectorArea2(q));
         return res / 6;
     }
-
     // sphere
     auto sphereLine(p3 o, double r, line l) -> vector<p3>
     {
@@ -302,7 +291,6 @@ namespace threeDimension
         auto [f, out] = properInter(a, b, c, d);
         if (f)
             return {out};
-
         set<p3> se;
         if (onSphSegment(c, d, a))
             se.insert(a);
@@ -335,7 +323,6 @@ namespace threeDimension
             sum += orientAngleSph(p[(i + 1) % p.size()], p[(i + 2) % p.size()], p[i]);
         return r * r * sum;
     }
-
     // convex hull
     auto convexHull(polygon p)
     {

@@ -1,34 +1,23 @@
-#pragma once
-#include <chrono>
-#include <limits>
-#include <random>
-#include <vector>
-
-#define lc(x) tree[x].l
-#define rc(x) tree[x].r
-
 template <typename T = int>
 struct PersistTreap
 {
-    struct Node
+    struct node
     {
-        int l = 0, r = 0, size = 0;
+        int lc = 0, rc = 0, size = 0;
         unsigned key = 0;
         T val = 0;
     };
-
-    vector<Node> tree;
+    vector<node> tree;
+#define lc(x) tree[x].lc
+#define rc(x) tree[x].rc
     vector<int> root;
     mt19937 rnd;
-
     PersistTreap() : tree(1), root(1), rnd((unsigned)chrono::steady_clock::now().time_since_epoch().count()) {}
-
     auto newnode(T val)
     {
         tree.push_back({0, 0, 1, (unsigned)rnd(), val});
         return (int)tree.size() - 1;
     }
-
     auto clone(int rt)
     {
         if (!rt)
@@ -36,12 +25,10 @@ struct PersistTreap
         tree.push_back(tree[rt]);
         return (int)tree.size() - 1;
     }
-
     auto pushup(int rt)
     {
         tree[rt].size = tree[lc(rt)].size + tree[rc(rt)].size + 1;
     }
-
     auto split(int rt, T val, int &x, int &y) -> void
     {
         if (!rt)
@@ -66,7 +53,6 @@ struct PersistTreap
             pushup(y);
         }
     }
-
     auto merge(int x, int y) -> int
     {
         if (!x || !y)
@@ -83,7 +69,6 @@ struct PersistTreap
         pushup(rt);
         return rt;
     }
-
     auto insert(int ver, T val)
     {
         int x, y;
@@ -91,7 +76,6 @@ struct PersistTreap
         root.push_back(merge(merge(x, newnode(val)), y));
         return (int)root.size() - 1;
     }
-
     auto erase(int ver, T val)
     {
         int x, y, z;
@@ -102,7 +86,6 @@ struct PersistTreap
         root.push_back(merge(merge(x, y), z));
         return (int)root.size() - 1;
     }
-
     auto rankRoot(int rt, T val) const
     {
         int res = 1;
@@ -118,7 +101,6 @@ struct PersistTreap
         }
         return res;
     }
-
     auto kthRoot(int rt, int k) const
     {
         while (rt)
@@ -135,10 +117,8 @@ struct PersistTreap
         }
         return T();
     }
-
     auto rank(int ver, T val) const { return rankRoot(root[ver], val); }
     auto kth(int ver, int k) const { return kthRoot(root[ver], k); }
-
     auto pre(int ver, T val) const
     {
         int rt = root[ver];
@@ -152,7 +132,6 @@ struct PersistTreap
         }
         return res;
     }
-
     auto next(int ver, T val) const
     {
         int rt = root[ver];
@@ -166,13 +145,11 @@ struct PersistTreap
         }
         return res;
     }
-
     auto copyVersion(int ver)
     {
         root.push_back(root[ver]);
         return (int)root.size() - 1;
     }
-};
-
 #undef lc
 #undef rc
+};

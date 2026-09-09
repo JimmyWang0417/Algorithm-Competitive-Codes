@@ -1,33 +1,24 @@
-#pragma once
-#include <vector>
-
-#define lc(x) tree[x].l
-#define rc(x) tree[x].r
-
 template <typename T = long long>
 struct DynamicSeg
 {
-    struct Node
+    struct node
     {
-        int l = 0, r = 0;
+        int lc = 0, rc = 0;
         T sum = 0;
     };
-
-    vector<Node> tree;
-
+    vector<node> tree;
+#define lc(x) tree[x].lc
+#define rc(x) tree[x].rc
     DynamicSeg() : tree(1) {}
-
     auto newnode()
     {
-        tree.push_back(Node());
+        tree.push_back(node());
         return (int)tree.size() - 1;
     }
-
     auto pushup(int rt)
     {
         tree[rt].sum = tree[lc(rt)].sum + tree[rc(rt)].sum;
     }
-
     auto update(int &rt, int l, int r, int pos, T val) -> void
     {
         if (!rt)
@@ -49,7 +40,6 @@ struct DynamicSeg
             rc(rt) = child;
         }
     }
-
     auto query(int rt, int l, int r, int x, int y) const -> T
     {
         if (!rt || r < x || l > y)
@@ -59,7 +49,6 @@ struct DynamicSeg
         int mid = (l + r) >> 1;
         return query(lc(rt), l, mid, x, y) + query(rc(rt), mid + 1, r, x, y);
     }
-
     auto kth(int rt, int l, int r, T k) const -> int
     {
         if (l == r)
@@ -69,7 +58,6 @@ struct DynamicSeg
             return kth(lc(rt), l, mid, k);
         return kth(rc(rt), mid + 1, r, k - tree[lc(rt)].sum);
     }
-
     auto merge(int x, int y, int l, int r) -> int
     {
         if (!x || !y)
@@ -85,7 +73,6 @@ struct DynamicSeg
         pushup(x);
         return x;
     }
-
     auto split(int &pre, int l, int r, int x, int y) -> int
     {
         if (!pre || r < x || l > y)
@@ -108,7 +95,6 @@ struct DynamicSeg
         pushup(rt);
         return rt;
     }
-};
-
 #undef lc
 #undef rc
+};

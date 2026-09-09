@@ -1,45 +1,33 @@
-#pragma once
-#include <algorithm>
-#include <limits>
-#include <vector>
-
-#define lc(x) tree[x].l
-#define rc(x) tree[x].r
-
 template <typename T = int>
 struct scapegoat
 {
     static constexpr double alpha = 0.75;
-
-    struct Node
+    struct node
     {
-        int l = 0, r = 0;
+        int lc = 0, rc = 0;
         int size = 0, fact = 0;
         T val = 0;
         bool exist = false;
     };
-
     int root = 0;
-    vector<Node> tree;
+    vector<node> tree;
+#define lc(x) tree[x].lc
+#define rc(x) tree[x].rc
     vector<int> sta;
-
     scapegoat() : tree(1) {}
-
     auto newnode(int &rt, T val)
     {
-        tree.push_back(Node());
+        tree.push_back(node());
         rt = (int)tree.size() - 1;
         tree[rt].val = val;
         tree[rt].size = tree[rt].fact = 1;
         tree[rt].exist = true;
     }
-
     auto imbalence(int rt)
     {
         return max(tree[lc(rt)].size, tree[rc(rt)].size) > tree[rt].size * alpha ||
                tree[rt].size - tree[rt].fact > tree[rt].size * 0.3;
     }
-
     auto ldr(int rt) -> void
     {
         if (!rt)
@@ -49,7 +37,6 @@ struct scapegoat
             sta.push_back(rt);
         ldr(rc(rt));
     }
-
     auto lift(int l, int r, int &rt) -> void
     {
         if (l > r)
@@ -66,14 +53,12 @@ struct scapegoat
         tree[rt].size = tree[lc(rt)].size + tree[rc(rt)].size + 1;
         tree[rt].fact = tree[lc(rt)].fact + tree[rc(rt)].fact + 1;
     }
-
     auto rebuild(int &rt)
     {
         sta.clear();
         ldr(rt);
         lift(0, (int)sta.size() - 1, rt);
     }
-
     auto insert(int &rt, T val) -> void
     {
         if (!rt)
@@ -98,7 +83,6 @@ struct scapegoat
         if (imbalence(rt))
             rebuild(rt);
     }
-
     auto erase(int &rt, T val) -> bool
     {
         if (!rt)
@@ -122,7 +106,6 @@ struct scapegoat
         }
         return ok;
     }
-
     auto rank(T val) const
     {
         int rt = root, res = 1;
@@ -138,7 +121,6 @@ struct scapegoat
         }
         return res;
     }
-
     auto upperRank(T val) const
     {
         int rt = root, res = 1;
@@ -154,7 +136,6 @@ struct scapegoat
         }
         return res;
     }
-
     auto kth(int k) const
     {
         int rt = root;
@@ -172,7 +153,6 @@ struct scapegoat
         }
         return T();
     }
-
     auto insert(T val) { insert(root, val); }
     auto erase(T val)
     {
@@ -180,7 +160,6 @@ struct scapegoat
     }
     auto pre(T val) const { return kth(rank(val) - 1); }
     auto next(T val) const { return kth(upperRank(val)); }
-};
-
 #undef lc
 #undef rc
+};

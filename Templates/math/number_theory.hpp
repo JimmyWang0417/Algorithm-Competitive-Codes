@@ -14,9 +14,10 @@ struct NumberTheory
         }
         return res;
     };
-    using functype = function<T(T, T, T)>;
-    functype mul;
-    NumberTheory(const functype &other = _mul) : mul(other) {}
+    function<T(T, T, T)> mul;
+    NumberTheory() : mul(_mul) {}
+    template <typename F>
+    NumberTheory(F f) : mul(f) {}
     static auto exgcd(T a, T b) -> tuple<T, T, T>
     {
         if (b == 0)

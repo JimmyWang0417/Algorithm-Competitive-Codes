@@ -88,7 +88,6 @@ namespace NetworkFlow
             if (flag)
                 addEdge(to, from, 0, -cost, false);
         }
-
         auto solve() -> pair<int, ll>
         {
             int flow = 0;
@@ -101,7 +100,6 @@ namespace NetworkFlow
             }
             return {flow, res};
         }
-
         // 最小费用最大流
         auto normal(int _n, const vector<array<int, 4>> &e, int s, int t)
         {
@@ -111,7 +109,6 @@ namespace NetworkFlow
                 addEdge(u, v, c, w);
             return solve();
         }
-
         // 上下界最小费用可行流
         auto special(int _n, const vector<array<int, 5>> &e, int s, int t) -> pair<int, ll>
         {
@@ -142,7 +139,6 @@ namespace NetworkFlow
             auto [f, c] = solve();
             if (f < sum)
                 return {-1, 0};
-
             return {edge[numEdge].cap, cost + c};
         }
         auto main(int _n, int _m)
@@ -159,7 +155,6 @@ namespace NetworkFlow
             }
             return p;
         }
-
         // 上下界最小费用最大流
         auto maxFlow(int _n, const vector<array<int, 5>> &e, int s, int t) -> pair<int, ll>
         {
@@ -191,12 +186,10 @@ namespace NetworkFlow
                 return {-1, 0};
             cost += c;
             lasHead = head;
-
             flow = edge[numEdge].cap;
             head = lasHead;
             S = s, T = t;
             tie(f, c) = solve();
-
             return {flow, cost};
         }
     };

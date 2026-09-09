@@ -98,7 +98,6 @@ struct modint
     constexpr auto &data() { return x; }
     constexpr auto friend &operator>>(istream &in, modint &x) { return in >> x.x; }
     constexpr auto friend &operator<<(ostream &out, const modint &x) { return out << x.x; }
-
 private:
     int x;
 };

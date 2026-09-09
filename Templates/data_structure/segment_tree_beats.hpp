@@ -1,2 +1,2 @@
-#pragma once
-#include "seg_beats.hpp"
+template <typename T = long long>
+using SegmentTreeBeats = SegBeats<T>;
