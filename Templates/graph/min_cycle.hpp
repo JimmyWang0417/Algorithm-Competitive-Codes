@@ -27,9 +27,11 @@ struct MinimumCycle
         for (int k = 1; k <= n; ++k)
         {
             for (int i = 1; i < k; ++i)
-                for (int j = 1; j < i; ++j)
+                for (int j = 1; j < k; ++j)
                 {
-                    T now = dis[i][j] + G[i][k] + G[k][j];
+                    if (i == j)
+                        continue;
+                    T now = dis[i][j] + G[j][k] + G[k][i];
                     if (now < weight)
                     {
                         weight = now;
@@ -38,7 +40,7 @@ struct MinimumCycle
                         path.emplace_back(j);
                         path.emplace_back(k);
                     }
-            }
+                }
             for (int i = 1; i <= n; ++i)
                 for (int j = 1; j <= n; ++j)
                     if (dis[i][j] > dis[i][k] + dis[k][j])

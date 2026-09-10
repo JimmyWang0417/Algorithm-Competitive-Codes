@@ -200,6 +200,43 @@ struct SegTree
         return findLast(lc, l, mid, x, y, pred);
     }
     template <typename Func>
+    auto findFirst(int rt, int l, int r, int p, const Func &pred) -> int
+    {
+        if (p <= l && !pred(tree[rt]))
+            return -1;
+        if (l == r)
+            return l;
+        int mid = (l + r) >> 1;
+        pushdown(rt);
+        if (p <= mid)
+        {
+            int res = findFirst(lc, l, mid, p, pred);
+            if (res == -1)
+                res = findFirst(rc, mid + 1, r, p, pred);
+            return res;
+        }
+        return findFirst(rc, mid + 1, r, p, pred);
+    }
+    template <typename Func>
+    auto findLast(int rt, int l, int r, int p, const Func &pred) -> int
+    {
+        if (r <= p && !pred(tree[rt]))
+            return -1;
+        if (l == r)
+            return l;
+        int mid = (l + r) >> 1;
+        pushdown(rt);
+        if (p <= mid)
+            return findLast(lc, l, mid, p, pred);
+        else
+        {
+            int res = findLast(rc, mid + 1, r, p, pred);
+            if (res == -1)
+                res = findLast(lc, l, mid, p, pred);
+            return res;
+        }
+    }
+    template <typename Func>
     auto findFirst(int l, int r, const Func &pred)
     {
         return l <= r && n ? findFirst(1, 1, n, l, r, pred) : -1;
@@ -208,6 +245,16 @@ struct SegTree
     auto findLast(int l, int r, const Func &pred)
     {
         return l <= r && n ? findLast(1, 1, n, l, r, pred) : -1;
+    }
+    template <typename Func>
+    auto findFirst(int p, const Func &pred)
+    {
+        return p <= n && n ? findFirst(1, 1, n, max(p, 1), pred) : -1;
+    }
+    template <typename Func>
+    auto findLast(int p, const Func &pred)
+    {
+        return p >= 1 && n ? findLast(1, 1, n, min(p, n), pred) : -1;
     }
 #undef lc
 #undef rc

@@ -1768,9 +1768,12 @@ JimmyWang0417 's Algorithm Competitive Codes
 │   └── SP913 QTREE2 - Query on a tree II.cpp
 ├── template.cpp
 ├── Templates
+│   ├── algorithm
+│   │   ├── cdq.hpp
+│   │   ├── dancing_links.hpp
+│   │   └── parallel_binary_search.hpp
 │   ├── data_structure
 │   │   ├── cartesian_tree.hpp
-│   │   ├── cdq.hpp
 │   │   ├── decomp_tree.hpp
 │   │   ├── decomposition.hpp
 │   │   ├── dynamic_seg.hpp
@@ -1787,7 +1790,7 @@ JimmyWang0417 's Algorithm Competitive Codes
 │   │   ├── seg_beats.hpp
 │   │   ├── seg_divide.hpp
 │   │   ├── seg_tree.hpp
-│   │   ├── segment_tree_beats.hpp
+│   │   ├── sparse.hpp
 │   │   ├── splay.hpp
 │   │   ├── top_tree.hpp
 │   │   └── treap.hpp
