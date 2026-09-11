@@ -1,106 +1,148 @@
-#include <cmath>
-#include <cstdio>
-#define re register
-#define ll long long
+#include <bits/stdc++.h>
+#include <ext/pb_ds/assoc_container.hpp>
+#include <ext/pb_ds/priority_queue.hpp>
 using namespace std;
-template <typename T>
-inline void read(T &x)
+typedef int64_t i64;
+typedef uint64_t u64;
+typedef __int128_t i128;
+typedef __uint128_t u128;
+typedef __float80 f80;
+typedef __float128 f128;
+constexpr int mod = 1e9 + 7;
+template <typename T = int>
+constexpr auto quickpow(i64 a, T b = mod - 2)
 {
-    x = 0;
-    char s = getchar();
-    bool f = false;
-    while (!(s >= '0' && s <= '9'))
+    i64 res = 1;
+    while (b)
     {
-        if (s == '-')
-            f = true;
-        s = getchar();
+        if (b & 1)
+            (res *= a) %= mod;
+        (a *= a) %= mod;
+        b >>= 1;
     }
-    while (s >= '0' && s <= '9')
+    return res;
+}
+template <typename T = i64>
+struct min25
+{
+    i64 n;
+    int block;
+    vector<int> prime, id1, id2;
+    vector<bool> vis;
+    vector<i64> p;
+    vector<T> coef;
+    vector<vector<T>> pre, f;
+    auto getid(i64 x) const
     {
-        x = (x << 1) + (x << 3) + s - '0';
-        s = getchar();
+        return x <= block ? id1[x] : id2[n / x];
     }
-    if (f)
-        x = (~x) + 1;
-    return;
-}
-const int N = 1e6 + 10, mod = 1e9 + 7, INV6 = 166666668;
-ll n, sqrtn, prime[N], sump[N], sum2p[N], cnt, g1[N], g2[N];
-bool v[N];
-inline void primes(int n)
-{
-    cnt = 0;
-    for (re int i = 2; i <= n; i++)
+    template <typename F>
+    auto sieve(F value)
     {
-        if (!v[i])
+        for (int i = 2; i <= block; ++i)
         {
-            prime[++cnt] = i;
-            sump[cnt] = (sump[cnt - 1] + i) % mod;
-            sum2p[cnt] = (sum2p[cnt - 1] + (ll)i * i % mod) % mod;
-        }
-        for (re int j = 1; j <= cnt && prime[j] * i <= n; j++)
-        {
-            v[prime[j] * i] = 1;
-            if (i % prime[j] == 0)
-                break;
-        }
-    }
-}
-ll val[N];
-int id1[N], id2[N];
-inline int get_id(ll x)
-{
-    return ((x <= sqrtn) ? id1[x] : id2[n / x]);
-}
-inline ll min_25(ll x, ll y)
-{
-    if (x < prime[y] || x <= 1)
-        return 0;
-    int k = get_id(x);
-    ll res = ((g2[k] - g1[k] + mod) % mod - (sum2p[y - 1] - sump[y - 1] + mod) % mod + mod) % mod;
-    for (re int i = y; i <= cnt && prime[i] * prime[i] <= x; i++)
-    {
-        ll t1 = prime[i], t2 = prime[i] * prime[i];
-        for (re int j = 1; t2 <= x; j++, t1 = t2, t2 *= prime[i])
-        {
-            ll tt1 = t1 % mod, tt2 = t2 % mod;
-            res = (res + min_25(x / t1, i + 1) * tt1 % mod * (tt1 - 1) % mod + tt2 * (tt2 - 1) % mod) % mod;
+            if (!vis[i])
+            {
+                prime.emplace_back(i);
+                for (int j = 0; j < (int)coef.size(); ++j)
+                    pre[j].emplace_back((pre[j].back() + value(j, i)) % mod);
+            }
+            for (int j = 1; j < (int)prime.size(); ++j)
+            {
+                if (i * prime[j] > block)
+                    break;
+                vis[i * prime[j]] = true;
+                if (i % prime[j] == 0)
+                    break;
+            }
         }
     }
-    return res % mod;
-}
-int main()
-{
-    read(n);
-    primes(sqrtn = sqrt(n));
-    int tot = 0;
-    for (re ll i = 1, j; i <= n; i = j + 1)
+    template <typename F>
+    auto solve(i64 x, int y, F calcF) -> T
     {
-        j = n / (n / i);
-        ll w = n / i;
-        val[++tot] = w;
-        if (w <= sqrtn)
-            id1[w] = tot;
-        else
-            id2[n / w] = tot;
-        w %= mod;
-        g1[tot] = w * (w + 1) / 2 % mod;
-        g2[tot] = w * (w + 1) % mod * (2ll * w + 1) % mod * INV6 % mod;
-
-        g1[tot] = (g1[tot] - 1 + mod) % mod;
-        g2[tot] = (g2[tot] - 1 + mod) % mod;
-    }
-    for (re int j = 1; j <= cnt; j++)
-    {
-        for (re int i = 1; i <= tot && prime[j] * prime[j] <= val[i]; i++)
+        if (x <= 1 || x <= prime[y])
+            return 0;
+        int k = getid(x);
+        T res = 0;
+        for (int i = 0; i < (int)coef.size(); ++i)
+            (res += coef[i] * (f[i][k] - pre[i][y])) %= mod;
+        for (int i = y + 1; i < (int)prime.size() && (i64)prime[i] * prime[i] <= x; ++i)
         {
-            int k = get_id(val[i] / prime[j]);
-            g1[i] = (g1[i] - prime[j] * (g1[k] - sump[j - 1] + mod) % mod + mod) % mod;
-            g2[i] = (g2[i] - prime[j] * prime[j] % mod * (g2[k] - sum2p[j - 1] + mod) % mod + mod) % mod;
+            i64 pe = prime[i];
+            for (int e = 1; pe <= x; ++e)
+            {
+                (res += calcF(prime[i], e, pe) * (solve(x / pe, i, calcF) + (e > 1))) %= mod;
+                if (pe > x / prime[i])
+                    break;
+                pe *= prime[i];
+            }
         }
+        return res;
     }
-    /*for(int i=1; i<=tot; ++i)
-        printf("%lld %lld %lld\n",val[i],g1[i],g2[i]);*/
-    printf("%lld\n", (min_25(n, 1) + 1) % mod);
+    template <typename F, typename G, typename H>
+    auto calc(i64 _n, const vector<T> &_coef, F value, G prefix, H calcF)
+    {
+        if (!_n)
+            return (T)0;
+        n = _n, block = (int)sqrt(n), coef = _coef;
+        prime.resize(1);
+        id1.resize(block + 1), id2.resize(block + 1);
+        vis.resize(block + 1);
+        pre.resize(coef.size(), vector<T>(1));
+        f.resize(coef.size());
+        sieve(value);
+        for (i64 l = 1, r; l <= n; l = r + 1)
+        {
+            i64 x = n / l;
+            r = n / x;
+            p.emplace_back(x);
+            for (int i = 0; i < (int)coef.size(); ++i)
+                f[i].emplace_back((prefix(i, x) - 1) % mod);
+            if (x <= block)
+                id1[x] = (int)p.size() - 1;
+            else
+                id2[n / x] = (int)p.size() - 1;
+        }
+        for (int i = 1; i < (int)prime.size(); ++i)
+            for (int j = 0; j < (int)p.size() && (i64)prime[i] * prime[i] <= p[j]; ++j)
+            {
+                int k = getid(p[j] / prime[i]);
+                for (int d = 0; d < (int)coef.size(); ++d)
+                    (f[d][j] -= (pre[d][i] - pre[d][i - 1]) *
+                                  (f[d][k] - pre[d][i - 1])) %= mod;
+            }
+        T answer = (solve(n, 0, calcF) + 1) % mod;
+        return (answer + mod) % mod;
+    }
+};
+struct Main
+{
+    i64 n;
+    Main()
+    {
+        cin >> n;
+        auto answer = min25().calc(
+            n, vector<i64>{-1, 1},
+            [](int k, i64 x)
+            { return k ? x % mod * (x % mod) % mod : x % mod; },
+            [](int k, i64 x)
+            {
+                if (!k)
+                    return (i64)((i128)x * (x + 1) / 2 % mod);
+                return (i64)((i128)x * (x + 1) * (2 * x + 1) / 6 % mod);
+            },
+            [](int, int, i64 pe)
+            { return pe % mod * ((pe - 1) % mod) % mod; });
+        cout << answer << '\n';
+    }
+};
+signed main()
+{
+    ios::sync_with_stdio(false);
+    cin.tie(0), cout.tie(0);
+    int T = 1;
+    // cin >> T;
+    while (T--)
+        Main();
     return 0;
 }

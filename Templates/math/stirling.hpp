@@ -19,6 +19,8 @@ struct stirling
     }
     static auto s1col(int n, int m)
     {
+        if (m > n)
+            return poly(n + 1);
         vector<i64> fac(n + 1), ifac(n + 1);
         fac[0] = 1;
         for (int i = 1; i <= n; ++i)
@@ -55,6 +57,8 @@ struct stirling
     }
     static auto s2col(int n, int m)
     {
+        if (m > n)
+            return poly(n + 1);
         vector<i64> fac(n + 1), ifac(n + 1);
         fac[0] = 1;
         for (int i = 1; i <= n; ++i)

@@ -4,7 +4,7 @@ struct ImplicitTreap
     struct node
     {
         int lc = 0, rc = 0, size = 0;
-        unsigned key = 0;
+        int key = 0;
         T val = 0, sum = 0;
         bool rev = false;
     };

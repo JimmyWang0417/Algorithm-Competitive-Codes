@@ -4,7 +4,7 @@ struct FhqTreap
     struct node
     {
         T val = 0;
-        unsigned key = 0;
+        int key = 0;
         int size = 0, lc = 0, rc = 0;
     };
     int root = 0;
@@ -16,7 +16,7 @@ struct FhqTreap
     auto size(int rt) const { return tree[rt].size; }
     auto newnode(T val)
     {
-        tree.push_back({val, (unsigned)rnd(), 1, 0, 0});
+        tree.push_back({val, rnd(), 1, 0, 0});
         return (int)tree.size() - 1;
     }
     auto pushup(int rt)

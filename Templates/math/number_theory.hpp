@@ -40,6 +40,8 @@ struct NumberTheory
     }
     auto excrt(const vector<pair<T, T>> &p) -> T
     {
+        if (p.empty())
+            return 0;
         auto [c, d] = p.front();
         for (int i = 1; i < (int)p.size(); ++i)
         {
@@ -134,8 +136,7 @@ struct NumberTheory
             (res *= pow(p, g(n, p) - g(m, p) - g(n - m, p), pk) % pk) %= pk;
             que.emplace_back(pk, res);
         }
-        return crt(que, [](T a, T b, T p)
-                   { return a * b % p; });
+        return crt(que);
     }
     static auto BSGS(T a, T n, T p) -> T
     {

@@ -1,11 +1,8 @@
 struct exsam
 {
-    struct node
+    struct node : array<int, 26>
     {
-        int ch[26];
         int len, fail;
-        auto &operator[](int x) { return ch[x]; }
-        const auto &operator[](int x) const { return ch[x]; }
     };
     vector<node> point;
     exsam() = default;

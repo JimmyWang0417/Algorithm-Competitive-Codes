@@ -83,6 +83,8 @@ namespace polynomial
         }
         static auto eval(const vector<int> &Y, int k) // a0, a1, ... am-1
         {
+            if (Y.empty())
+                return (i64)0;
             int n = (int)Y.size() - 1;
             vector<i64> fac(n + 1), ifac(n + 1);
             vector<i64> pre(n + 1), suf(n + 1);
@@ -107,6 +109,8 @@ namespace polynomial
         }
         static auto shift(const vector<int> &Y, int c) // a0, a1, ... am-1
         {
+            if (Y.empty())
+                return vector<int>{};
             int n = (int)Y.size() - 1;
             if (c == 0)
                 return Y;

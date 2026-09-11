@@ -258,7 +258,7 @@
     "editor.detectIndentation": false,
     "editor.insertSpaces": true,
     "editor.tabSize": 4,
-    "C_Cpp.errorSquiggles": "disabled",
+    "C_Cpp.errorSquiggles": "enabled",
     // typst
     "[typst]": {
         "editor.tabSize": 4,

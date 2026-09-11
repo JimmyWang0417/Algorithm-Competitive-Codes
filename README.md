@@ -1768,10 +1768,6 @@ JimmyWang0417 's Algorithm Competitive Codes
 │   └── SP913 QTREE2 - Query on a tree II.cpp
 ├── template.cpp
 ├── Templates
-│   ├── algorithm
-│   │   ├── cdq.hpp
-│   │   ├── dancing_links.hpp
-│   │   └── parallel_binary_search.hpp
 │   ├── data_structure
 │   │   ├── cartesian_tree.hpp
 │   │   ├── decomp_tree.hpp
@@ -1830,6 +1826,7 @@ JimmyWang0417 's Algorithm Competitive Codes
 │   │   ├── du_sieve.hpp
 │   │   ├── euclidean.hpp
 │   │   ├── fwt.hpp
+│   │   ├── kfwt.hpp
 │   │   ├── lagrange.hpp
 │   │   ├── linear_basis.hpp
 │   │   ├── linear_recurrence.hpp
@@ -1844,6 +1841,11 @@ JimmyWang0417 's Algorithm Competitive Codes
 │   │   ├── sieve.hpp
 │   │   ├── simpson.hpp
 │   │   └── stirling.hpp
+│   ├── misc_algorithm
+│   │   ├── cdq.hpp
+│   │   ├── dancing_links.hpp
+│   │   ├── odt.hpp
+│   │   └── parallel_binary_search.hpp
 │   └── string_algorithm
 │       ├── acam.hpp
 │       ├── exkmp.hpp

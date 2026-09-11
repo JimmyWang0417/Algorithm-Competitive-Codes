@@ -5,7 +5,7 @@ struct treap
     {
         int ch[2] = {0, 0};
         int size = 0, cnt = 0;
-        unsigned key = 0;
+        int key = 0;
         T val = 0;
     };
     int root = 0;

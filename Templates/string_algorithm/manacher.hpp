@@ -25,7 +25,8 @@ struct manacher
     }
     auto split()
     {
-        vector<int> p1(p.size() / 2 - 1), p2(p.size() / 2 - 2);
+        int n = max((int)p.size() / 2 - 1, 0);
+        vector<int> p1(n), p2(max(n - 1, 0));
         for (int i = 0; i < (int)p1.size(); ++i)
             p1[i] = p[i * 2 + 2] - 1;
         for (int i = 0; i < (int)p2.size(); ++i)

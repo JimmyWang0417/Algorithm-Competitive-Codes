@@ -1,10 +1,8 @@
 struct acam
 {
-    struct node
+    struct node : array<int, 26>
     {
-        int ch[26], fail;
-        auto &operator[](int x) { return ch[x]; }
-        const auto &operator[](int x) const { return ch[x]; }
+        int fail;
     };
     vector<node> tree;
     vector<int> where;

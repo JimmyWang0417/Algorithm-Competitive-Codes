@@ -6,6 +6,8 @@ struct exkmp
     exkmp(const string &_s) : z(_s.size())
     {
         s = _s;
+        if (s.empty())
+            return;
         z[0] = (int)s.size();
         for (int i = 1, l = 0, r = -1; i < (int)s.size(); ++i)
         {

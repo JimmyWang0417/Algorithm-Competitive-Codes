@@ -17,7 +17,8 @@ namespace polynomial
                 limit <<= 1;
             }
             rk.resize(limit);
-            for (int i = 0; i < limit; ++i)
+            rk[0] = 0;
+            for (int i = 1; i < limit; ++i)
                 rk[i] = (rk[i >> 1] >> 1) | ((i & 1) << (len - 1));
         }
         using vector<i64>::vector;
@@ -51,11 +52,15 @@ namespace polynomial
         }
         auto friend operator+(poly lhs, i64 rhs)
         {
+            if (lhs.empty())
+                lhs.emplace_back();
             (lhs[0] += rhs) %= mod;
             return lhs;
         }
         auto friend operator-(poly lhs, i64 rhs)
         {
+            if (lhs.empty())
+                lhs.emplace_back();
             (lhs[0] -= rhs) %= mod;
             return lhs;
         }
@@ -198,6 +203,8 @@ namespace polynomial
         }
         auto inv(int n) const
         {
+            if (!n)
+                return poly{};
             if (n == 1)
                 return poly{quickpow(at(0))};
             poly F = inv((n + 1) / 2), G(begin(), begin() + n);
@@ -212,6 +219,8 @@ namespace polynomial
         auto inv() const { return inv((int)size()); }
         auto invBf() const
         {
+            if (empty())
+                return poly{};
             poly G(size());
             i64 invF0 = quickpow(at(0));
             G[0] = invF0;
@@ -245,6 +254,8 @@ namespace polynomial
         }
         auto sqrt(int n) const
         {
+            if (!n)
+                return poly{};
             if (n == 1)
                 return poly{1};
             poly F = sqrt((n + 1) / 2), G = poly(begin(), begin() + n);
@@ -262,6 +273,8 @@ namespace polynomial
         auto sqrt() const { return sqrt((int)size()); }
         auto sqrtBf() const
         {
+            if (empty())
+                return poly{};
             poly G(size());
             G[0] = 1;
             for (int i = 1; i < (int)size(); ++i)
@@ -277,6 +290,8 @@ namespace polynomial
         // 积分和求导
         auto integral() const
         {
+            if (empty())
+                return poly{0};
             poly res(size() + 1);
             vector<i64> inv(size() + 1);
             inv[1] = 1;
@@ -288,6 +303,8 @@ namespace polynomial
         }
         auto differ() const
         {
+            if (empty())
+                return poly{};
             poly res(size() - 1);
             for (int i = 1; i < (int)size(); ++i)
                 res[i - 1] = at(i) * i % mod;
@@ -296,12 +313,16 @@ namespace polynomial
         // 指数函数得保证a0 = 0, 对数函数得保证a0 = 1
         auto ln() const
         {
+            if (empty())
+                return poly{};
             auto res = differ() * inv();
             res.resize(size() - 1);
             return res.integral();
         }
         auto lnBf() const
         {
+            if (size() <= 1)
+                return poly(size());
             poly G(size());
             vector<i64> inv(size());
             inv[1] = 1;
@@ -318,6 +339,8 @@ namespace polynomial
         }
         auto exp(int n) const
         {
+            if (!n)
+                return poly{};
             if (n == 1)
                 return poly{1};
             poly F = exp((n + 1) / 2), G(begin(), begin() + n);
@@ -335,6 +358,10 @@ namespace polynomial
         auto exp() const { return exp((int)size()); }
         auto expBf() const
         {
+            if (empty())
+                return poly{};
+            if (size() == 1)
+                return poly{1};
             poly G(size());
             G[0] = 1;
             vector<i64> inv(size());
@@ -361,6 +388,8 @@ namespace polynomial
         }
         auto tan() const
         {
+            if (empty())
+                return poly{};
             auto res = sin() * cos().inv();
             res.resize(size());
             return res;
@@ -368,6 +397,8 @@ namespace polynomial
         // 反三角函数（得保证 a0 = 0）
         auto asin() const
         {
+            if (empty())
+                return poly{};
             auto res = (*this) * (*this);
             res.resize(size());
             res[0] = (1 - res[0]) % mod;
@@ -386,6 +417,8 @@ namespace polynomial
         }
         auto atan() const
         {
+            if (empty())
+                return poly{};
             auto res = (*this) * (*this);
             res.resize(size());
             res[0] = (1 + res[0]) % mod;
@@ -410,6 +443,8 @@ namespace polynomial
         auto pow(int n) const { return (ln() * n).exp(); }
         auto pow(int n, int m, int r) const
         {
+            if (empty())
+                return poly{};
             if (r == 0)
             {
                 poly F(size());
@@ -594,6 +629,8 @@ namespace polynomial
         }
         static auto comp(poly F, poly G)
         {
+            if (F.size() <= 1)
+                return F;
             int n = (int)F.size();
             G.resize(n);
             vpoly Q;
@@ -640,6 +677,8 @@ namespace polynomial
         }
         static auto compBf(poly F, poly G)
         {
+            if (F.size() <= 1)
+                return F;
             int n = (int)F.size();
             int block = (int)std::sqrt(n - 1);
             vector<poly> A{poly{1}}, B{poly{1}};

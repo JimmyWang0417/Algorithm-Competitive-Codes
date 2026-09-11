@@ -4,7 +4,7 @@ struct PersistTreap
     struct node
     {
         int lc = 0, rc = 0, size = 0;
-        unsigned key = 0;
+        int key = 0;
         T val = 0;
     };
     vector<node> tree;
@@ -15,7 +15,7 @@ struct PersistTreap
     PersistTreap() : tree(1), root(1), rnd((unsigned)chrono::steady_clock::now().time_since_epoch().count()) {}
     auto newnode(T val)
     {
-        tree.push_back({0, 0, 1, (unsigned)rnd(), val});
+        tree.push_back({0, 0, 1, rnd(), val});
         return (int)tree.size() - 1;
     }
     auto clone(int rt)
