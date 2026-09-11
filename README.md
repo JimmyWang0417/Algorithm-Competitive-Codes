@@ -1813,7 +1813,8 @@ JimmyWang0417 's Algorithm Competitive Codes
 │   │   ├── ring_count.hpp
 │   │   ├── steiner_tree.hpp
 │   │   ├── stoer_wagner.hpp
-│   │   └── tarjan.hpp
+│   │   ├── tarjan.hpp
+│   │   └── virtual_tree.hpp
 │   ├── initialization_misc
 │   │   ├── approx.hpp
 │   │   ├── bit.hpp
