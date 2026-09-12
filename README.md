@@ -56,14 +56,14 @@ JimmyWang0417 's Algorithm Competitive Codes
  Language              Files        Lines         Code     Comments       Blanks
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
  Autoconf                 16      1885023      1885023            0            0
- C++                    2690       384258       373907         6742         3609
- C++ Header               83         9835         8509          606          720
- Makefile                  2            4            4            0            0
- Markdown                  3         3155            0         3141           14
+ C++                    2745       390850       380162         6857         3831
+ C++ Header               96         9909         9018          604          287
+ Makefile                  2           22           20            0            2
+ Markdown                  3         3168            0         3154           14
  Python                    8          353          305            9           39
  Shell                     1           15            5            5            5
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
- Total                  2803      2282643      2267753        10503         4387
+ Total                  2871      2289340      2274533        10629         4178
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
 <!-- count the code end -->
@@ -445,6 +445,20 @@ JimmyWang0417 's Algorithm Competitive Codes
 │   │   ├── 2022 Taiwan NHSPC Mock Contest
 │   │   │   ├── C. 頒獎音樂 (Ceremony).cpp
 │   │   │   └── I. 子集合和 (SOS).cpp
+│   │   ├── [Unofficial Mirror] 2026 CCPC National Invitational (Nanchang) and The 3rd Jiangxi Provincial Programming Contest
+│   │   │   ├── A. 求求你不要再摔馍片了.cpp
+│   │   │   ├── B. 世界树.cpp
+│   │   │   ├── C. 简单字符串题.cpp
+│   │   │   ├── D. 电梯.cpp
+│   │   │   ├── E. 猜01序列.cpp
+│   │   │   ├── F. 建设高铁.cpp
+│   │   │   ├── G. 可能是字符串签到题.cpp
+│   │   │   ├── H. 南昌拌粉的绝妙配比.cpp
+│   │   │   ├── I. 灯带.cpp
+│   │   │   ├── J. 贪吃蛇.cpp
+│   │   │   ├── K. 拯救猫猫.cpp
+│   │   │   ├── L. 三人成角.cpp
+│   │   │   └── M. 最正宗的白糖糕.cpp
 │   │   ├── China Collegiate Programming Contest 2021, Qualification Round (Online), Rematch
 │   │   │   ├── B - Kanade Doesn't Want to Learn CG.cpp
 │   │   │   ├── C - GCD on Tree.cpp
@@ -1063,6 +1077,7 @@ JimmyWang0417 's Algorithm Competitive Codes
 │   ├── #508. 「LibreOJ NOI Round #1」失控的未来交通工具.cpp
 │   ├── #6001 「网络流 24 题」太空飞行计划.cpp
 │   ├── #6030. 「雅礼集训 2017 Day1」矩阵.cpp
+│   ├── #6053. 简单的函数.cpp
 │   ├── #6192 「美团 CodeM 复赛」城市网络.cpp
 │   ├── #6198 谢特.cpp
 │   ├── #6277 数列分块入门 1.cpp
@@ -1235,6 +1250,18 @@ JimmyWang0417 's Algorithm Competitive Codes
 │   │   └── L. Limited Library.cpp
 │   ├── The 2025 ICPC Asia East Continent Online Contest (I)
 │   │   └── K. Counting.cpp
+│   ├── The 2026 ICPC Asia East Continent Online Contest (I)
+│   │   ├── A. Recall.cpp
+│   │   ├── C. Permutation Inversions.cpp
+│   │   ├── D. Sequence.cpp
+│   │   ├── F. 50 Years of Excellence.cpp
+│   │   ├── G. Toll Gates on a Tight Schedule.cpp
+│   │   ├── H. The First Problem.cpp
+│   │   ├── J. String.cpp
+│   │   ├── K. Wolf Game.cpp
+│   │   ├── L. Longest Common Prefix.cpp
+│   │   ├── M. Check In.cpp
+│   │   └── N. Red Sequence.cpp
 │   ├── The 2nd Universal Cup. Stage 10: Harbin
 │   │   ├── A. Go go Baron Bunny!.cpp
 │   │   ├── B. Memory.cpp
@@ -1248,6 +1275,28 @@ JimmyWang0417 's Algorithm Competitive Codes
 │   │   ├── J. Game on a Forest.cpp
 │   │   ├── L. Palm Island.cpp
 │   │   └── M. Painter.cpp
+│   ├── The 2nd Universal Cup. Stage 12: Hefei
+│   │   ├── B. Queue Sorting.cpp
+│   │   ├── C. Cyclic Substrings.cpp
+│   │   ├── D. Balanced Array.cpp
+│   │   ├── E. Matrix Distances.cpp
+│   │   ├── F. Colorful Balloons.cpp
+│   │   ├── G. Streak Manipulation.cpp
+│   │   ├── H. Computational Complexity.cpp
+│   │   ├── I. Linguistics Puzzle.cpp
+│   │   ├── J. Takeout Delivering.cpp
+│   │   ├── K. Campus Partition.cpp
+│   │   └── L. Information Spread.cpp
+│   ├── The 2nd Universal Cup. Stage 13: Shenyang
+│   │   ├── B. Turning Permutation.cpp
+│   │   ├── C. Swiss Stage.cpp
+│   │   ├── D. Dark LaTeX vs. Light LaTeX.cpp
+│   │   ├── E. Sheep Eat Wolves.cpp
+│   │   ├── H. Line Graph Sequence.cpp
+│   │   ├── I. Three Rectangles.cpp
+│   │   ├── J. Graft and Transplant.cpp
+│   │   ├── K. Maximum Rating.cpp
+│   │   └── M. Outro: True Love Waits.cpp
 │   ├── The 2nd Universal Cup. Stage 17: Jinan
 │   │   ├── A. Many Many Heads.cpp
 │   │   ├── B. Graph Partitioning 2.cpp
@@ -1272,6 +1321,18 @@ JimmyWang0417 's Algorithm Competitive Codes
 │   │   ├── D. Min or Max.cpp
 │   │   ├── H. The Game.cpp
 │   │   └── J. DFS Order 5.cpp
+│   ├── The 2nd Universal Cup. Stage 3: Binjiang
+│   │   ├── A. Almost Prefix Concatenation.cpp
+│   │   ├── B. Palindromic Beads.cpp
+│   │   ├── C. Clique Challenge.cpp
+│   │   ├── D. Discrete Fourier Transform.cpp
+│   │   ├── E. Robot Experiment.cpp
+│   │   ├── F.  Flying Ship Story.cpp
+│   │   ├── G. GCD of Pattern Matching.cpp
+│   │   ├── H. Hurricane.cpp
+│   │   ├── J. Find the Gap.cpp
+│   │   ├── K. Sequence Shift.cpp
+│   │   └── L. Partially Free Meal.cpp
 │   ├── The 2nd Universal Cup. Stage 4: Taipei
 │   │   ├── A. Abstract.cpp
 │   │   ├── C. Computer Network.cpp
