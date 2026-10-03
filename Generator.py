@@ -1,44 +1,96 @@
 #!/usr/bin/env python3
 import os
+from pathlib import Path
 import re
 import subprocess
-import tempfile
-from pathlib import Path
+from tempfile import TemporaryDirectory
 
 
-def generate_tree():
-    paths = subprocess.check_output(
-        ["git", "ls-files", "--cached", "--others", "--exclude-standard", "-z"]
-    ).decode().rstrip("\0").split("\0")
-    with tempfile.TemporaryDirectory() as directory:
-        root = Path(directory)
-        for path in paths:
-            target = root / path
-            target.parent.mkdir(parents=True, exist_ok=True)
-            target.touch()
-        return subprocess.check_output(
-            ["lsd", "--tree", "--all", "--ignore-config", "--icon", "never", "."],
-            cwd=root,
+REPO_ROOT = Path(__file__).resolve().parent
+README_PATH = REPO_ROOT / "README.md"
+COUNT_BEGIN = "<!-- count the code begin -->"
+COUNT_END = "<!-- count the code end -->"
+TREE_BEGIN = "<!-- directory tree begin -->"
+TREE_END = "<!-- directory tree end -->"
+
+
+def run_output(command: list[str]) -> str:
+    return subprocess.run(
+        command,
+        cwd=REPO_ROOT,
+        check=True,
+        capture_output=True,
+        text=True,
+    ).stdout
+
+
+def build_directory_tree() -> str:
+    """Render a tree containing repository files not ignored by Git rules."""
+    listed = subprocess.run(
+        ["git", "ls-files", "--cached", "--others", "--exclude-standard", "-z"],
+        cwd=REPO_ROOT,
+        check=True,
+        capture_output=True,
+    ).stdout
+    ignored = subprocess.run(
+        ["git", "check-ignore", "--no-index", "--stdin", "-z"],
+        cwd=REPO_ROOT,
+        input=listed,
+        check=False,
+        capture_output=True,
+    ).stdout
+    ignored_paths = set(ignored.split(b"\0"))
+
+    with TemporaryDirectory(prefix="gitignore-tree-") as temp_dir:
+        tree_root = Path(temp_dir)
+        for raw_path in listed.split(b"\0"):
+            if not raw_path:
+                continue
+            relative_path = Path(os.fsdecode(raw_path))
+            if raw_path in ignored_paths or ".git" in relative_path.parts:
+                continue
+            destination = tree_root / relative_path
+            destination.parent.mkdir(parents=True, exist_ok=True)
+            destination.touch()
+
+        return subprocess.run(
+            [
+                "lsd",
+                "--tree",
+                "--all",
+                "--ignore-config",
+                "--ignore-glob",
+                ".git",
+                "--icon",
+                "never",
+            ],
+            cwd=tree_root,
+            check=True,
+            capture_output=True,
             text=True,
-        )
+        ).stdout
 
-intxt = [
-    "<!-- count the code begin -->\n[^<]*<!-- count the code end -->\n",
-    "<!-- directory tree begin -->\n[^<]*<!-- directory tree end -->\n"
-]
-outxt = [os.popen("tokei").read(), generate_tree()]
-with open("README.md", "r+", encoding="utf-8") as filetxt:
-    lines = filetxt.read()
-    tree_end = "<!-- directory tree end -->"
-    if lines.count(tree_end) > 1:
-        lines = lines[:lines.index(tree_end) + len(tree_end)] + "\n"
-    filetxt.seek(0)
-    for a, output in zip(intxt, outxt):
-        lines = re.sub(
-            a,
-            re.sub(r"\[\^<\]\*", r"{}", a).format("```plain\n" + output + "```\n"),
-            lines,
-            flags=re.M  # 明确指定 flags 参数
-        )
-    filetxt.write(lines)
-    filetxt.truncate()
+
+def replace_block(markdown: str, begin: str, end: str, content: str) -> str:
+    if markdown.count(begin) != 1 or markdown.count(end) != 1:
+        raise RuntimeError(f"README marker count is invalid: {begin} / {end}")
+    pattern = re.compile(
+        rf"^{re.escape(begin)}\r?\n.*?^{re.escape(end)}",
+        flags=re.MULTILINE | re.DOTALL,
+    )
+    replacement = f"{begin}\n```plain\n{content.rstrip(chr(10))}\n```\n{end}"
+    updated, count = pattern.subn(lambda _: replacement, markdown, count=1)
+    if count != 1:
+        raise RuntimeError(f"README marker block not found: {begin}")
+    return updated
+
+
+def main() -> None:
+    markdown = README_PATH.read_text(encoding="utf-8")
+    markdown = replace_block(markdown, COUNT_BEGIN, COUNT_END, run_output(["tokei"]))
+    markdown = replace_block(markdown, TREE_BEGIN, TREE_END, build_directory_tree())
+    README_PATH.write_text(markdown, encoding="utf-8")
+
+
+if __name__ == "__main__":
+    main()
