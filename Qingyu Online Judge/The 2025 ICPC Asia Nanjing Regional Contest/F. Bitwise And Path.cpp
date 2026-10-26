@@ -14,9 +14,9 @@ struct Main
 {
     struct node
     {
-        vector<int> fa;
+        vector<int> fa, rk;
         node() = default;
-        node(int _n) : fa(_n + 5) {}
+        node(int _n) : fa(_n + 5), rk(_n + 5) {}
         auto find(int x)
         {
             if (!fa[x])
@@ -28,7 +28,11 @@ struct Main
             x = find(x), y = find(y);
             if (x == y)
                 return false;
+            if (rk[x] > rk[y])
+                swap(x, y);
             fa[x] = y;
+            if (rk[x] == rk[y])
+                ++rk[y];
             return true;
         }
         auto check(int x, int y)
@@ -41,7 +45,21 @@ struct Main
     {
         cin >> n >> q;
         vector<node> se(1 << 12, node(n));
+        vector<int> seen(1 << 12);
+        int stamp = 0;
         i64 sum = 0;
+        auto link = [&](auto &&self, int mask, int u, int v) -> void
+        {
+            if (seen[mask] == stamp)
+                return;
+            seen[mask] = stamp;
+            if (se[mask].check(u, v))
+                return;
+            se[mask].unionn(u, v);
+            for (int b = 0; b < 12; ++b)
+                if ((mask >> b) & 1)
+                    self(self, mask ^ (1 << b), u, v);
+        };
         auto query = [&]()
         {
             char c;
@@ -50,11 +68,8 @@ struct Main
             if (c == '+')
             {
                 cin >> w;
-                if (se[w].check(u, v))
-                    return;
-                for (int i = w; i; i = (i - 1) & w)
-                    se[i].unionn(u, v);
-                se[0].unionn(u, v);
+                ++stamp;
+                link(link, w, u, v);
             }
             else
             {
