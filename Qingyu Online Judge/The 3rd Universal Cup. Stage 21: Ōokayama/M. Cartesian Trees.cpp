@@ -2,8 +2,7 @@
 using namespace std;
 typedef unsigned long long ull;
 constexpr int N = 4e5 + 5;
-constexpr int base = 1e6 + 33;
-constexpr ull invbase = 3752737114262921633;
+ull base, invbase;
 int n, m;
 int a[N], fa[N];
 int st[N], top;
@@ -11,7 +10,7 @@ vector<int> g[N];
 struct Query
 {
 	int l, r, id;
-	inline bool operator<(const Query &rhs) const
+	auto operator<(const Query &rhs) const
 	{
 		return l < rhs.l;
 	}
@@ -22,29 +21,39 @@ auto lowbit = [](int x)
 {
 	return x & (-x);
 };
-inline void update(int pos, ull val)
+auto update(int pos, ull val)
 {
 	for (int i = pos; i <= n; i += lowbit(i))
 		c[i] += val;
 }
-inline ull query(int pos)
+auto query(int pos)
 {
 	ull res = 0;
 	for (int i = pos; i; i -= lowbit(i))
 		res += c[i];
 	return res;
 }
-inline ull query(int l, int r)
+auto query(int l, int r)
 {
 	return query(r) - query(l - 1);
 }
 ull p[N];
 int tot;
+auto inverse(ull x)
+{
+	ull res = 1;
+	for (int i = 1; i <= 6; ++i)
+		res *= 2 - x * res;
+	return res;
+}
 signed main()
 {
 	ios::sync_with_stdio(false);
 	cin.tie(0), cout.tie(0);
 	cin >> n;
+	auto rng = mt19937_64(chrono::system_clock::now().time_since_epoch().count());
+	base = rng() | 1;
+	invbase = inverse(base);
 	power[0] = invpower[0] = 1;
 	for (int i = 1; i <= n; ++i)
 	{
