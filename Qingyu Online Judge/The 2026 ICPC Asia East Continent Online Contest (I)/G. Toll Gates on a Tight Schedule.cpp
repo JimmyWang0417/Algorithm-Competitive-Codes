@@ -36,7 +36,6 @@ struct Main {
     vector<int> layer;
     vector<vector<int>> nodes; // in layers
     int LAYER = -1;
-    const int lim = int(2e7);
     vector<vector<LL>> val_first, val_second;
     u64 ans = 0;
     void main() {
@@ -60,11 +59,11 @@ struct Main {
         dbg(LAYER);
         val_first.assign(n + 1, {});
         calc_first_half();
-        for (auto u : nodes[LAYER]) sort(all(val_first[u]));
+        for (auto u : nodes[LAYER]) radix_sort(val_first[u]);
         val_second.assign(n + 1, {});
         calc_second_half();
         for (auto u : nodes[LAYER]) {
-            sort(all(val_second[u]));
+            radix_sort(val_second[u]);
             auto &&p = val_first[u];
             auto &&q = val_second[u];
             dbg(u, p);
@@ -128,16 +127,31 @@ struct Main {
         return 1;
     }
     void split_layer() {
-        vector<LL> dp(n + 1);
-        dp[1] = 1;
+        using u128 = __uint128_t;
+        vector<u128> pre(n + 1), suf(n + 1);
+        pre[1] = 1;
         for (int l = 0; l < int(nodes.size()) - 1; ++l) {
-            LL tot = 0;
-            for (auto u : nodes[l]) tot += dp[u];
-            if (tot <= lim) LAYER = l;
             for (auto u : nodes[l]) {
                 for (auto v : e[u]) {
-                    dp[v] += dp[u];
+                    pre[v] += pre[u];
                 }
+            }
+        }
+        suf[n] = 1;
+        for (int l = int(nodes.size()) - 1; l > 0; --l) {
+            for (auto u : nodes[l]) {
+                for (auto v : e_inv[u]) {
+                    suf[v] += suf[u];
+                }
+            }
+        }
+        u128 best = -1;
+        for (int l = 0; l < int(nodes.size()); ++l) {
+            u128 tot = 0;
+            for (auto u : nodes[l]) tot += pre[u] + suf[u];
+            if (tot < best) {
+                best = tot;
+                LAYER = l;
             }
         }
     }
@@ -168,6 +182,28 @@ struct Main {
     }
     void calc_second_half() {
         dfsTwo(n, 0ll);
+    }
+    void radix_sort(vector<LL> &v) {
+        if (v.size() < (1 << 15)) {
+            sort(all(v));
+            return;
+        }
+        constexpr int B = 16;
+        constexpr int S = 1 << B;
+        vector<LL> tmp(v.size());
+        vector<int> cnt(S);
+        for (int shift = 0; shift < 48; shift += B) {
+            fill(all(cnt), 0);
+            for (auto x : v) ++cnt[u64(x) >> shift & (S - 1)];
+            int sum = 0;
+            for (auto &x : cnt) {
+                const int c = x;
+                x = sum;
+                sum += c;
+            }
+            for (auto x : v) tmp[cnt[u64(x) >> shift & (S - 1)]++] = x;
+            v.swap(tmp);
+        }
     }
 };
 

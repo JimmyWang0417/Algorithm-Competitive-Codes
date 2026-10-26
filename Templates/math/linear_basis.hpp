@@ -5,7 +5,7 @@ struct LinearBasis : std::array<T, U + 1>
     using std::array<T, U + 1>::begin;
     using std::array<T, U + 1>::end;
     using std::array<T, U + 1>::at;
-    LinearBasis() : std::array<T, U + 1>{} {}
+    LinearBasis() : array<T, U + 1>{} {}
     auto insert(T v)
     {
         for (int i = U; i >= 0; --i)

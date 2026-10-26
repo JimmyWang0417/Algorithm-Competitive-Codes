@@ -51,6 +51,36 @@ struct segment {
         auto [x2, y2] = query(rc(rt), mid + 1, r, x, y);
         return {x1 + x2, y1 + y2};
     }
+    auto query(vector<pair<int, int>> rt, i64 b) {
+        i64 cnt = 0, sum = 0;
+        for (auto [x, y] : rt) {
+            cnt += tree[x].sze - tree[y].sze;
+            sum += tree[x].sum - tree[y].sum;
+        }
+        if ((i128)(n + 1) * cnt - sum < b)
+            return -1;
+        int l = 1, r = n;
+        cnt = sum = 0;
+        while (l < r) {
+            int mid = (l + r) >> 1;
+            i64 xcnt = cnt, xsum = sum;
+            for (auto [x, y] : rt) {
+                xcnt += tree[lc(x)].sze - tree[lc(y)].sze;
+                xsum += tree[lc(x)].sum - tree[lc(y)].sum;
+            }
+            if ((i128)(mid + 1) * xcnt - xsum >= b) {
+                for (auto &[x, y] : rt)
+                    x = lc(x), y = lc(y);
+                r = mid;
+            } else {
+                cnt = xcnt, sum = xsum;
+                for (auto &[x, y] : rt)
+                    x = rc(x), y = rc(y);
+                l = mid + 1;
+            }
+        }
+        return l;
+    }
     segment() = default;
     segment(int _n) : n(_n), tree(1) { tree.reserve(40 * _n); }
 };
@@ -121,22 +151,25 @@ struct sam {
         dfs(1, 0);
         // for (int i = 1; i <= tot; ++i)
         //     cout << ' ' << dfn[i] << ' ' << low[i] << '\n';
-        tree = segment(tot);
-        root.resize(s.length() + 1);
+        tree = segment(s.length());
+        root.resize(tot + 1);
+        vector<int> pos(tot + 1);
         for (int i = 1; i <= (int)s.length(); ++i)
-            root[i] = tree.update(root[i - 1], 1, tot, dfn[p[i - 1]], i);
+            pos[dfn[p[i - 1]]] = i;
+        for (int i = 1; i <= tot; ++i) {
+            root[i] = root[i - 1];
+            if (pos[i])
+                root[i] = tree.update(root[i], 1, s.length(), pos[i], pos[i]);
+        }
     }
-    auto query(int l, const string &s) {
+    auto insert(const string &s, vector<pair<int, int>> &rt) {
         int u = 1;
-        i128 res = 0;
         for (auto c : s) {
             u = point[u].ch[c - 'a'];
             if (!u)
                 break;
-            auto [x, y] = tree.query(root[l], 1, tot, dfn[u], low[u]);
-            res += (i128)(l + 1) * x - y;
+            rt.emplace_back(root[low[u]], root[dfn[u] - 1]);
         }
-        return res;
     }
 };
 struct Main {
@@ -154,22 +187,10 @@ struct Main {
             p.resize(a);
             for (auto &s : p)
                 cin >> s;
-            auto check = [&](int mid) {
-                i64 res = 0;
-                for (const auto &s : p)
-                    res += t.query(mid, s);
-                return res >= b;
-            };
-            // cout << check(3) << '\n';
-            int l = 0, r = (int)T.length();
-            while (l <= r) {
-                int mid = (l + r) >> 1;
-                if (check(mid))
-                    r = mid - 1;
-                else
-                    l = mid + 1;
-            }
-            cout << (l == (int)T.length() + 1 ? -1 : l) << '\n';
+            vector<pair<int, int>> rt;
+            for (const auto &s : p)
+                t.insert(s, rt);
+            cout << t.tree.query(rt, b) << '\n';
         }
     }
 };

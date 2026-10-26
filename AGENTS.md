@@ -7,6 +7,13 @@
 - Preserve the user's own debugging practice: explain the failing condition and the minimal counterexample, but avoid applying the fix directly.
 - Do not point out where the code is wrong, identify buggy lines, or explain the root cause unless the user explicitly asks for that level of diagnosis.
 
+## Competitive-Programming Template Style
+
+- Before adding or reorganizing files under `Templates/`, inspect the corresponding part of `../Competitive-Programming-Templates` when it is available. Treat that repository's existing file granularity, encapsulation, naming, method order, and arithmetic style as the design reference.
+- Preserve the established order inside an existing template. Add a new method at the end of its natural group, or at the end of the containing type when there is no matching group; do not place it near the top merely because it calls an earlier helper.
+- Follow the surrounding code's modular-arithmetic convention exactly. Do not introduce a generic residue-normalization helper such as `norm`, ad hoc `+mod` or `-mod` corrections, or conditional normalization such as `if (x < 0) x += mod`. Keep signed intermediate residues when the surrounding template does, and normalize only at the established result boundary.
+- Keep generic mathematical algorithms independent of one particular data representation. In particular, a Hensel-lifting interface must accept `f` and `f'` from the caller instead of deriving the derivative from a coefficient container.
+
 ## Online Judge Submission Synchronization
 
 - When synchronizing accepted submissions from an online judge, preserve every existing local solution. If a target problem already has a local file, do not replace or update it even when the remote accepted submission is newer.

@@ -48,6 +48,7 @@ docs/superpowers/
 .agents/
 .claude/
 .codex/
+.playwright-cli/
 .playwright-mcp/
 .hvigor/
 .pytest_cache/

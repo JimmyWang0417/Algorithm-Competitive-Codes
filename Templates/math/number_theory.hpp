@@ -250,4 +250,25 @@ struct NumberTheory
             return {root, (p - root) % p};
         }
     }
+    template <typename F, typename G>
+    auto hensel(T x, T p, int k, F f, G df) -> T // p is prime, p^k <= TMAX
+    {
+        if (k < 1)
+            return -1;
+        x %= p;
+        T dfx = df(x) % p;
+        auto [d, inv, y] = exgcd(dfx, p);
+        if (f(x) % p || (d != 1 && d != -1))
+            return -1;
+        inv *= d;
+        T mod = p;
+        for (int i = 1; i < k; ++i)
+        {
+            T q = f(x) / mod % p;
+            auto t = mul(-q, inv, p);
+            x += t * mod;
+            mod *= p;
+        }
+        return (x + mod) % mod;
+    }
 };

@@ -30,26 +30,24 @@ struct euclidean
             return res;
         }
     };
-    static auto euclid(i64 p, i64 q, i64 r, i64 l, node U, node R)
+    static node euclid(i64 a, i64 b, i64 c, i64 n, node U, node R)
     {
-        if (!l)
-            return node::I(U.x.size());
-        if (r >= q)
-            return (U.pow(p / q)) * euclid(p, q, l, r % q, U, R);
-        if (p >= q)
-            return euclid(p % q, q, r, l, U, (U.pow(p / q)) * R);
-        i64 m = ((i128)p * l + r) / q;
+        if (b >= c)
+            return (U.pow(b / c)) * euclid(a, b % c, c, n, U, R);
+        if (a >= c)
+            return euclid(a % c, b, c, n, U, (U.pow(a / c)) * R);
+        i64 m = (i64)(((i128)a * n + b) / c);
         if (!m)
-            return R.pow(l);
-        return (R.pow((q - r - 1) / p)) * U * euclid(q, p, (q - r - 1) % p, m - 1, R, U) *
-               (R.pow(l - ((i128)q * m - r - 1) / p));
+            return R.pow(n);
+        return (R.pow((c - b - 1) / a)) * U * euclid(c, (c - b - 1) % a, a, m - 1, R, U) *
+               (R.pow(n - (i64)(((i128)c * m - b - 1) / a)));
     }
-    static auto euclid(i64 p, i64 q, i64 r, i64 l, const matrix &U, const matrix &R)
+    static auto euclid(i64 a, i64 b, i64 c, i64 n, const matrix &U, const matrix &R)
     {
-        auto n = U.size();
-        return euclid(p, q, r, l,
-                      node(matrix::I(n), U, matrix(n)),
-                      node(R, matrix::I(n), R))
+        auto size = U.size();
+        return euclid(a, b, c, n,
+                      node(matrix::I(size), U, matrix(size)),
+                      node(R, matrix::I(size), R))
             .xy;
     }
 };

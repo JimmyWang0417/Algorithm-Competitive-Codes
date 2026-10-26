@@ -2,7 +2,6 @@
 	g++ $< -std=c++20 -O2 \
 		-Wall -Wextra -Warray-bounds -Wconversion -g \
 		-o $@
-
 %-asan:%.cpp
 	g++ $< -pedantic -std=c++20 -O1 \
 		-pipe -Wall -Wextra -Wshadow -Wconversion \
