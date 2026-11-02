@@ -1,14 +1,15 @@
 struct SteinerTree
 {
+    static constexpr i64 INF = LONG_LONG_MAX / 2;
     int n, k;
-    vector<vector<int>> dp;
+    vector<vector<i64>> dp;
     vector<vector<pair<int, int>>> g;
-    auto dijkstra(vector<int> &dist)
+    auto dijkstra(vector<i64> &dist)
     {
         vector<bool> vis(n + 1, false);
-        priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> q;
+        priority_queue<pair<i64, int>, vector<pair<i64, int>>, greater<pair<i64, int>>> q;
         for (int i = 1; i <= n; ++i)
-            if (dist[i] < INT_MAX / 2)
+            if (dist[i] < INF)
                 q.emplace(dist[i], i);
         while (!q.empty())
         {
@@ -19,7 +20,7 @@ struct SteinerTree
             vis[u] = true;
             for (auto [v, w] : g[u])
             {
-                if (dist[v] > dist[u] + w)
+                if (dist[u] < INF && dist[v] > dist[u] + w)
                 {
                     dist[v] = dist[u] + w;
                     q.emplace(dist[v], v);
@@ -32,7 +33,7 @@ struct SteinerTree
         : n(_n), k((int)p.size())
     {
         g.resize(n + 1);
-        dp.resize(1 << k, vector<int>(n + 1, INT_MAX));
+        dp.resize(1 << k, vector<i64>(n + 1, INF));
         for (auto [u, v, w] : edges)
         {
             g[u].emplace_back(v, w);
@@ -49,11 +50,12 @@ struct SteinerTree
             // 子集转移
             for (int i = 1; i <= n; ++i)
                 for (int subs = S & (S - 1); subs; subs = S & (subs - 1))
-                    dp[S][i] = min(dp[S][i], dp[subs][i] + dp[S ^ subs][i]);
+                    if (dp[subs][i] < INF && dp[S ^ subs][i] < INF)
+                        dp[S][i] = min(dp[S][i], dp[subs][i] + dp[S ^ subs][i]);
             // Dijkstra松弛
             dijkstra(dp[S]);
         }
-        int ans = INT_MAX;
+        i64 ans = INF;
         for (int i = 1; i <= n; ++i)
             ans = min(ans, dp[(1 << k) - 1][i]);
         return ans;

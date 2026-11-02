@@ -1,23 +1,11 @@
-template <typename T>
+#include "prime.hpp"
+template<class T, class Mul = mul_op<T>>
+requires signed_integral<T>
 struct NumberTheory
 {
-    constexpr static auto _mul = [](T a, T b, T m)
-    {
-        a = (a % m + m) % m, b = (b % m + m) % m;
-        T res = 0;
-        while (b)
-        {
-            if (b & 1)
-                (res += a) %= m;
-            (a += a) %= m;
-            b >>= 1;
-        }
-        return res;
-    };
-    function<T(T, T, T)> mul;
-    NumberTheory() : mul(_mul) {}
-    template <typename F>
-    NumberTheory(F f) : mul(f) {}
+    [[no_unique_address]] Mul mul{};
+    NumberTheory() = default;
+    explicit NumberTheory(Mul f) : mul(move(f)) {}
     static auto exgcd(T a, T b) -> tuple<T, T, T>
     {
         if (b == 0)
@@ -54,15 +42,15 @@ struct NumberTheory
         }
         return (d + c) % c;
     }
-    static auto lucas(T n, T m, T p) // (p - 1) * (p - 1) <= TMAX
+    auto lucas(T n, T m, T p) // (p - 1) * (p - 1) <= TMAX
     {
         vector<T> fac(p), ifac(p);
         fac[0] = 1;
         for (int i = 1; i < p; ++i)
-            fac[i] = fac[i - 1] * i % p;
+            fac[i] = mul(fac[i - 1], i, p);
         ifac[p - 1] = get<1>(exgcd(fac[p - 1], p));
         for (int i = (int)p - 1; i >= 1; --i)
-            ifac[i - 1] = ifac[i] * i % p;
+            ifac[i - 1] = mul(ifac[i], i, p);
         function<T(T, T)> C = [&](T x, T y) -> T
         {
             if (x < y)
@@ -70,20 +58,20 @@ struct NumberTheory
             if (y == 0)
                 return 1;
             if (x < p)
-                return fac[x] * ifac[y] % p * ifac[x - y] % p;
-            return C(x / p, y / p) * C(x % p, y % p) % p;
+                return mul(mul(fac[x], ifac[y], p), ifac[x - y], p);
+            return mul(C(x / p, y / p), C(x % p, y % p), p);
         };
         return (C(n, m) + p) % p;
     }
     template <typename _T>
-    static auto pow(T a, _T b, T p)
+    auto pow(T a, _T b, T p)
     {
         T res = 1;
         while (b)
         {
             if (b & 1)
-                (res *= a) %= p;
-            (a *= a) %= p;
+                res = mul(res, a, p);
+            a = mul(a, a, p);
             b >>= 1;
         }
         return res;
@@ -104,12 +92,12 @@ struct NumberTheory
             T res = 1;
             for (int i = 2; i <= pk; ++i)
                 if (i % p)
-                    (res *= i) %= pk;
+                    res = mul(res, i, pk);
             res = pow(res, x / pk, pk);
             for (int i = 2; i <= x % pk; ++i)
                 if (i % p)
-                    (res *= i) %= pk;
-            return res * fac(x / p, p, pk) % pk;
+                    res = mul(res, i, pk);
+            return mul(res, fac(x / p, p, pk), pk);
         };
         vector<pair<T, T>> que;
         for (int p = 2; p * p <= mod; ++p)
@@ -122,23 +110,23 @@ struct NumberTheory
                     mod /= p;
                 } while (mod % p == 0);
                 auto res = fac(n, p, pk);
-                (res *= get<1>(exgcd(fac(m, p, pk), pk))) %= pk;
-                (res *= get<1>(exgcd(fac(n - m, p, pk), pk))) %= pk;
-                (res *= pow(p, g(n, p) - g(m, p) - g(n - m, p), pk) % pk) %= pk;
+                res = mul(res, get<1>(exgcd(fac(m, p, pk), pk)), pk);
+                res = mul(res, get<1>(exgcd(fac(n - m, p, pk), pk)), pk);
+                res = mul(res, pow(p, g(n, p) - g(m, p) - g(n - m, p), pk) % pk, pk);
                 que.emplace_back(pk, res);
             }
         if (mod > 1)
         {
             auto p = mod, pk = mod;
             auto res = fac(n, p, pk);
-            (res *= get<1>(exgcd(fac(m, p, pk), pk))) %= pk;
-            (res *= get<1>(exgcd(fac(n - m, p, pk), pk))) %= pk;
-            (res *= pow(p, g(n, p) - g(m, p) - g(n - m, p), pk) % pk) %= pk;
+            res = mul(res, get<1>(exgcd(fac(m, p, pk), pk)), pk);
+            res = mul(res, get<1>(exgcd(fac(n - m, p, pk), pk)), pk);
+            res = mul(res, pow(p, g(n, p) - g(m, p) - g(n - m, p), pk) % pk, pk);
             que.emplace_back(pk, res);
         }
         return crt(que);
     }
-    static auto BSGS(T a, T n, T p) -> T
+    auto BSGS(T a, T n, T p) -> T
     {
         if (n == 1)
             return 0;
@@ -148,13 +136,13 @@ struct NumberTheory
         for (int i = 0; i < m; ++i)
         {
             mp[res] = i;
-            (res *= a) %= p;
+            res = mul(res, a, p);
         }
         T x = pow(a, m, p);
         res = 1;
         for (int i = 1; i <= m + 1; ++i)
         {
-            (res *= x) %= p;
+            res = mul(res, x, p);
             if (mp.find(res) != mp.end())
                 return i * m - mp[res];
         }
@@ -187,7 +175,7 @@ struct NumberTheory
             if (B % d)
                 return -1;
             P /= d, B /= d;
-            (C *= A / d) %= P;
+            C = mul(C, A / d, P);
             ++res;
             if (C == B)
                 return res;
@@ -198,19 +186,19 @@ struct NumberTheory
         for (int i = 0; i < t; i++)
         {
             mp[mul(f, B, P)] = i;
-            (f *= A) %= P;
+            f = mul(f, A, P);
         }
         auto tf = f;
-        (f *= C) %= P;
+        f = mul(f, C, P);
         for (int i = 1; i <= t; i++)
         {
             if (mp.find(f) != mp.end())
                 return res + i * t - mp[f];
-            (f *= tf) %= P;
+            f = mul(f, tf, P);
         }
         return -1;
     }
-    static auto sqrt(T x, T p) -> pair<T, T>
+    auto sqrt(T x, T p) -> pair<T, T>
     {
         if (x == 0)
             return {0, 0};
@@ -223,15 +211,15 @@ struct NumberTheory
             while (1)
             {
                 r = uniform_int_distribution<T>(1, p - 1)(rng);
-                if (pow((r * r - x + p) % p, (p - 1) / 2, p) == p - 1)
+                if (pow((mul(r, r, p) - x + p) % p, (p - 1) / 2, p) == p - 1)
                     break;
             }
-            auto II = (r * r - x + p) % p;
+            auto II = (mul(r, r, p) - x + p) % p;
             auto mulT = [&](const pair<T, T> &a, const pair<T, T> &b) -> pair<T, T>
             {
                 return {
-                    (a.first * b.first + a.second * b.second % p * II) % p,
-                    (a.first * b.second + a.second * b.first) % p};
+                    (mul(a.first, b.first, p) + mul(mul(a.second, b.second, p), II, p)) % p,
+                    (mul(a.first, b.second, p) + mul(a.second, b.first, p)) % p};
             };
             auto power = [&](pair<T, T> a, auto b)
             {

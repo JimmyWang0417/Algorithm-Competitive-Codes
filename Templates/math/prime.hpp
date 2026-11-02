@@ -1,23 +1,50 @@
-template <typename T>
-struct prime
+#pragma once
+template<class T>
+constexpr auto mul(T a, T b, T m) -> T
 {
-    constexpr static auto _mul = [](T a, T b, T m)
+    if constexpr (sizeof(T) <= sizeof(int))
     {
-        T res = 0;
+        i64 r = (i64)a * b % m;
+        ((r %= m) += m) %= m;
+        return (T)r;
+    }
+    else if constexpr (sizeof(T) <= sizeof(i64))
+    {
+        i128 r = (i128)a * b % m;
+        ((r %= m) += m) %= m;
+        return (T)r;
+    }
+    else
+    {
+        ((a %= m) += m) %= m;
+        ((b %= m) += m) %= m;
+        T r = 0;
         while (b)
         {
             if (b & 1)
-                (res += a) %= m;
-            (a += a) %= m;
+                r = r >= m - a ? r - (m - a) : r + a;
+            a = a >= m - a ? a - (m - a) : a + a;
             b >>= 1;
         }
-        return res;
-    };
+        return r;
+    }
+}
+template<class T>
+struct mul_op
+{
+    constexpr auto operator()(T a, T b, T m) const -> T
+    {
+        return ::mul(a, b, m);
+    }
+};
+template<class T, class Mul = mul_op<T>>
+requires signed_integral<T>
+struct prime
+{
+    [[no_unique_address]] Mul mul{};
+    prime() = default;
+    explicit prime(Mul f) : mul(move(f)) {}
     constexpr static int test_time = 10;
-    function<T(T, T, T)> mul;
-    prime() : mul(_mul) {}
-    template <typename F>
-    prime(F f) : mul(f) {}
     template <typename _T>
     auto pow(T a, _T b, T p)
     {
@@ -44,6 +71,7 @@ struct prime
             u /= 2;
             ++t;
         }
+        mt19937 rnd(random_device{}());
         for (int i = 0; i < test_time; ++i)
         {
             auto a = uniform_int_distribution<T>(2, n - 2)(rnd), v = pow(a, u, n);
@@ -63,13 +91,15 @@ struct prime
     auto pollardRho(T x)
     {
         T s = 0, t = 0;
+        mt19937 rnd(random_device{}());
         T c = uniform_int_distribution<T>(1, x - 1)(rnd);
         T val = 1;
-        for (int goal = 1;; goal *= 2, s = t, val = 1)
+        for (unsigned long long goal = 1;; goal *= 2, s = t, val = 1)
         {
-            for (int step = 1; step <= goal; ++step)
+            for (unsigned long long step = 1; step <= goal; ++step)
             {
-                t = (mul(t, t, x) + c) % x;
+                t = mul(t, t, x);
+                t = (t >= x - c ? t - (x - c) : t + c) % x;
                 val = mul(val, abs(t - s), x);
                 if ((step % 127) == 0)
                 {
@@ -88,7 +118,7 @@ struct prime
         vector<T> res;
         function<void(T, int)> fac = [&](T x, int times)
         {
-            if (x == 1)
+            if (x <= 1)
                 return;
             if (millerRabin(x))
             {

@@ -7,7 +7,9 @@ namespace NetworkFlow
         vector<bool> exist;
         struct edges
         {
-            int next, to, cap, cost;
+            int next, to;
+            i64 cap;
+            int cost;
         };
         vector<edges> edge; // next, to, cap
         int numEdge;
@@ -17,6 +19,7 @@ namespace NetworkFlow
             n = _n;
             numEdge = 1;
             head.resize(n + 5);
+            fill(head.begin(), head.end(), 0);
             dis.resize(n + 5);
             exist.resize(n + 5);
             edge.resize(2 + 2 * _m);
@@ -50,18 +53,18 @@ namespace NetworkFlow
             }
             return dis[T] < LONG_LONG_MAX;
         }
-        auto dinic(int u, int flow)
+        auto dinic(int u, i64 flow)
         {
             if (u == T)
                 return flow;
-            int res = 0;
+            i64 res = 0;
             exist[u] = true;
             for (int &i = cur[u]; i; i = edge[i].next)
             {
                 int v = edge[i].to;
                 if (!exist[v] && dis[v] == dis[u] + edge[i].cost && edge[i].cap)
                 {
-                    int f = dinic(v, min(flow, edge[i].cap));
+                    i64 f = dinic(v, min(flow, edge[i].cap));
                     if (f)
                     {
                         edge[i].cap -= f;
@@ -78,7 +81,7 @@ namespace NetworkFlow
             }
             return res;
         }
-        auto addEdge(int from, int to, int cap, int cost, bool flag = true) -> void
+        auto addEdge(int from, int to, i64 cap, int cost, bool flag = true) -> void
         {
             edge[++numEdge].next = head[from];
             edge[numEdge].to = to;
@@ -88,13 +91,14 @@ namespace NetworkFlow
             if (flag)
                 addEdge(to, from, 0, -cost, false);
         }
-        auto solve() -> pair<int, i64>
+        auto solve() -> pair<i64, i64>
         {
-            int flow = 0;
+            i64 flow = 0;
             i64 res = 0;
+            i64 lim = LONG_LONG_MAX / 2;
             while (spfa())
             {
-                int f = dinic(S, INT_MAX);
+                i64 f = dinic(S, lim);
                 flow += f;
                 res += dis[T] * f;
             }
@@ -139,6 +143,67 @@ namespace NetworkFlow
             auto [f, c] = solve();
             if (f < sum)
                 return {-1, 0};
+            vector<int> pre(n + 5), cnt(n + 5);
+            int N = n + 2;
+            auto spfa = [&]() -> int
+            {
+                fill(dis.begin(), dis.end(), 0);
+                fill(pre.begin(), pre.end(), 0);
+                fill(cnt.begin(), cnt.end(), 0);
+                fill(exist.begin(), exist.end(), true);
+                queue<int> q;
+                for (int i = 0; i <= n + 1; ++i)
+                    q.push(i);
+                while (!q.empty())
+                {
+                    int u = q.front();
+                    q.pop();
+                    exist[u] = false;
+                    for (int i = head[u]; i; i = edge[i].next)
+                    {
+                        int v = edge[i].to;
+                        if (edge[i].cap && dis[v] > dis[u] + edge[i].cost)
+                        {
+                            dis[v] = dis[u] + edge[i].cost;
+                            pre[v] = i;
+                            cnt[v] = cnt[u] + 1;
+                            if (cnt[v] >= N)
+                                return v;
+                            if (!exist[v])
+                            {
+                                q.push(v);
+                                exist[v] = true;
+                            }
+                        }
+                    }
+                }
+                return -1;
+            };
+            auto cancel = [&](int x) -> i64
+            {
+                for (int i = 0; i < N; ++i)
+                    x = edge[pre[x] ^ 1].to;
+                int start = x;
+                i64 flow = LONG_LONG_MAX / 2;
+                i64 cost = 0;
+                do
+                {
+                    int i = pre[x];
+                    flow = min(flow, edge[i].cap);
+                    cost += edge[i].cost;
+                    x = edge[i ^ 1].to;
+                } while (x != start);
+                do
+                {
+                    int i = pre[x];
+                    edge[i].cap -= flow;
+                    edge[i ^ 1].cap += flow;
+                    x = edge[i ^ 1].to;
+                } while (x != start);
+                return cost * flow;
+            };
+            for (int x = spfa(); x != -1; x = spfa())
+                c += cancel(x);
             return {edge[numEdge].cap, cost + c};
         }
         auto main(int _n, int _m)

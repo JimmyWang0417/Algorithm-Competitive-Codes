@@ -1,7 +1,7 @@
 template <const int _mod>
 struct modint
 {
-    constexpr modint(int _x = 0) : x(_x) {}
+    constexpr modint(int _x = 0) : x((_x % _mod + _mod) % _mod) {}
     constexpr auto operator+() const
     {
         return *this;
@@ -26,16 +26,14 @@ struct modint
     }
     constexpr auto operator++(int) -> modint
     {
-        int res = x;
-        if (x >= _mod)
-            x -= _mod;
+        modint res = *this;
+        ++*this;
         return res;
     }
     constexpr auto operator--(int) -> modint
     {
-        int res = x;
-        if (x < 0)
-            x += _mod;
+        modint res = *this;
+        --*this;
         return res;
     }
     constexpr auto operator+(const modint &rhs) const -> modint

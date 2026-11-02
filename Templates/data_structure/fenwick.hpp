@@ -10,7 +10,7 @@ struct fenwick
     fenwick(int n, const functype &other = _func) : c(n + 1), func(other) {}
     constexpr static auto lowbit = [](int x)
     { return x & (-x); };
-    auto update(int pos, int val)
+    auto update(int pos, T val)
     {
         if constexpr (isPrefix)
             for (int i = pos; i < (int)c.size(); i += lowbit(i))

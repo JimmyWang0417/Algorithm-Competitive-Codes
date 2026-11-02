@@ -6,7 +6,8 @@ namespace NetworkFlow
         vector<bool> exist;
         struct edges
         {
-            int next, to, cap;
+            int next, to;
+            i64 cap;
         };
         vector<edges> edge; // next, to, cap
         int numEdge;
@@ -16,6 +17,7 @@ namespace NetworkFlow
             n = _n;
             numEdge = 1;
             head.resize(n + 5);
+            fill(head.begin(), head.end(), 0);
             dis.resize(n + 5);
             exist.resize(n + 5);
             edge.resize(2 + 2 * _m);
@@ -44,18 +46,18 @@ namespace NetworkFlow
             }
             return dis[T];
         }
-        auto dinic(int u, int flow)
+        auto dinic(int u, i64 flow)
         {
             if (u == T)
                 return flow;
-            int res = 0;
+            i64 res = 0;
             exist[u] = true;
             for (int &i = cur[u]; i; i = edge[i].next)
             {
                 int v = edge[i].to;
                 if (!exist[v] && dis[v] == dis[u] + 1 && edge[i].cap)
                 {
-                    int f = dinic(v, min(flow, edge[i].cap));
+                    i64 f = dinic(v, min(flow, edge[i].cap));
                     if (f)
                     {
                         edge[i].cap -= f;
@@ -72,7 +74,7 @@ namespace NetworkFlow
             }
             return res;
         }
-        auto addEdge(int from, int to, int cap, bool flag = true) -> void
+        auto addEdge(int from, int to, i64 cap, bool flag = true) -> void
         {
             edge[++numEdge].next = head[from];
             edge[numEdge].to = to;
@@ -83,9 +85,10 @@ namespace NetworkFlow
         }
         auto solve()
         {
-            int flow = 0;
+            i64 flow = 0;
+            i64 lim = LONG_LONG_MAX / 2;
             while (bfs())
-                flow += dinic(S, INT_MAX);
+                flow += dinic(S, lim);
             return flow;
         }
         // 网络流
@@ -122,7 +125,7 @@ namespace NetworkFlow
             }
             addEdge(t, s, INT_MAX);
             if (solve() < sum)
-                return -1;
+                return i64(-1);
             int flow = edge[numEdge].cap;
             head = lasHead;
             S = s, T = t;
@@ -153,7 +156,7 @@ namespace NetworkFlow
             }
             addEdge(t, s, INT_MAX);
             if (solve() < sum)
-                return -1;
+                return i64(-1);
             int flow = edge[numEdge].cap;
             head = lasHead;
             S = t, T = s;

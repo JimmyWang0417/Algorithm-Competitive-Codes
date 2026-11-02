@@ -36,9 +36,9 @@ namespace bits
     auto ffs(T x)
     {
         if constexpr (sizeof(T) <= sizeof(int))
-            return __builtin_clz(x);
+            return __builtin_ffs(x);
         else
-            return __builtin_clzll(x);
+            return __builtin_ffsll(x);
     }
     template <typename T>
     auto bitreverse(T x)

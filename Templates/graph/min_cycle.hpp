@@ -22,7 +22,18 @@ struct MinimumCycle
         for (int i = 1; i <= n; ++i)
             G[i][i] = 0;
         for (auto [u, v, w] : edges)
+        {
+            if (u != v && G[u][v] < inf)
+            {
+                T now = G[u][v] + w;
+                if (now < weight)
+                {
+                    weight = now;
+                    path = {u, v};
+                }
+            }
             G[u][v] = G[v][u] = min(G[u][v], w);
+        }
         dis = G;
         for (int k = 1; k <= n; ++k)
         {

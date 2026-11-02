@@ -13,7 +13,7 @@ struct RingCount
             g[u].push_back(v);
         }
         vector<bool> exist(n + 5);
-        int ans = 0;
+        i64 ans = 0;
         for (int u = 1; u <= n; ++u)
         {
             for (int v : g[u])

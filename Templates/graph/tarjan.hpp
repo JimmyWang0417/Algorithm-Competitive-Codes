@@ -53,7 +53,7 @@ struct tarjan
                     continue;
                 if (!dfn[v])
                 {
-                    dfs(v, lasid);
+                    dfs(v, id);
                     low[u] = min(low[u], low[v]);
                 }
                 else low[u] = min(low[u], dfn[v]);

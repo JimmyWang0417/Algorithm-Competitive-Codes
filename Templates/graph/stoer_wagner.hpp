@@ -1,8 +1,9 @@
 struct StoerWagner
 {
-    int n, mincut;
+    int n;
+    i64 mincut;
     vector<int> fa;
-    vector<vector<int>> G;
+    vector<vector<i64>> G;
     vector<bool> del;
     auto find(int x) -> int
     {
@@ -23,12 +24,13 @@ struct StoerWagner
     }
     auto contract(int &s, int &t)
     {
-        vector<int> dis(n + 1);
+        vector<i64> dis(n + 1);
         vector<bool> vis(n + 1);
-        int res = 0;
+        i64 res = 0;
         while (true)
         {
-            int where = -1, maxx = -1;
+            int where = -1;
+            i64 maxx = -1;
             for (int i = 1; i <= n; ++i)
                 if (!del[i] && !vis[i] && dis[i] > maxx)
                 {
@@ -46,7 +48,7 @@ struct StoerWagner
         }
     }
     StoerWagner(int _n, const vector<tuple<int, int, int>> &edges)
-        : n(_n), mincut(INT_MAX), fa(n + 1), G(n + 1, vector<int>(n + 1)), del(n + 1)
+        : n(_n), mincut(LONG_LONG_MAX), fa(n + 1), G(n + 1, vector<i64>(n + 1)), del(n + 1)
     {
         if (n <= 1)
         {
